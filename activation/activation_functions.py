@@ -12,7 +12,7 @@ def relu(data):
     return np.maximum(0, data)
 
 def leakyrelu(data, alpha):
-	return max(alpha * data, data)
+    return max(alpha * data, data)
 
 ######## Derivative of Activation (Backward Propagation) ########
 
