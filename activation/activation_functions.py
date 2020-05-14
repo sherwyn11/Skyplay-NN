@@ -3,7 +3,7 @@ import numpy as np
 ######## Activation (Forward Propagation) ########
 
 def sigmoid(data):
-    return np.sigmoid(data)
+    return 1.0 / (1 + np.exp(-data))
 
 def tanh(data):
     return np.tanh(data)
