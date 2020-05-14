@@ -20,10 +20,10 @@ def sigmoid_diff(data):
     return sigmoid(data) * (1-sigmoid(data))
 
 def tanh_diff(data):
-	return 1 - np.power(tanh(data), 2)
+    return 1 - np.power(tanh(data), 2)
 
 def relu_diff(data):
     return 1 if data > 0 else 0
 
 def leakyrelu_diff(data, alpha):
-	return 1 if data > 0 else alpha
+    return 1 if data > 0 else alpha
