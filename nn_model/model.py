@@ -4,6 +4,7 @@ from layers.dense import Dense
 from nn_model.forward_propagation import L_model_forward
 from nn_model.backward_propagation import L_model_backward
 from nn_model.update_parameters import update_parameters
+from loss.cost import compute_cost
 
 class Model:
 
@@ -31,12 +32,35 @@ class Model:
 
     def fit(self, X, Y, epochs):
         self.init_parameter()
-        print(self.parameters)
-        self.X = np.array(X)
-        self.Y = np.array(Y)
+        self.X = np.array(X).T
+        self.Y = np.array(Y).T
 
         for i in range(0, epochs):
             AL, caches = L_model_forward(self.X, self.parameters)
-            self.cost[i] = compute_cost(AL, self.Y)
+            cost = compute_cost(AL, self.Y)
             grads = L_model_backward(AL, self.Y, caches)
             parameters = update_parameters(self.parameters, grads, self.learning_rate)
+            if i % 10 == 0:
+                print ("Cost after iteration %i: %f" %(i, cost))
+
+        
+    def predict(self, X, y):
+        X = np.array(X).T
+        y = np.array(y).T
+        m = X.shape[1]
+        n = len(self.parameters) // 2
+        p = np.zeros((1,m))
+        
+        probas, caches = L_model_forward(X, self.parameters)
+
+        for i in range(0, probas.shape[1]):
+            if probas[0,i] > 0.5:
+                p[0,i] = 1
+            else:
+                p[0,i] = 0
+        
+        print("Accuracy: "  + str(np.sum((p == y)/m)))
+            
+        return p
+
+

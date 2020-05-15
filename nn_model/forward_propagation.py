@@ -1,12 +1,11 @@
 import numpy as np
+import pdb
 
 from activation.activation_functions import *
 
 def linear_forward(A, W, b):
-    print(W.shape)
-    print(A.shape)
 
-    Z = np.dot(W, A.T) + b
+    Z = np.dot(W, A) + b
 
     assert Z.shape == (W.shape[0], A.shape[1])
     cache = (A, W, b)
@@ -42,7 +41,7 @@ def L_model_forward(X, parameters):
 
     caches = []
     A = X
-    L = len(parameters)
+    L = len(parameters) // 2
 
     for l in range(1, L):
         A_prev = A
@@ -50,7 +49,7 @@ def L_model_forward(X, parameters):
             A_prev,
             parameters["W" + str(l)],
             parameters["b" + str(l)],
-            activation="relu",
+            activation="sigmoid",
         )
         caches.append(cache)
 
