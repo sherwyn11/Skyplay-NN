@@ -2,14 +2,21 @@ import numpy as np
 
 ######## Activation (Forward Propagation) ########
 
-def sigmoid(data):
-    return 1.0 / (1 + np.exp(-data))
+
+def sigmoid(Z):
+    A = 1/(1+np.exp(-Z))
+    cache = Z
+    return A, cache
+
+def relu(Z):    
+    A = np.maximum(0,Z)
+    assert(A.shape == Z.shape)
+    cache = Z 
+    return A, cache
+
 
 def tanh(data):
     return np.tanh(data)
-
-def relu(data):
-    return np.maximum(0, data)
 
 def leakyrelu(data, alpha):
     return max(alpha * data, data)
