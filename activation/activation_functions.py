@@ -17,7 +17,7 @@ def leakyrelu(data, alpha):
 ######## Derivative of Activation (Backward Propagation) ########
 
 def sigmoid_diff(data):
-    return sigmoid(data) * (1-sigmoid(data))
+    return 1/(1+np.exp(-data))
 
 def tanh_diff(data):
     return 1 - np.power(tanh(data), 2)
@@ -27,3 +27,24 @@ def relu_diff(data):
 
 def leakyrelu_diff(data, alpha):
     return 1 if data > 0 else alpha
+
+
+def relu_backward(dA, cache):
+    
+    Z = cache
+    dZ = np.array(dA, copy=True) 
+
+    dZ[Z <= 0] = 0
+    assert (dZ.shape == Z.shape)
+    return dZ
+
+def sigmoid_backward(dA, cache):
+    
+    Z = cache
+    
+    s = 1/(1+np.exp(-Z))
+    dZ = dA * s * (1-s)
+    
+    assert (dZ.shape == Z.shape)
+    
+    return dZ
