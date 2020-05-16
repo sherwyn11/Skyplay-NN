@@ -1,7 +1,7 @@
 import numpy as np
 import pdb
 
-from activation.activation_functions import *
+from playground.activation.activation_functions import *
 
 def linear_forward(A, W, b):
 
