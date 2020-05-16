@@ -5,13 +5,13 @@ import matplotlib.pyplot as plt
 # from matplotlib.backends import _macosx
 
 
-from playground.layers.dense import Dense
-from playground.nn_model.forward_propagation import propagate_forward
-from playground.nn_model.backward_propagation import propagate_backward
-from playground.nn_model.update_parameters import update_parameters
+from playground.neural_net.layers.dense import Dense
+from playground.neural_net.nn_model.forward_propagation import propagate_forward
+from playground.neural_net.nn_model.backward_propagation import propagate_backward
+from playground.neural_net.nn_model.update_parameters import update_parameters
 # from nn_model.update_parameters import gradient_check_n
 # from nn_model.update_parameters_test import *
-from playground.loss.cost import compute_cost
+from playground.neural_net.loss.cost import compute_cost
 
 class Model:
 

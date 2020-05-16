@@ -1,4 +1,4 @@
-from playground.activation.activation_functions import *
+from playground.neural_net.activation.activation_functions import *
 
 def linear_backward(dZ, cache):
 
