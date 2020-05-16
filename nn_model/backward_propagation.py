@@ -25,7 +25,7 @@ def linear_activation_backward(dA, cache, activation):
     
     return dA_prev, dW, db
 
-def L_model_backward(AL, Y, caches):
+def propagate_backward(AL, Y, caches):
 
     grads = {}
     L = len(caches) 

@@ -1,8 +1,13 @@
 import numpy as np
+import matplotlib
+matplotlib.use("TkAgg")
+import matplotlib.pyplot as plt
+# from matplotlib.backends import _macosx
+
 
 from layers.dense import Dense
-from nn_model.forward_propagation import L_model_forward
-from nn_model.backward_propagation import L_model_backward
+from nn_model.forward_propagation import propagate_forward
+from nn_model.backward_propagation import propagate_backward
 from nn_model.update_parameters import update_parameters
 # from nn_model.update_parameters import gradient_check_n
 # from nn_model.update_parameters_test import *
@@ -39,18 +44,24 @@ class Model:
         self.init_parameter()
         self.X = np.array(X).T
         self.Y = np.array(Y).T
-
+        costs = []
         # v, s = initialize_adam(self.parameters)
 
         for i in range(0, epochs):
-            AL, caches = L_model_forward(self.X, self.parameters)
+            AL, caches = propagate_forward(self.X, self.parameters)
             cost = compute_cost(AL, self.Y)
-            grads = L_model_backward(AL, self.Y, caches)
+            costs.append(cost)
+            grads = propagate_backward(AL, self.Y, caches)
             self.parameters = update_parameters(self.parameters, grads, self.learning_rate)
             # self.parameters, v, s = update_parameters_with_adam(self.parameters, grads, v, s, 2)
             if i % 10 == 0:
                 print ("Cost after iteration %i: %f" %(i, cost))
 
+        plt.plot(np.squeeze(costs))
+        plt.ylabel('cost')
+        plt.xlabel('iterations (per tens)')
+        plt.title("Learning rate =" + str(self.learning_rate))
+        plt.savefig('test.png')
         # gradient_check_n(self.parameters, grads, self.X, self.Y)
 
         
@@ -61,7 +72,7 @@ class Model:
         n = len(self.parameters) // 2
         p = np.zeros((1,m))
         
-        probas, caches = L_model_forward(X, self.parameters)
+        probas, caches = propagate_forward(X, self.parameters)
 
         for i in range(0, probas.shape[1]):
             print(probas[0,i])

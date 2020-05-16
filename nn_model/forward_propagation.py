@@ -37,7 +37,7 @@ def linear_activation_forward(A_prev, W, b, activation):
     return A, cache
 
 
-def L_model_forward(X, parameters):
+def propagate_forward(X, parameters):
 
     caches = []
     A = X
