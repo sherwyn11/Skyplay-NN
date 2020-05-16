@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-from playground.nn_model.model import Model
+from playground.neural_net.nn_model.model import Model
 from playground import app
 
 
