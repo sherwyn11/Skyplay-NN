@@ -11,9 +11,11 @@ def home():
     model.add(2, 'sigmoid')
     model.add(4, 'sigmoid')
     model.add(1, 'sigmoid')
-    model.compile('SGD', 0.1)
-    model.fit([[0, 0], [0, 1], [1, 0], [1, 1]], [[0], [1], [1], [0]], 3500)
+    model.compile('SGD', 0.3)
+    model.fit([[0, 0], [0, 1], [1, 0], [1, 1]], [[0], [1], [1], [0]], 5000)
     print(model.predict([[0, 0], [0, 1], [1, 1], [1, 0]], [[0], [1], [0], [1]]))
+    print(model.predict([[1, 0], [0, 1], [1, 1], [0, 0]], [[1], [1], [0], [0]]))
+
 
     return "Hello World!"
 
