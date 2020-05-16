@@ -1,0 +1,111 @@
+body {
+    background: #fafafa;
+    color: #333333;
+    margin-top: 5rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #444444;
+}
+
+.bg-steel {
+    background-color: #5f788a;
+}
+
+.site-header .navbar-nav .nav-link {
+    color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+}
+
+.content-section {
+    background: #ffffff;
+    padding: 10px 10px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 8px;
+    -ms-overflow-style: none;
+}
+
+.sidenav::-webkit-scrollbar {
+    display: none;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav .form-group {
+    padding: 2px 16px 2px 16px;
+    text-decoration: none;
+    color: #919191;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav .input-group {
+    margin: 0px 8px 0px 16px;
+    transition: 0.3s;
+}
+
+.sidenav .input-group:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .form-group:hover {
+    color: #f1f1f1;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 10px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}

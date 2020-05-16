@@ -1,0 +1,97 @@
+{% extends "layout.html" %} {% block content %}
+<!-- <style>
+    button{
+        height: 23px;
+        width: 100px;        
+    }
+</style> -->
+
+<div class="container">
+    <div class="row row-cols-2">
+        <div class="col">
+            <div class="content-section">
+                <legend class="border-bottom mb-4">Pair-plot Visualization</legend>
+                <img src="/pairplot1.png" height="525px" width="525px" alt="img not loaded"/>
+            </div>
+        </div>
+        <div class="col">
+            <div class="content-section">
+                <legend class="border-bottom mb-4">Column-Relation Visualization</legend>
+                <form action="/visualize" method="POST">
+                <div class="container">
+                    <div class="row row-cols-3">
+                        <div class="col">
+                            <label>Select X</label>
+                        </div>
+                        <div class="col">
+                            <label>Select Y</label>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-secondary">Visualize</button>
+                        </div>
+                    </div>
+                    <div class="row row-cols-3">
+                        <div class="col">
+                            <select name="x_col" class="form-control" >
+                                {% for each in cols %}
+                                    <option value="{{each}}" {% if each == "x_col" %} selected {% endif %}>{{each}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select name="y_col" class="form-control" >
+                                {% for each in cols %}
+                                    <option value="{{each}}" {% if each == "y_col" %} selected {% endif %}>{{each}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                </div>
+                    
+                
+                {% if posted == 1 %}
+                    {% if data %}
+                        <canvas id="myChart1" width="450px" height="450px"></canvas>
+                        <script type="text/javascript">
+                        console.log('{{ y_col_name }}');
+                            new Chart.Scatter(document.getElementById("myChart1"), {
+                            type: 'scatter',
+                            data: {
+                                datasets: [{
+                                    label: 'Scatter Plot',
+                                    data: {{ data }},
+                                    showLine: false,
+                                    borderColor: "red",
+                                    backgroundColor: "red"
+                                    }]
+                                },
+                                options: {
+                                    responsive: false,
+                                    scales: {
+                                        yAxes: [{
+                                            scaleLabel: {
+                                                display: true,
+                                                labelString: '{{ y_col_name }}'
+                                            }
+                                        }],
+                                        xAxes: [{
+                                            scaleLabel: {
+                                                display: true,
+                                                labelString: '{{ x_col_name }}'
+                                            }
+                                        }]
+                                    }
+                                }
+                                });
+                        </script>
+                    {% endif %}
+                {% endif %}
+            
+                </form>
+            </div>
+        </div>
+    </div>
+ </div>   
+    
+{% endblock content %}
