@@ -4,6 +4,7 @@ from layers.dense import Dense
 from nn_model.forward_propagation import L_model_forward
 from nn_model.backward_propagation import L_model_backward
 from nn_model.update_parameters import update_parameters
+from nn_model.update_parameters import gradient_check_n
 from loss.cost import compute_cost
 
 class Model:
@@ -19,7 +20,10 @@ class Model:
 
     def init_parameter(self):
         for l in range(1, len(self.layers)):
-            self.parameters['W' + str(l)] = np.random.randn(self.layers[l].units, self.layers[l-1].units) * 0.01
+            if(self.layers[l].activation == 'relu'):
+                self.parameters['W' + str(l)] = np.random.randn(self.layers[l].units, self.layers[l-1].units) * np.sqrt(2 / self.layers[l - 1].units)
+            else:
+                self.parameters['W' + str(l)] = np.random.randn(self.layers[l].units, self.layers[l-1].units) * np.sqrt(1 / self.layers[l - 1].units)
             self.parameters['b' + str(l)] = np.zeros((self.layers[l].units, 1))
 
     def add(self, units, activation):
@@ -43,6 +47,8 @@ class Model:
             if i % 10 == 0:
                 print ("Cost after iteration %i: %f" %(i, cost))
 
+        gradient_check_n(self.parameters, grads, self.X, self.Y)
+
         
     def predict(self, X, y):
         X = np.array(X).T
@@ -54,6 +60,7 @@ class Model:
         probas, caches = L_model_forward(X, self.parameters)
 
         for i in range(0, probas.shape[1]):
+            print(probas[0,i])
             if probas[0,i] > 0.5:
                 p[0,i] = 1
             else:
