@@ -1,8 +1,6 @@
 from flask import Flask, request, jsonify, render_template
-from nn_model.model import Model
-
-
-app = Flask(__name__)
+from playground.nn_model.model import Model
+from playground import app
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -18,8 +16,3 @@ def home():
     print(model.predict([[1, 0], [0, 1], [1, 1], [0, 0]], [[1], [1], [0], [0]]))
 
     return "Hello World!"
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
-    app.run(host="0.0.0.0")
