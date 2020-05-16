@@ -54,7 +54,7 @@ class Model:
             grads = propagate_backward(AL, self.Y, caches)
             self.parameters = update_parameters(self.parameters, grads, self.learning_rate)
             # self.parameters, v, s = update_parameters_with_adam(self.parameters, grads, v, s, 2)
-            if i % 10 == 0:
+            if i % 1000 == 0:
                 print ("Cost after iteration %i: %f" %(i, cost))
 
         plt.plot(np.squeeze(costs))
@@ -82,7 +82,5 @@ class Model:
                 p[0,i] = 0
         
         print("Accuracy: "  + str(np.sum((p == y)/m)))
-            
+
         return p
-
-
