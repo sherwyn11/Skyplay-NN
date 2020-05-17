@@ -65,7 +65,7 @@ class Model:
             costs.append(cost)
             grads = propagate_backward(AL, self.Y, caches)
             if(self.optimizer == 'Adam'):
-                self.parameters, self.v, self.s = adam.update_parameters(self.parameters, grads, self.v, self.s, 2, self.learning_rate)
+                self.parameters, self.v, self.s = adam.update_parameters(self.parameters, grads, self.v, self.s, 1, self.learning_rate)
             elif(self.optimizer == 'GD'):
                 self.parameters = gradient_descent.update_parameters(self.parameters, grads, self.learning_rate)
             elif(self.optimizer == 'GD_momentum'):
