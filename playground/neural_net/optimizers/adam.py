@@ -1,6 +1,6 @@
 import numpy as np
 
-def initialize_adam(parameters) :
+def initialize_parameters(parameters) :
     
     L = len(parameters) // 2 
     v = {}
@@ -15,7 +15,7 @@ def initialize_adam(parameters) :
     
     return v, s
 
-def update_parameters_with_adam(parameters, grads, v, s, t, learning_rate=0.01, beta1=0.9, beta2=0.999, epsilon=1e-8):
+def update_parameters(parameters, grads, v, s, t, learning_rate, beta1=0.9, beta2=0.999, epsilon=1e-8):
 
     L = len(parameters) // 2                 
     v_corrected = {}                        
