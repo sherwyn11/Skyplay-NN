@@ -32,14 +32,15 @@
           </button>
                 <div class="collapse navbar-collapse" id="navbarToggle">
                     <div class="navbar-nav mr-auto">
-                        <a class="nav-item nav-link {% if active == 'preprocess' %} active {% endif %}" href="{{ url_for('preprocess') }}">Preprocess</a>
-                        <a class="nav-item nav-link {% if active == 'classify' %} active {% endif %}" href="{{ url_for('classify') }}">Classify</a>
-                        <a class="nav-item nav-link {% if active == 'visualize' %} active {% endif %}" href="{{ url_for('visualize') }}">Visualize</a>
+                        <!--url_for plis change-->
+                        <a class="nav-item nav-link {% if active == 'preprocess' %} active {% endif %}" href="{{ url_for('home') }}">Preprocess</a>
+                        <a class="nav-item nav-link {% if active == 'classify' %} active {% endif %}" href="{{ url_for('home') }}">Classify</a>
+                        <a class="nav-item nav-link {% if active == 'visualize' %} active {% endif %}" href="{{ url_for('home') }}">Visualize</a>
                     </div>
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
 
-                        <a class="nav-item nav-link" href="{{ url_for('clear') }}">Clear</a>
+                        <a class="nav-item nav-link" href="{{ url_for('home') }}">Clear</a>
 
                     </div>
                 </div>
