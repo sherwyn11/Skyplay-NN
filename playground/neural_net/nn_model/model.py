@@ -8,7 +8,11 @@ import matplotlib.pyplot as plt
 from playground.neural_net.layers.dense import Dense
 from playground.neural_net.nn_model.forward_propagation import propagate_forward
 from playground.neural_net.nn_model.backward_propagation import propagate_backward
-from playground.neural_net.nn_model.update_parameters import update_parameters
+import playground.neural_net.optimizers.adam as adam
+import playground.neural_net.optimizers.gd_with_momentum as gd_with_momentum
+import playground.neural_net.optimizers.gradient_descent as gradient_descent
+
+
 # from nn_model.update_parameters import gradient_check_n
 # from nn_model.update_parameters_test import *
 from playground.neural_net.loss.cost import compute_cost
@@ -23,8 +27,10 @@ class Model:
         self.X = None
         self.y = None
         self.cost = []
+        self.v = None
+        self.s = None
 
-    def init_parameter(self):
+    def init_parameters(self):
         for l in range(1, len(self.layers)):
             if(self.layers[l].activation == 'relu'):
                 self.parameters['W' + str(l)] = np.random.randn(self.layers[l].units, self.layers[l-1].units) * np.sqrt(2 / self.layers[l - 1].units)
@@ -38,29 +44,40 @@ class Model:
 
     def compile(self, opt, lr):
         self.optimizer = opt
+        self.init_parameters()
+        if(opt == 'Adam'):
+            self.v, self.s = adam.initialize_parameters(self.parameters)
+        # elif(opt == 'GD'):
+        #     gradient_descent.initialize_parameters(self.parameters)
+        elif(opt == 'GD_momentum'):
+            self.v = gd_with_momentum.initialize_parameters(self.parameters)
+
         self.learning_rate = lr
 
     def fit(self, X, Y, epochs):
-        self.init_parameter()
         self.X = np.array(X).T
         self.Y = np.array(Y).T
         costs = []
-        # v, s = initialize_adam(self.parameters)
 
         for i in range(0, epochs):
             AL, caches = propagate_forward(self.X, self.parameters)
             cost = compute_cost(AL, self.Y)
             costs.append(cost)
             grads = propagate_backward(AL, self.Y, caches)
-            self.parameters = update_parameters(self.parameters, grads, self.learning_rate)
-            # self.parameters, v, s = update_parameters_with_adam(self.parameters, grads, v, s, 2)
+            if(self.optimizer == 'Adam'):
+                self.parameters, self.v, self.s = adam.update_parameters(self.parameters, grads, self.v, self.s, 2, self.learning_rate)
+            elif(self.optimizer == 'GD'):
+                self.parameters = gradient_descent.update_parameters(self.parameters, grads, self.learning_rate)
+            elif(self.optimizer == 'GD_momentum'):
+                self.parameters, self.v = gd_with_momentum.update_parameters(self.parameters, grads, self.v, 0.9, self.learning_rate)
+            # self.parameters, self.v, self.s = update_parameters_with_adam(self.parameters, grads, self.v, self.s, 2)
             if i % 1000 == 0:
                 print ("Cost after iteration %i: %f" %(i, cost))
 
         plt.plot(np.squeeze(costs))
         plt.ylabel('cost')
         plt.xlabel('iterations (per tens)')
-        plt.title("Learning rate =" + str(self.learning_rate))
+        plt.title("Learning rate=" + str(self.learning_rate))
         plt.savefig('test.png')
         # gradient_check_n(self.parameters, grads, self.X, self.Y)
 
