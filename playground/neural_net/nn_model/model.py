@@ -1,15 +1,13 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
 
-from layers.dense import Dense
-from nn_model.forward_propagation import L_model_forward
-from nn_model.backward_propagation import L_model_backward
-from nn_model.update_parameters import update_parameters
+from playground.neural_net.layers.dense import Dense
 
-# from nn_model.update_parameters import gradient_check_n
-# from nn_model.update_parameters_test import *
-from loss.cost import compute_cost
+from playground.neural_net.loss.cost import compute_cost
+from playground.neural_net.nn_model.backward_propagation import propagate_backward
+from playground.neural_net.nn_model.forward_propagation import propagate_forward
+from playground.neural_net.nn_model.update_parameters import update_parameters
 
 
 class Model:
@@ -51,15 +49,15 @@ class Model:
         # v, s = initialize_adam(self.parameters)
 
         for i in range(0, epochs):
-            AL, caches = L_model_forward(self.X, self.parameters)
+            AL, caches = propagate_forward(self.X, self.parameters)
             cost = compute_cost(AL, self.Y)
             costs.append(cost)
-            grads = L_model_backward(AL, self.Y, caches)
+            grads = propagate_backward(AL, self.Y, caches)
             self.parameters = update_parameters(
                 self.parameters, grads, self.learning_rate
             )
             # self.parameters, v, s = update_parameters_with_adam(self.parameters, grads, v, s, 2)
-            if i % 10 == 0:
+            if i % 1000 == 0:
                 print("Cost after iteration %i: %f" % (i, cost))
 
         # gradient_check_n(self.parameters, grads, self.X, self.Y)
@@ -76,7 +74,7 @@ class Model:
         n = len(self.parameters) // 2
         p = np.zeros((1, m))
 
-        probas, caches = L_model_forward(X, self.parameters)
+        probas, caches = propagate_forward(X, self.parameters)
 
         for i in range(0, probas.shape[1]):
             print(probas[0, i])

@@ -1,7 +1,7 @@
 from flask import session, flash
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+from playground.preprocessing import StandardScaler, LabelEncoder
 
 
 def read_dataset(filepath):
@@ -180,7 +180,7 @@ def label_encoder(df, columns):
 
 
 def arrange_columns(target):
-    df = read_dataset("weka/clean/clean.csv")
+    df = read_dataset("playground/clean/clean.csv")
     cols = df.columns.tolist()
     ind = cols.index(target)
     cols[ind], cols[-1] = cols[-1], cols[ind]

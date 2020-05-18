@@ -1,7 +1,8 @@
 import numpy as np
 import pdb
 
-from activation.activation_functions import *
+from playground.neural_net.activation.activation_functions import *
+
 
 def linear_forward(A, W, b):
 
@@ -37,7 +38,7 @@ def linear_activation_forward(A_prev, W, b, activation):
     return A, cache
 
 
-def L_model_forward(X, parameters):
+def propagate_forward(X, parameters):
 
     caches = []
     A = X
