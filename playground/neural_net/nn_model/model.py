@@ -2,8 +2,6 @@ import numpy as np
 import matplotlib
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
-# from matplotlib.backends import _macosx
-
 
 from playground.neural_net.layers.dense import Dense
 from playground.neural_net.nn_model.forward_propagation import propagate_forward
@@ -12,9 +10,6 @@ import playground.neural_net.optimizers.adam as adam
 import playground.neural_net.optimizers.gd_with_momentum as gd_with_momentum
 import playground.neural_net.optimizers.gradient_descent as gradient_descent
 
-
-# from nn_model.update_parameters import gradient_check_n
-# from nn_model.update_parameters_test import *
 from playground.neural_net.loss.cost import compute_cost
 
 class Model:
@@ -54,23 +49,23 @@ class Model:
 
         self.learning_rate = lr
 
-    def fit(self, X, Y, epochs):
+    def fit(self, X, Y, epochs, regularization_type, regularization_rate):
         self.X = np.array(X).T
         self.Y = np.array(Y).T
         costs = []
-
+        print(regularization_type, regularization_rate)
         for i in range(0, epochs):
             AL, caches = propagate_forward(self.X, self.parameters)
-            cost = compute_cost(AL, self.Y)
+            cost = compute_cost(AL, self.Y, self.parameters,regularization_type, regularization_rate)
             costs.append(cost)
-            grads = propagate_backward(AL, self.Y, caches)
+            grads = propagate_backward(AL, self.Y, caches, regularization_type, regularization_rate)
             if(self.optimizer == 'Adam'):
                 self.parameters, self.v, self.s = adam.update_parameters(self.parameters, grads, self.v, self.s, 1, self.learning_rate)
             elif(self.optimizer == 'GD'):
                 self.parameters = gradient_descent.update_parameters(self.parameters, grads, self.learning_rate)
             elif(self.optimizer == 'GD_momentum'):
                 self.parameters, self.v = gd_with_momentum.update_parameters(self.parameters, grads, self.v, 0.9, self.learning_rate)
-            # self.parameters, self.v, self.s = update_parameters_with_adam(self.parameters, grads, self.v, self.s, 2)
+
             if i % 1000 == 0:
                 print ("Cost after iteration %i: %f" %(i, cost))
 
