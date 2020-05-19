@@ -52,8 +52,6 @@ def home():
         dim1, dim2 = gp.get_dim(df)
         head = gp.get_head(df)
        
-        print(X, Y)
-
         return render_template(
             'home.html',
             active='preprocess',
