@@ -26,13 +26,13 @@ def home():
             regularization_rate = float(data['regularRate'])
             problem_type = data['problem']
             epochs = int(data['epochs'])
+            print(problem_type)
+            # batch_size=int(data['batchSize'])
+            batch_size = 100
             X, Y = get_features()
 
-            model.fit(X, Y, epochs, regularization_type, regularization_rate)
-            
+            model.fit(X, Y, epochs, regularization_type, regularization_rate, batch_size)
             print(model.predict([[1, 0], [0, 1], [1, 1], [0, 0]], [[1], [1], [0], [0]], problem_type))
-            
-            return "True"
 
         elif request.form['Submit'] == 'Upload':
             if(upload(request.files['data'])):
@@ -51,10 +51,9 @@ def home():
         columns = gp.get_columns(df)
         dim1, dim2 = gp.get_dim(df)
         head = gp.get_head(df)
-       
+
         return render_template(
             'home.html',
-            active='preprocess',
             title='Home',
             filename=session['fname'],
             posted=posted,
@@ -82,5 +81,5 @@ def home():
         )
     else:
         return render_template(
-            'home.html', active='preprocess', title='Preprocess',
+            'home.html', title='Home',
         )
