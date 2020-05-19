@@ -1,39 +1,39 @@
 from flask import *
+
+from playground import app
 from playground.neural_net.nn_model.model import Model
 from playground.preprocessing import generic_preprocessing as gp
-from playground import app
 from playground.nocache import nocache
 from playground.utils.feature_extract import get_features
-
 from playground.utils.flask_utils import *
 
 global posted
 save_path = 'weka/uploads/'
 posted = 0
 
-
-
-
-@app.route('/test', methods=['GET', 'POST'])
-def test():
-
-    model = Model()
-    model.add(2, 'sigmoid')
-    model.add(4, 'sigmoid')
-    model.add(1, 'sigmoid')
-    model.compile('Adam', 0.01)
-    model.fit([[0, 0], [0, 1], [1, 0], [1, 1]], [[0], [1], [1], [0]], 6000, 0, 0)
-    print(model.predict([[0, 0], [0, 1], [1, 1], [1, 0]], [[0], [1], [0], [1]]))
-    print(model.predict([[1, 0], [0, 1], [1, 1], [0, 0]], [[1], [1], [0], [0]]))
-
-    return render_template('test.html')
+###### routes ######
 
 @app.route('/', methods=['GET', 'POST'])
 @nocache
 def home():
     if request.method == 'POST':
         if request.get_json() is not None:
-            print(request.get_json()["learningRate"])        
+            data = request.get_json()
+
+            model = create_model(data)
+
+            regularization_type = data['regularizations']
+            regularization_rate = float(data['regularRate'])
+            problem_type = data['problem']
+            epochs = int(data['epochs'])
+            X, Y = get_features()
+
+            model.fit(X, Y, epochs, regularization_type, regularization_rate)
+            
+            print(model.predict([[1, 0], [0, 1], [1, 1], [0, 0]], [[1], [1], [0], [0]], problem_type))
+            
+            return "True"
+
         elif request.form['Submit'] == 'Upload':
             if(upload(request.files['data'])):
                 flash(f'File uploaded successfully', 'success')
@@ -51,7 +51,7 @@ def home():
         columns = gp.get_columns(df)
         dim1, dim2 = gp.get_dim(df)
         head = gp.get_head(df)
-        X, Y = get_features()
+       
         print(X, Y)
 
         return render_template(
