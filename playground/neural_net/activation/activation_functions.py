@@ -1,6 +1,6 @@
 import numpy as np
 
-######## Activation (Forward Propagation) ########
+######## (Forward Propagation) ########
 
 
 def sigmoid(Z):
@@ -21,7 +21,7 @@ def tanh(data):
 def leakyrelu(data, alpha):
     return max(alpha * data, data)
 
-######## Derivative of Activation (Backward Propagation) ########
+######## (Backward Propagation) ########
 
 def sigmoid_diff(data):
     return 1/(1+np.exp(-data))
