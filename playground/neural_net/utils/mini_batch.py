@@ -1,4 +1,7 @@
-def create_mini_batches(X, Y, mini_batch_size = 64, seed = 0):
+import numpy as np
+import math
+
+def create_mini_batches(X, Y, mini_batch_size, seed = 0):
 
     np.random.seed(seed)            
     m = X.shape[1]                
