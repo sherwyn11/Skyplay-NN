@@ -1,7 +1,7 @@
 from flask import session, flash
 import pandas as pd
 import numpy as np
-from playground.preprocessing import StandardScaler, LabelEncoder
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 
 def read_dataset(filepath):
