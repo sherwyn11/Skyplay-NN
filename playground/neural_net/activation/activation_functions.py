@@ -34,6 +34,7 @@ def sigmoid_backward(dA, cache):
     return dZ
 
 def tanh_backward(dA, cache):
+    
     Z = cache
 
     dZ =  1 - np.power(tanh(dA), 2)
