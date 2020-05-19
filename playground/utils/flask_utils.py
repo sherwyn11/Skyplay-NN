@@ -4,9 +4,13 @@ from playground.neural_net.nn_model.model import Model
 
 exts = ['csv', 'json', 'yaml']
 
+def default_data():
+    session['ext'] = 'csv'
+    session['fname'] = 'XOR'
+    df = gp.read_dataset('playground/uploads/XOR.csv')
+    df.to_csv('playground/clean/clean.csv', index=False)
 
 def upload(data):
-
     ext = data.filename.split('.')[1]
     if ext in exts:
         session['ext'] = ext
@@ -34,5 +38,16 @@ def create_model(data):
 
     return model
 
+def create_default_model():
+    
+    learning_rate = 0.1
+    activation = 'sigmoid'
+    optimizer = 'Adam'
+    model = Model()
+    model.add(2, activation)
+    model.add(4, activation)
+    model.add(1, activation)
+    model.compile(optimizer, learning_rate)
 
+    return model
     

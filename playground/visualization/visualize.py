@@ -10,7 +10,7 @@ import csv
 
 
 def get_columns():
-    df = pd.read_csv("weka/clean/clean.csv")
+    df = pd.read_csv("playground/clean/clean.csv")
     return df.columns
 
 def pair_plot():

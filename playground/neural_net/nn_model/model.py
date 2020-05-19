@@ -86,7 +86,7 @@ class Model:
         plt.ylabel('cost')
         plt.xlabel('iterations (per tens)')
         plt.title("Learning rate=" + str(self.learning_rate))
-        plt.savefig('test.png')
+        plt.savefig('playground/static/img/test.png')
 
         
     def predict(self, X, y, type):
@@ -113,3 +113,5 @@ class Model:
         print("Accuracy: "  + str(np.sum((p == y)/m)))
 
         return p
+
+    

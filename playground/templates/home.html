@@ -6,27 +6,24 @@
         width: auto;
         text-align: center;
         padding: 10px;
-        
     }
-    canvas {
-        background-color: black;
-        width: 1024px;
-        height: 520px;
-        margin-left: 40px;
-        margin-right: 40px;
-        margin-bottom: 20px;
-        margin-top: 30px;
-        align-self: center; 
-        align-content: center;
-        align-items: center;
-    }
-    main{
-        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif 
+    
+    main {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
     }
 </style>
 
 <div class="container">
-    <canvas></canvas>
+
+    <div class="row">
+        <div class="network col-md-8">
+        </div>
+        <div class="col-md-4">
+            <img src="/test.png" class="round" height="525px" width="525px" alt="Cost vs No. of iterations"/>
+        </div>
+    </div>
+
+
 </div>
 
 <div class="row">
@@ -55,7 +52,7 @@
                     Relation: {% if filename %} {{filename}} {% else %} None {% endif %}
                 </div>
                 <div class="col">
-                    Instances: {% if no_of_rows %} {{no_of_rows}} {% else %} None {% endif %}
+                    Instances:<span id="size"> {% if no_of_rows %} {{no_of_rows}} {% else %} None {% endif %}</span>
                 </div>
             </div>
             <div class="row">
