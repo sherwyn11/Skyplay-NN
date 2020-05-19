@@ -2,7 +2,6 @@ body {
     background: #fafafa;
     color: #333333;
     margin-top: 5rem;
-    -ms-overflow-style: none;
 }
 
 body::-webkit-scrollbar {
@@ -120,14 +119,14 @@ h6 {
 
 #top-controls {
     border-bottom: 1px solid gray;
-    padding: 18px 12px;
+    padding: 18px 8px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     background: #222222;
 }
 
-@media (min-height: 700px) {
+@media (min-height: 500px) {
     #top-controls {
-        padding: 24px 0;
+        padding: 18px 8px;
     }
 }
 
@@ -137,7 +136,7 @@ h6 {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
-    -webkit-justify-content: space-betweenspace-between;
+    -webkit-justify-content: space-between;
     justify-content: space-between;
 }
 

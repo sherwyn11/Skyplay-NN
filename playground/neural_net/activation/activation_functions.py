@@ -1,6 +1,6 @@
 import numpy as np
 
-######## Activation (Forward Propagation) ########
+######## (Forward Propagation) ########
 
 
 def sigmoid(Z):
@@ -21,18 +21,19 @@ def tanh(data):
 def leakyrelu(data, alpha):
     return max(alpha * data, data)
 
-######## Derivative of Activation (Backward Propagation) ########
+######## (Backward Propagation) ########
 
-def sigmoid_diff(data):
-    return 1/(1+np.exp(-data))
+def tanh_backward(dA, cache):
+    Z = cache
 
-def tanh_diff(data):
-    return 1 - np.power(tanh(data), 2)
+    dZ =  1 - np.power(tanh(dA), 2)
+    assert (dZ.shape == Z.shape)
+    return dZ
 
-def relu_diff(data):
-    return 1 if data > 0 else 0
-
+# TO-DO: Leaky relu back
 def leakyrelu_diff(data, alpha):
+    Z = cache
+
     return 1 if data > 0 else alpha
 
 
@@ -48,10 +49,8 @@ def relu_backward(dA, cache):
 def sigmoid_backward(dA, cache):
     
     Z = cache
-    
     s = 1/(1+np.exp(-Z))
     dZ = dA * s * (1-s)
     
     assert (dZ.shape == Z.shape)
-    
     return dZ

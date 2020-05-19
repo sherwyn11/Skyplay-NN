@@ -180,7 +180,7 @@ def label_encoder(df, columns):
 
 
 def arrange_columns(target):
-    df = read_dataset("playground/clean/clean.csv")
+    df = read_dataset("weka/clean/clean.csv")
     cols = df.columns.tolist()
     ind = cols.index(target)
     cols[ind], cols[-1] = cols[-1], cols[ind]
