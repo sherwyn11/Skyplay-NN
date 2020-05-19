@@ -12,7 +12,6 @@ def linear_backward(dZ, cache, type, lambd):
         dW = (1/m) * np.dot(dZ, A_prev.T) + (lambd * W) / m
     db = (1/m) * np.sum(dZ, axis = 1, keepdims = True)
     dA_prev = np.dot(W.T, dZ)
-    
     return dA_prev, dW, db
 
 def linear_activation_backward(dA, cache, activation, regularization_type, regularization_rate):
