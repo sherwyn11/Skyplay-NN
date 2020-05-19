@@ -37,7 +37,7 @@ def linear_activation_forward(A_prev, W, b, activation):
     return A, cache
 
 
-def propagate_forward(X, parameters):
+def propagate_forward(X, parameters, activations):
 
     caches = []
     A = X
@@ -49,12 +49,12 @@ def propagate_forward(X, parameters):
             A_prev,
             parameters["W" + str(l)],
             parameters["b" + str(l)],
-            activation="sigmoid",
+            activations["Activation" + str(l)]
         )
         caches.append(cache)
 
     AL, cache = linear_activation_forward(
-        A, parameters["W" + str(L)], parameters["b" + str(L)], activation="sigmoid"
+        A, parameters["W" + str(L)], parameters["b" + str(L)], activations["Activation" + str(L)]
     )
     caches.append(cache)
 

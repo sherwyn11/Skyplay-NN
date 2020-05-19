@@ -34,6 +34,18 @@
             <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
                     <div class="control mr-2">
+                        <label for="optimizer" style="color:#ffffff">Optimizer</label>
+                            <div class="select">
+                                <select id="optimizer">
+                                    <option value="GD">GD</option>
+                                    <option value="Sgd">SGD</option>
+                                    <option value="GD_momentum">GD + Momentum</option>
+                                    <option value="RMSProp">RMSProp</option>
+                                    <option value="Adam">Adam</option>
+                                </select>
+                            </div>
+                        </div>
+                    <div class="control mr-2">
                         <label for="learningRate" style="color:#ffffff">Learning rate</label>
                         <div class="select">
                             <select id="learningRate">
@@ -55,10 +67,11 @@
                         <label for="activations" style="color:#ffffff">Activation</label>
                         <div class="select">
                             <select id="activations">
-                                    <option value="relu">ReLU</option>
-                                    <option value="tanh">Tanh</option>
+                                    <!-- <option value="linear">Linear</option> -->
                                     <option value="sigmoid">Sigmoid</option>
-                                    <option value="linear">Linear</option>
+                                    <option value="tanh">Tanh</option>
+                                    <option value="relu">ReLU</option>
+                                    <option value="leaky_relu">Leaky ReLU</option>
                                 </select>
                         </div>
                     </div>
@@ -66,7 +79,7 @@
                         <label for="regularizations" style="color:#ffffff">Regularization</label>
                         <div class="select">
                             <select id="regularizations">
-                                    <option value="none">None</option>
+                                    <option value="0">None</option>
                                     <option value="L1">L1</option>
                                     <option value="L2">L2</option>
                                 </select>

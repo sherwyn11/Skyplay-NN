@@ -6,7 +6,7 @@ def compute_cost(AL, Y, parameters, type, lambd):
     cost = -np.sum(np.multiply(Y,np.log(AL))+np.multiply(1-Y,np.log(1-AL)))/m
     cost = np.squeeze(cost)
 
-    if(type == 0):
+    if(type == '0'):
         return cost
     else:
         len_parameters = len(parameters) // 2

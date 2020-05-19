@@ -16,6 +16,7 @@ class Model:
 
     def __init__(self):
         self.layers = []
+        self.activations = {}
         self.parameters = {}
         self.optimizer = None
         self.learning_rate = 0.0
@@ -32,6 +33,7 @@ class Model:
             else:
                 self.parameters['W' + str(l)] = np.random.randn(self.layers[l].units, self.layers[l-1].units) * np.sqrt(1 / self.layers[l - 1].units)
             self.parameters['b' + str(l)] = np.zeros((self.layers[l].units, 1))
+            self.activations['Activation' + str(l)] = self.layers[l].activation
 
     def add(self, units, activation):
         layer = Dense(units, activation)
@@ -55,10 +57,14 @@ class Model:
         costs = []
         print(regularization_type, regularization_rate)
         for i in range(0, epochs):
-            AL, caches = propagate_forward(self.X, self.parameters)
+
+            AL, caches = propagate_forward(self.X, self.parameters, self.activations)
+
             cost = compute_cost(AL, self.Y, self.parameters,regularization_type, regularization_rate)
             costs.append(cost)
-            grads = propagate_backward(AL, self.Y, caches, regularization_type, regularization_rate)
+            
+            grads = propagate_backward(AL, self.Y, caches, regularization_type, regularization_rate, self.activations)
+            
             if(self.optimizer == 'Adam'):
                 self.parameters, self.v, self.s = adam.update_parameters(self.parameters, grads, self.v, self.s, 1, self.learning_rate)
             elif(self.optimizer == 'GD'):
@@ -74,24 +80,28 @@ class Model:
         plt.xlabel('iterations (per tens)')
         plt.title("Learning rate=" + str(self.learning_rate))
         plt.savefig('test.png')
-        # gradient_check_n(self.parameters, grads, self.X, self.Y)
 
         
-    def predict(self, X, y):
+    def predict(self, X, y, type):
         X = np.array(X).T
         y = np.array(y).T
         m = X.shape[1]
         n = len(self.parameters) // 2
         p = np.zeros((1,m))
         
-        probas, caches = propagate_forward(X, self.parameters)
+        probas, caches = propagate_forward(X, self.parameters, self.activations)
 
-        for i in range(0, probas.shape[1]):
-            print(probas[0,i])
-            if probas[0,i] > 0.5:
-                p[0,i] = 1
-            else:
-                p[0,i] = 0
+        if(type == 'classification'):
+            for i in range(0, probas.shape[1]):
+                print(probas[0,i])
+                if probas[0,i] > 0.5:
+                    p[0,i] = 1
+                else:
+                    p[0,i] = 0
+
+        else:
+            for i in range(0, probas.shape[1]):
+                print(probas[0,i])
         
         print("Accuracy: "  + str(np.sum((p == y)/m)))
 
