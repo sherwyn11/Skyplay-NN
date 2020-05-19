@@ -52,19 +52,19 @@
             <legend class="border-bottom mb-4">NN Structure</legend>
             <div class="container">
                 <div class="row">
-                    Input nodes:&nbsp;<button onclick="manipulateInpNodes(0, 0)">-</button>&nbsp;<input type="hidden" value="0" id="input_nodes"/><b id="input_nodes_tag">0</b>&nbsp;<button onclick="manipulateInpNodes(1, 0)">+</button>
+                    Input nodes :&nbsp;<button onclick="manipulateInpNodes(0, 0)">-</button>&nbsp;<input type="hidden" value="1" id="input_nodes"/><b id="input_nodes_tag">1</b>&nbsp;<button onclick="manipulateInpNodes(1, 0)">+</button>
                 </div>
                 <br>
                 <div class="row">
                     No. of hidden layers :&nbsp;<button onclick="manipulateInpNodes(0, 1)">-</button>&nbsp;<input type="hidden" value="0" id="no_of_hidden"/><b id="hidden_tag">0</b>&nbsp;<button onclick="manipulateInpNodes(1, 1)">+</button>
                 </div>
                 <br>
-                <!-- <div class="row">
-                    Input nodes: <button onclick="manipulateInpNodes(0)">-</button>&nbsp;<b id="input_nodes">0</b>&nbsp;<button onclick="manipulateInpNodes(1)">+</button>
-                </div> -->
                 <br>
-                <div class="row" id="add_layers">
-                    <!-- No. of hidden layers: <button>-</button>&nbsp;<b id="no_of_hidden">0</b>&nbsp;<button>+</button> -->
+                <div class="container" id="add_layers">
+                </div>
+                <br>
+                <div class="row">
+                    No. of output nodes :&nbsp;<button onclick="manipulateOpNodes(0)">-</button>&nbsp;<input type="hidden" value="1" id="output_nodes"/><b id="output_tag">1</b>&nbsp;<button onclick="manipulateOpNodes(1)">+</button>
                 </div>
             </div>
         </div>

@@ -36,21 +36,24 @@ function manipulateInpNodes(choice1, choice2){
         var val = element.value;
         val = Number(val)
         var tag = document.getElementById('hidden_tag');
-        console.log(div_child);
     }
 
     if(choice1 === 0){
-        if(val === 0){
-            val = 0;
+
+        if(choice2 == 1){
+            console.log(val)
+            var elmnt = document.getElementById('layer' + (val));
+            elmnt.remove();
+            
+        }
+
+        if(val === 1){
+            val = 1;
         }else{
             val -= 1;
         }
         element.setAttribute('value', val);
         tag.innerHTML = val;
-
-
-
-
 
     }else if(choice1 === 1){
         val += 1;
@@ -59,34 +62,83 @@ function manipulateInpNodes(choice1, choice2){
 
         if(choice2 == 1){
             var div_child = document.getElementById('add_layers');
-            var row = document.createElement('div');
-            row.className = 'row';
+            var p = document.createElement('div');
+            p.className = 'row';
+            p.id = 'layer' + val
             var but1 = document.createElement('button');
             but1.innerHTML = '-';
+            id = 'layer' + val;
+            but1.setAttribute('onclick', 'manipulateHiddenNodes(0, id)');
+            but1.id = 'layer' + val;
             var but2 = document.createElement('button');
             but2.innerHTML = '+';
+            but2.setAttribute('onclick', 'manipulateHiddenNodes(1, id)');
+            but2.id = 'layer' + val;
             var text = document.createElement('b');
-            text.innerHTML = '0';
+            text.innerHTML = '1';
+            text.id = 'layer' + val + '_tag';
+            var hidden = document.createElement('input');
+            hidden.setAttribute('type', 'hidden');
+            hidden.id = 'layer' + val + '_node';
+            hidden.value = 1;
             var span1 = document.createElement('span');
             span1.innerHTML = '&nbsp;';
             var span2 = document.createElement('span');
             span2.innerHTML = '&nbsp;';
-            var test = document.createElement('b');
-            test.innerHTML = 'Layer ' + (val + 1)
-            var br = document.createElement('br');
-            var p = document.createElement('p');
+            var span3 = document.createElement('span');
+            span3.innerHTML = '&nbsp;';
+            var test = document.createElement('span');
+            test.innerHTML = 'No. of nodes in layer ' + val + ' : ';
     
-    
-            row.appendChild(p);
             p.appendChild(test);
-            p.appendChild(but1);
             p.appendChild(span1);
-            p.appendChild(text);
+            p.appendChild(but1);
             p.appendChild(span2);
+            p.appendChild(hidden);
+            p.appendChild(text);
+            p.appendChild(span3);
             p.appendChild(but2);
             div_child.appendChild(p);
-            div_child.appendChild(br);
         }
-
     }  
+}
+
+function manipulateOpNodes(choice){
+    var element = document.getElementById('output_nodes');
+    var val = element.value;
+    val = Number(val)
+    var tag = document.getElementById('output_tag');
+    if(choice === 0){
+        if(val === 1){
+            val = 1;
+        }else{
+            val -= 1;
+        }
+        element.setAttribute('value', val);
+        tag.innerHTML = val;
+    }else{
+        val += 1;
+        element.setAttribute('value', val);
+        tag.innerHTML = val;
+    }
+}
+
+function manipulateHiddenNodes(choice, id){
+    var element = document.getElementById(id+'_node');
+    var val = element.value;
+    val = Number(val)
+    var tag = document.getElementById(id+'_tag');
+    if(choice === 0){
+        if(val === 1){
+            val = 1;
+        }else{
+            val -= 1;
+        }
+        element.setAttribute('value', val);
+        tag.innerHTML = val;
+    }else{
+        val += 1;
+        element.setAttribute('value', val);
+        tag.innerHTML = val;
+    }
 }
