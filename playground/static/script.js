@@ -23,3 +23,32 @@ function onTrain() {
         console.log(error);
     });
 }
+
+function manipulateInpNodes(choice1, choice2){
+
+    if(choice2 == 0){
+        var element = document.getElementById('input_nodes');
+        var val = element.value;
+        val = Number(val)
+        var tag = document.getElementById('input_nodes_tag');
+    }else{
+        var element = document.getElementById('no_of_hidden');
+        var val = element.value;
+        val = Number(val)
+        var tag = document.getElementById('hidden_tag');
+    }
+
+    if(choice1 === 0){
+        if(val === 0){
+            val = 0;
+        }else{
+            val -= 1;
+        }
+        element.setAttribute('value', val);
+        tag.innerHTML = val;
+    }else if(choice1 === 1){
+        val += 1;
+        element.setAttribute('value', val);
+        tag.innerHTML = val;
+    }  
+}

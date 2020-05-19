@@ -49,21 +49,22 @@
             </form>
         </div>
         <div class="content-section">
-            <legend class="border-bottom mb-4">Current Relation</legend>
-            <div class="row">
-                <div class="col-7">
-                    Relation: {% if filename %} {{filename}} {% else %} None {% endif %}
+            <legend class="border-bottom mb-4">NN Structure</legend>
+            <div class="container">
+                <div class="row">
+                    Input nodes:&nbsp;<button onclick="manipulateInpNodes(0, 0)">-</button>&nbsp;<input type="hidden" value="0" id="input_nodes"/><b id="input_nodes_tag">0</b>&nbsp;<button onclick="manipulateInpNodes(1, 0)">+</button>
                 </div>
-                <div class="col">
-                    Instances: {% if no_of_rows %} {{no_of_rows}} {% else %} None {% endif %}
+                <br>
+                <div class="row">
+                    No. of hidden layers :&nbsp;<button onclick="manipulateInpNodes(0, 1)">-</button>&nbsp;<input type="hidden" value="0" id="no_of_hidden"/><b id="hidden_tag">0</b>&nbsp;<button onclick="manipulateInpNodes(1, 1)">+</button>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-7">
-                    Attributes: {% if no_of_cols %} {{no_of_cols}} {% else %} None {% endif %}
+                <br>
+                <div class="row">
+                    Input nodes: <button onclick="manipulateInpNodes(0)">-</button>&nbsp;<b id="input_nodes">0</b>&nbsp;<button onclick="manipulateInpNodes(1)">+</button>
                 </div>
-                <div class="col">
-                    Dimension: {% if dim %} {{dim}} {% else %} None {% endif %}
+                <br>
+                <div class="row">
+                    No. of hidden layers: <button>-</button>&nbsp;<b id="no_of_hidden">0</b>&nbsp;<button>+</button>
                 </div>
             </div>
         </div>
