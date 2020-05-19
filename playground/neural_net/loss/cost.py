@@ -19,8 +19,8 @@ def compute_cost(AL, Y, parameters, type, lambd):
                 else:
                     sqr_sum = sqr_sum + np.sum(W)
 
-            L2_regularization_cost = lambd * (sqr_sum) / (2 * m)
-            cost = cost + L2_regularization_cost
+            L1_regularization_cost = lambd * (sqr_sum) / (2 * m)
+            cost = cost + L1_regularization_cost
 
         elif(type == 'L2'):
             for l in range(len_parameters):

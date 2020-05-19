@@ -3,7 +3,7 @@ from playground.neural_net.nn_model.model import Model
 from playground.preprocessing import generic_preprocessing as gp
 from playground import app
 from playground.nocache import nocache
-from playground.neural_net.utils.feature_extract import get_features
+from playground.utils.feature_extract import get_features
 
 from playground.utils.flask_utils import *
 
