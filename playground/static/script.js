@@ -36,6 +36,7 @@ function manipulateInpNodes(choice1, choice2){
         var val = element.value;
         val = Number(val)
         var tag = document.getElementById('hidden_tag');
+        console.log(div_child);
     }
 
     if(choice1 === 0){
@@ -46,9 +47,46 @@ function manipulateInpNodes(choice1, choice2){
         }
         element.setAttribute('value', val);
         tag.innerHTML = val;
+
+
+
+
+
     }else if(choice1 === 1){
         val += 1;
         element.setAttribute('value', val);
         tag.innerHTML = val;
+
+        if(choice2 == 1){
+            var div_child = document.getElementById('add_layers');
+            var row = document.createElement('div');
+            row.className = 'row';
+            var but1 = document.createElement('button');
+            but1.innerHTML = '-';
+            var but2 = document.createElement('button');
+            but2.innerHTML = '+';
+            var text = document.createElement('b');
+            text.innerHTML = '0';
+            var span1 = document.createElement('span');
+            span1.innerHTML = '&nbsp;';
+            var span2 = document.createElement('span');
+            span2.innerHTML = '&nbsp;';
+            var test = document.createElement('b');
+            test.innerHTML = 'Layer ' + (val + 1)
+            var br = document.createElement('br');
+            var p = document.createElement('p');
+    
+    
+            row.appendChild(p);
+            p.appendChild(test);
+            p.appendChild(but1);
+            p.appendChild(span1);
+            p.appendChild(text);
+            p.appendChild(span2);
+            p.appendChild(but2);
+            div_child.appendChild(p);
+            div_child.appendChild(br);
+        }
+
     }  
 }
