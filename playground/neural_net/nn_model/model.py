@@ -82,8 +82,8 @@ class Model:
                 elif(self.optimizer=='RMSProp'):
                     self.parameters, self.s = rms_prop.update_parameters(self.parameters, grads, self.s, self.learning_rate)
 
-                if i % 1000 == 0:
-                    print ("Cost after iteration %i: %f" %(i, cost))
+            if i % 1000 == 0:
+                print ("Cost after iteration %i: %f" %(i, cost))
 
         plt.plot(np.squeeze(costs))
         plt.ylabel('cost')

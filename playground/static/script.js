@@ -7,13 +7,11 @@ var len_nodes = 0;
 
 function onTrain() {
 
-    console.log(len_nodes)
     var nodes = [];
     for(i = 1; i <= len_nodes; i++){
         var temp =  document.getElementById('layer'+ i +'_node').value;
         nodes.push(temp);
     }
-    console.log(nodes);
     parameters = 'true';
     axios.post('/', {
         learningRate: document.getElementById('learningRate').value,
@@ -56,7 +54,6 @@ function manipulateInpNodes(choice1, choice2){
     if(choice1 === 0){
 
         if(choice2 == 1){
-            console.log(val);
             var elmnt = document.getElementById('layer' + (val));
             elmnt.remove();
             len.setAttribute('value', Number(val) - 1);
@@ -64,7 +61,6 @@ function manipulateInpNodes(choice1, choice2){
         }
         if(val === 0){
             val = 0;
-            console.log('here')
         }else{
             val -= 1;
         }
@@ -119,7 +115,6 @@ function manipulateInpNodes(choice1, choice2){
             len_nodes = val;
         }
     }
-    console.log(len);  
 }
 
 function manipulateOpNodes(choice){
