@@ -8,6 +8,18 @@ body::-webkit-scrollbar {
     display: none;
 }
 
+table,
+th,
+td {
+    width: auto;
+    text-align: center;
+    padding: 10px;
+}
+
+main {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
 h1,
 h2,
 h3,
@@ -277,4 +289,22 @@ h6 {
 
 .material-icons.md-dark.md-inactive {
     color: rgba(0, 0, 0, 0.26);
+}
+
+
+/* Links */
+
+text {
+    pointer-events: none;
+}
+
+.node:hover {
+    stroke: #9999992f;
+    stroke-opacity: .6;
+    stroke-width: 4px;
+}
+
+.link {
+    stroke: #999;
+    stroke-opacity: .6;
 }
