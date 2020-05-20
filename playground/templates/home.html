@@ -66,6 +66,12 @@
                 <br>
                 <div class="row">
                     No. of output nodes :&nbsp;<button onclick="manipulateOpNodes(0)">-</button>&nbsp;<input type="hidden" value="1" id="output_nodes"/><b id="output_tag">1</b>&nbsp;<button onclick="manipulateOpNodes(1)">+</button>
+                    <select id="activations" required>
+                        <!-- <option value="linear">Linear</option> -->
+                        <option selected disabled>Choose Activation</option>
+                        <option value="sigmoid">Sigmoid</option>
+                        <option value="tanh">Tanh</option>
+                    </select>
                 </div>
             </div>
         </div>
