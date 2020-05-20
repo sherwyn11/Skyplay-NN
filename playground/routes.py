@@ -28,7 +28,7 @@ def home():
             epochs = int(data['epochs'])
             print(problem_type)
             # batch_size=int(data['batchSize'])
-            batch_size = 100
+            batch_size = 2
             X, Y = get_features()
 
             model.fit(X, Y, epochs, regularization_type, regularization_rate, batch_size)
