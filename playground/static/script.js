@@ -2,8 +2,18 @@
 
 let parameters = 'false';
 document.getElementById('epochs').defaultValue = "1";
+var len = document.getElementById('no_of_hidden_layers').value;
+var len_nodes = 0;
 
 function onTrain() {
+
+    console.log(len_nodes)
+    var nodes = [];
+    for(i = 1; i <= len_nodes; i++){
+        var temp =  document.getElementById('layer'+ i +'_node').value;
+        nodes.push(temp);
+    }
+    console.log(nodes);
     parameters = 'true';
     axios.post('/', {
         learningRate: document.getElementById('learningRate').value,
@@ -14,6 +24,10 @@ function onTrain() {
         epochs: document.getElementById('epochs').value,
         optimizer: document.getElementById('optimizer').value,
         parameters: parameters,
+        no_of_input_nodes: document.getElementById('input_nodes').value,
+        no_of_output_nodes: document.getElementById('output_nodes').value,
+        no_of_hidden_nodes: len,
+        no_of_nodes_in_hidden: nodes,
     })
     .then(function(response) {
         parameters = 'false';
@@ -26,6 +40,7 @@ function onTrain() {
 
 function manipulateInpNodes(choice1, choice2){
 
+    var len = document.getElementById('no_of_hidden_layers');
     if(choice2 == 0){
         var element = document.getElementById('input_nodes');
         var val = element.value;
@@ -41,14 +56,15 @@ function manipulateInpNodes(choice1, choice2){
     if(choice1 === 0){
 
         if(choice2 == 1){
-            console.log(val)
+            console.log(val);
             var elmnt = document.getElementById('layer' + (val));
             elmnt.remove();
-            
+            len.setAttribute('value', Number(val) - 1);
+            len_nodes = val - 1;
         }
-
-        if(val === 1){
-            val = 1;
+        if(val === 0){
+            val = 0;
+            console.log('here')
         }else{
             val -= 1;
         }
@@ -99,8 +115,11 @@ function manipulateInpNodes(choice1, choice2){
             p.appendChild(span3);
             p.appendChild(but2);
             div_child.appendChild(p);
+            len.setAttribute('value', Number(val));
+            len_nodes = val;
         }
-    }  
+    }
+    console.log(len);  
 }
 
 function manipulateOpNodes(choice){
