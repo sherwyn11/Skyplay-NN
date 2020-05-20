@@ -3,6 +3,7 @@ import pdb
 
 from playground.neural_net.activation.activation_functions import *
 
+
 def linear_forward(A, W, b):
 
     Z = np.dot(W, A) + b
@@ -49,12 +50,15 @@ def propagate_forward(X, parameters, activations):
             A_prev,
             parameters["W" + str(l)],
             parameters["b" + str(l)],
-            activations["Activation" + str(l)]
+            activations["Activation" + str(l)],
         )
         caches.append(cache)
 
     AL, cache = linear_activation_forward(
-        A, parameters["W" + str(L)], parameters["b" + str(L)], activations["Activation" + str(L)]
+        A,
+        parameters["W" + str(L)],
+        parameters["b" + str(L)],
+        activations["Activation" + str(L)],
     )
     caches.append(cache)
 

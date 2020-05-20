@@ -39,7 +39,7 @@ def home():
                     [[1, 0], [0, 1], [1, 1], [0, 0]], [[1], [1], [0], [0]], problem_type
                 )
             )
-            return "True"
+            # return "True"
 
         elif request.form["Submit"] == "Upload":
             if upload(request.files["data"]):
@@ -100,6 +100,8 @@ def data():
     global model
     no_of_layers = len(model.parameters) // 2
     data = {"nodes": [], "weights": []}
+    SUB = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
+    SUP = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
     lst = get_columns()
 
     for i in range(len(lst) - 1):
@@ -107,8 +109,13 @@ def data():
 
     for i in range(1, no_of_layers + 1):
 
-        for j in model.parameters["W" + str(i)]:
-            data["nodes"].append({"label": str(j), "layer": i + 1})
+        for j in range(1, model.layers[i].units + 1):
+            data["nodes"].append(
+                {
+                    "label": "a" + str(j).translate(SUB) + str(i).translate(SUP),
+                    "layer": i + 1,
+                }
+            )
 
         a = model.parameters["W" + str(i)].T.tolist()
 
