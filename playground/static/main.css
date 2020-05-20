@@ -2,11 +2,22 @@ body {
     background: #fafafa;
     color: #333333;
     margin-top: 5rem;
-    -ms-overflow-style: none;
 }
 
 body::-webkit-scrollbar {
     display: none;
+}
+
+table,
+th,
+td {
+    width: auto;
+    text-align: center;
+    padding: 10px;
+}
+
+main {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 h1,
@@ -120,14 +131,14 @@ h6 {
 
 #top-controls {
     border-bottom: 1px solid gray;
-    padding: 18px 12px;
+    padding: 18px 8px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     background: #222222;
 }
 
-@media (min-height: 700px) {
+@media (min-height: 500px) {
     #top-controls {
-        padding: 24px 0;
+        padding: 18px 8px;
     }
 }
 
@@ -137,7 +148,8 @@ h6 {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
-    -webkit-justify-content: space-betweenspace-between;
+    align-items: center;
+    -webkit-justify-content: space-between;
     justify-content: space-between;
 }
 
@@ -173,7 +185,6 @@ h6 {
 #top-controls .control {
     flex-grow: 1;
     max-width: 180px;
-    min-width: 110px;
     margin-left: 30px;
     margin-top: 6px;
 }
@@ -278,4 +289,22 @@ h6 {
 
 .material-icons.md-dark.md-inactive {
     color: rgba(0, 0, 0, 0.26);
+}
+
+
+/* Links */
+
+text {
+    pointer-events: none;
+}
+
+.node:hover {
+    stroke: #9999992f;
+    stroke-opacity: .6;
+    stroke-width: 4px;
+}
+
+.link {
+    stroke: #999;
+    stroke-opacity: .4;
 }

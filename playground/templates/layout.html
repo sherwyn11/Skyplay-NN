@@ -4,7 +4,7 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -13,123 +13,121 @@
     <script src="https://d3js.org/d3.v4.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> {% if title %}
-    <title>Skylearn.py - {{ title }}</title>
+    <title>Sky-play - {{ title }}</title>
     {% else %}
-    <title>Skylearn.py</title>
+    <title>Sky-play</title>
     {% endif %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
 
 </head>
 
 
 <body>
+
     <header class="site-header">
-        <nav id='top-controls' class="navbar navbar-expand-md navbar-dark fixed-top" style="background: #222;">
-            <!-- <div class="container"> -->
-            <a class="navbar-brand mr-4" href="/">
-                <i class="fa fa-cogs fa-spin" width="30" height="30" class="d-inline-block align-top"></i> Skylearn.py
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            <div class="collapse navbar-collapse" id="navbarToggle">
-                <div class="navbar-nav mr-auto">
-                    <div class="control mr-2">
-                        <label for="optimizer" style="color:#ffffff">Optimizer</label>
+        <nav id='top-controls' class="navbar navbar-expand-sm navbar-dark fixed-top" style="background: #222;">
+            <div class="container-fluid">
+                <a class="navbar-brand mr-1" href="/">
+                    <i class="fa fa-cogs fa-spin" width="30" height="30" class="d-inline-block align-top"></i> Sky-play
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="navbar-nav mr-auto">
+                        <div class="control mr-auto">
+                            <label for="optimizer" style="color:#ffffff">Optimizer</label>
                             <div class="select">
                                 <select id="optimizer">
-                                    <option value="GD">GD</option>
-                                    <option value="Sgd">SGD</option>
-                                    <option value="GD_momentum">GD + Momentum</option>
-                                    <option value="RMSProp">RMSProp</option>
-                                    <option value="Adam">Adam</option>
-                                </select>
+                                        <option value="GD">GD</option>
+                                        <option value="Sgd">SGD</option>
+                                        <option value="GD_momentum">GD + Momentum</option>
+                                        <option value="RMSProp">RMSProp</option>
+                                        <option value="Adam">Adam</option>
+                                    </select>
                             </div>
                         </div>
-                    <div class="control mr-2">
-                        <label for="learningRate" style="color:#ffffff">Learning rate</label>
-                        <div class="select">
-                            <select id="learningRate">
-                                    <option value="0.00001">0.00001</option>
-                                    <option value="0.0001">0.0001</option>
-                                    <option value="0.001">0.001</option>
-                                    <option value="0.003">0.003</option>
-                                    <option value="0.01">0.01</option>
-                                    <option value="0.03">0.03</option>
-                                    <option value="0.1">0.1</option>
-                                    <option value="0.3">0.3</option>
-                                    <option value="1">1</option>
-                                    <option value="3">3</option>
-                                    <option value="10">10</option>
-                                </select>
+                        <div class="control mr-auto">
+                            <label for="learningRate" style="color:#ffffff">Learning rate</label>
+                            <div class="select">
+                                <select id="learningRate">
+                                        <option value="0.00001">0.00001</option>
+                                        <option value="0.0001">0.0001</option>
+                                        <option value="0.001">0.001</option>
+                                        <option value="0.003">0.003</option>
+                                        <option value="0.01">0.01</option>
+                                        <option value="0.03">0.03</option>
+                                        <option value="0.1">0.1</option>
+                                        <option value="0.3">0.3</option>
+                                        <option value="1">1</option>
+                                        <option value="3">3</option>
+                                        <option value="10">10</option>
+                                    </select>
+                            </div>
                         </div>
+                        <div class="control mr-auto">
+                            <label for="regularizations" style="color:#ffffff">Regularization</label>
+                            <div class="select">
+                                <select id="regularizations">
+                                        <option value="0">None</option>
+                                        <option value="L1">L1</option>
+                                        <option value="L2">L2</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="control mr-auto">
+                            <label for="regularRate" style="color:#ffffff">Regularization rate</label>
+                            <div class="select">
+                                <select id="regularRate">
+                                        <option value="0">0</option>
+                                        <option value="0.001">0.001</option>
+                                        <option value="0.003">0.003</option>
+                                        <option value="0.01">0.01</option>
+                                        <option value="0.03">0.03</option>
+                                        <option value="0.1">0.1</option>
+                                        <option value="0.3">0.3</option>
+                                        <option value="1">1</option>
+                                        <option value="3">3</option>
+                                        <option value="10">10</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="control mr-auto">
+                            <label for="problem" style="color:#ffffff">Problem type</label>
+                            <div class="select">
+                                <select id="problem">
+                                        <option value="classification">Classify</option>
+                                        <option value="regression">Regression</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="control mr-auto">
+                            <label for="epochs" style="color:#ffffff">Epochs</label>
+                            <input type="number" name="epochs" id="epochs" min="1" max="10000">
+                        </div>
+                        <div class="control mr-1">
+                            <label for="batchSize" style="color:#ffffff">Batch Size</label>
+                            <input type="number" name="batchSize" id="batchSize" min="1" max="10000">
+                        </div>
+
+                        <button class="btn btn-outline-light btn-sm mr-1" type="submit" name="train" value="train" onclick="onTrain()">Train</button>
+                        <button class="btn btn-outline-secondary btn-sm mr-1 " type="submit" name="reset" value="reset">Reset</button>
                     </div>
-                    <!-- <div class="control mr-2">
-                        <label for="activations" style="color:#ffffff">Activation</label>
-                        <div class="select">
-                            <select id="activations">
-                                    <option value="linear">Linear</option>
-                                    <option value="sigmoid">Sigmoid</option>
-                                    <option value="tanh">Tanh</option>
-                                    <option value="relu">ReLU</option>
-                                    <option value="leaky_relu">Leaky ReLU</option>
-                                </select>
-                        </div>
-                    </div> -->
-                    <div class="control mr-2">
-                        <label for="regularizations" style="color:#ffffff">Regularization</label>
-                        <div class="select">
-                            <select id="regularizations">
-                                    <option value="0">None</option>
-                                    <option value="L1">L1</option>
-                                    <option value="L2">L2</option>
-                                </select>
-                        </div>
-                    </div>
-                    <div class="control mr-2">
-                        <label for="regularRate" style="color:#ffffff">Regularization rate</label>
-                        <div class="select">
-                            <select id="regularRate">
-                                    <option value="0">0</option>
-                                    <option value="0.001">0.001</option>
-                                    <option value="0.003">0.003</option>
-                                    <option value="0.01">0.01</option>
-                                    <option value="0.03">0.03</option>
-                                    <option value="0.1">0.1</option>
-                                    <option value="0.3">0.3</option>
-                                    <option value="1">1</option>
-                                    <option value="3">3</option>
-                                    <option value="10">10</option>
-                                </select>
-                        </div>
-                    </div>
-                    <div class="control mr-2">
-                        <label for="problem" style="color:#ffffff">Problem type</label>
-                        <div class="select">
-                            <select id="problem">
-                                    <option value="classification">Classification</option>
-                                    <option value="regression">Regression</option>
-                                </select>
-                        </div>
-                    </div>
-                    <div class="control mr-2">
-                        <label for="epochs" style="color:#ffffff">Epochs</label>
-                        <input type="number" name="epochs" id="epochs" min="1" max="10000" placeholder="1000">
+
+                    <!-- Navbar Right Side -->
+                    <div class="navbar-nav">
+
+                        <a class="nav-item nav-link" href="{{ url_for('reset') }}">Clear</a>
 
                     </div>
-                    <button class="btn btn-light mr-2" type="submit" name="train" value="train" onclick="onTrain()">Train</button>
-                    <button class="btn btn-secondary mr-4" type="submit" name="reset" value="reset">Reset</button>
-                </div>
-
-                <!-- Navbar Right Side -->
-                <div class="navbar-nav">
-
-                    <a class="nav-item nav-link" href="{{ url_for('home') }}">Clear</a>
-
                 </div>
             </div>
-            <!-- </div> -->
+
         </nav>
     </header>
+
 
     <main id="main" role="main" class="container">
         <div class="row">
@@ -167,6 +165,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

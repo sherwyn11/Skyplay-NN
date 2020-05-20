@@ -1,32 +1,14 @@
 {% extends "layout.html" %} {% block content %}
-<style>
-    table,
-    th,
-    td {
-        width: auto;
-        text-align: center;
-        padding: 10px;
-        
-    }
-    canvas {
-        background-color: black;
-        width: 1024px;
-        height: 520px;
-        margin-left: 40px;
-        margin-right: 40px;
-        margin-bottom: 20px;
-        margin-top: 30px;
-        align-self: center; 
-        align-content: center;
-        align-items: center;
-    }
-    main{
-        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif 
-    }
-</style>
-
 <div class="container">
     <canvas></canvas>
+</div>
+
+<div class="row">
+    <div class="network col-lg-9">
+    </div>
+    <div class="col-lg-3">
+        <img src="/test.png" class="round active float-left" height="300px" width="300px" alt="Cost vs No. of iterations" />
+    </div>
 </div>
 
 <div class="row">
