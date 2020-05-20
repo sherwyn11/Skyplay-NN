@@ -7,11 +7,16 @@ var len_nodes = 0;
 
 function onTrain() {
 
-    var nodes = [];
+    var layers = [];
     for(i = 1; i <= len_nodes; i++){
-        var temp =  document.getElementById('layer'+ i +'_node').value;
-        nodes.push(temp);
+        var temp1 =  document.getElementById('layer'+ i +'_node').value;
+        var temp2 =  document.getElementById('layer'+ i +'_select').value;
+        layers.push({
+            no_of_nodes: temp1,
+            activation: temp2
+        });
     }
+    console.log(layers)
     parameters = 'true';
     axios.post('/', {
         learningRate: document.getElementById('learningRate').value,
@@ -25,7 +30,7 @@ function onTrain() {
         no_of_input_nodes: document.getElementById('input_nodes').value,
         no_of_output_nodes: document.getElementById('output_nodes').value,
         no_of_hidden_nodes: len,
-        no_of_nodes_in_hidden: nodes,
+        no_of_nodes_in_hidden: layers,
     })
     .then(function(response) {
         parameters = 'false';
@@ -101,6 +106,24 @@ function manipulateInpNodes(choice1, choice2){
             span3.innerHTML = '&nbsp;';
             var test = document.createElement('span');
             test.innerHTML = 'No. of nodes in layer ' + val + ' : ';
+            var select = document.createElement('select');
+            select.id = 'layer' + val + '_select';
+            var option0 = document.createElement('option');
+            option0.innerHTML = 'Choose Activation';
+            option0.disabled = true;
+            option0.selected = true;
+            var option1 = document.createElement('option');
+            option1.value = 'sigmoid';
+            option1.innerHTML = 'Sigmoid';
+            var option2 = document.createElement('option');
+            option2.value = 'tanh';
+            option2.innerHTML = 'Tanh';
+            var option3 = document.createElement('option');
+            option3.value = 'relu';
+            option3.innerHTML = 'ReLU';
+            var option4 = document.createElement('option');
+            option4.value = 'leaky_relu';
+            option4.innerHTML = 'Leaky ReLU';
     
             p.appendChild(test);
             p.appendChild(span1);
@@ -110,7 +133,14 @@ function manipulateInpNodes(choice1, choice2){
             p.appendChild(text);
             p.appendChild(span3);
             p.appendChild(but2);
+            select.appendChild(option0);
+            select.appendChild(option1);
+            select.appendChild(option2);
+            select.appendChild(option3);
+            select.appendChild(option4);
+            p.appendChild(select);
             div_child.appendChild(p);
+
             len.setAttribute('value', Number(val));
             len_nodes = val;
         }

@@ -2,7 +2,6 @@ import numpy as np
 
 ######## (Forward Propagation) ########
 
-
 def sigmoid(Z):
     A = 1/(1+np.exp(-Z))
     cache = Z
@@ -13,7 +12,7 @@ def tanh(data):
 
 
 def relu(Z):
-    A = np.maximum(0.0001, Z)
+    A = np.maximum(0, Z)
     cache = Z 
     return A, cache
 
@@ -44,7 +43,7 @@ def relu_backward(dA, cache):
     
     Z = cache
     dZ = np.array(dA, copy=True) 
-    dZ[Z <= 0] = 0.0001
+    dZ[Z <= 0] = 0
     assert (dZ.shape == Z.shape)
     return dZ
 

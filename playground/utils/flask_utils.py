@@ -30,9 +30,9 @@ def create_model(data):
 
     model = Model()
 
-    model.add(no_of_input_nodes, activation)
+    model.add(no_of_input_nodes, None)
     for node in data['no_of_nodes_in_hidden']:
-        model.add(int(node), activation)
+        model.add(int(node['no_of_nodes']), node['activation'])
     model.add(no_of_output_nodes, activation)
     model.compile(optimizer, learning_rate)
 
