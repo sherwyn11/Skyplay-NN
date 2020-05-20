@@ -19,7 +19,7 @@ def pair_plot():
     start=time.time()
     sns_plot = sns.pairplot(df, height=2.5)
     mid=time.time()
-    sns_plot.savefig("playground/static/img/pairplot1.png")
+    sns_plot.savefig("playground/static/img/pairplot.png")
     end=time.time()
     print(f'{mid-start} {end-mid} {sns_plot}')
     return True
@@ -30,7 +30,6 @@ def xy_plot(col1, col2):
     return df
 
 def hist_plot(df,feature_x):
-    # df=df.sort_values([feature_x], axis=0, ascending=True, inplace=True) 
     x= df[feature_x]
     x.to_csv("playground/visualization/col.csv",mode="w", index=False,header=['price'])
     with open("playground/visualization/col.csv", 'r') as filehandle:

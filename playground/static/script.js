@@ -189,7 +189,7 @@ function manipulateHiddenNodes(choice, id){
     }
 }
 
-// ------------------ GRAPH -----------------------
+/////////////////// GRAPH ///////////////////
 
 
 var width = 740,
