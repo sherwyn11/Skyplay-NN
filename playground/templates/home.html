@@ -1,14 +1,40 @@
 {% extends "layout.html" %} {% block content %}
-
+<style>
+    /* Hover card */
+    
+    #hovercard {
+        display: none;
+        position: absolute;
+        padding: 5px;
+        border: 1px solid #aaa;
+        z-index: 1000;
+        background: #fff;
+        cursor: default;
+        border-radius: 5px;
+        left: 240px;
+        width: 150px;
+        top: -20px;
+    }
+    
+    #hovercard input {
+        width: 60px;
+    }
+</style>
 <div class="row">
     <div class="network col-lg-9">
+
+    </div>
+    <!-- Hover card -->
+    <div id="hovercard">
+        <div style="font-size:10px" onclick="#">Click to know more about weight/bias</div>
+        <div><span class="type">Weight/Bias</span> is <span class="value">0.2</span><span><input
+                    type="number" /></span>.
+        </div>
     </div>
     <div class="col-lg-3">
         <img src="/test.png" class="round active float-left" height="300px" width="300px" alt="Cost vs No. of iterations" />
     </div>
 </div>
-
-
 
 <div class="row">
     <div class="col-lg-6">
@@ -30,21 +56,29 @@
             </form>
         </div>
         <div class="content-section">
-            <legend class="border-bottom mb-4">Current Relation</legend>
-            <div class="row">
-                <div class="col-7">
-                    Relation: {% if filename %} {{filename}} {% else %} None {% endif %}
+            <legend class="border-bottom mb-4">NN Structure</legend>
+            <div class="container">
+                <div class="row">
+                    Input nodes :&nbsp;<button onclick="manipulateInpNodes(0, 0)">-</button>&nbsp;<input type="hidden" value="1" id="input_nodes" /><b id="input_nodes_tag">1</b>&nbsp;<button onclick="manipulateInpNodes(1, 0)">+</button>
                 </div>
-                <div class="col">
-                    Instances:<span id="size"> {% if no_of_rows %} {{no_of_rows}} {% else %} None {% endif %}</span>
+                <br>
+                <div class="row">
+                    <input type="hidden" id="no_of_hidden_layers" value="0" /> No. of hidden layers :&nbsp;<button onclick="manipulateInpNodes(0, 1)">-</button>&nbsp;<input type="hidden" value="0" id="no_of_hidden" /><b id="hidden_tag">0</b>&nbsp;
+                    <button onclick="manipulateInpNodes(1, 1)">+</button>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-7">
-                    Attributes: {% if no_of_cols %} {{no_of_cols}} {% else %} None {% endif %}
+                <br>
+                <br>
+                <div class="container" id="add_layers">
                 </div>
-                <div class="col">
-                    Dimension: {% if dim %} {{dim}} {% else %} None {% endif %}
+                <br>
+                <div class="row">
+                    No. of output nodes :&nbsp;<button onclick="manipulateOpNodes(0)">-</button>&nbsp;<input type="hidden" value="1" id="output_nodes" /><b id="output_tag">1</b>&nbsp;<button onclick="manipulateOpNodes(1)">+</button>
+                    <select id="activations" required>
+                        <!-- <option value="linear">Linear</option> -->
+                        <option selected disabled>Choose Activation</option>
+                        <option value="sigmoid">Sigmoid</option>
+                        <option value="tanh">Tanh</option>
+                    </select>
                 </div>
             </div>
         </div>

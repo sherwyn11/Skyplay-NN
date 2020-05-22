@@ -3,7 +3,6 @@ import pdb
 
 from playground.neural_net.activation.activation_functions import *
 
-
 def linear_forward(A, W, b):
 
     Z = np.dot(W, A) + b
@@ -16,19 +15,19 @@ def linear_forward(A, W, b):
 
 def linear_activation_forward(A_prev, W, b, activation):
 
-    if activation == "sigmoid":
+    if activation == 'sigmoid':
         Z, linear_cache = linear_forward(A_prev, W, b)
         A, activation_cache = sigmoid(Z)
 
-    elif activation == "relu":
+    elif activation == 'relu':
         Z, linear_cache = linear_forward(A_prev, W, b)
         A, activation_cache = relu(Z)
 
-    elif activation == "tanh":
+    elif activation == 'tanh':
         Z, linear_cache = linear_forward(A_prev, W, b)
         A, activation_cache = tanh(Z)
 
-    elif activation == "leaky_relu":
+    elif activation == 'leaky_relu':
         Z, linear_cache = linear_forward(A_prev, W, b)
         A, activation_cache = leakyrelu(Z)
 
@@ -48,20 +47,18 @@ def propagate_forward(X, parameters, activations):
         A_prev = A
         A, cache = linear_activation_forward(
             A_prev,
-            parameters["W" + str(l)],
-            parameters["b" + str(l)],
-            activations["Activation" + str(l)],
+            parameters['W' + str(l)],
+            parameters['b' + str(l)],
+            activations['Activation' + str(l)]
         )
         caches.append(cache)
 
     AL, cache = linear_activation_forward(
-        A,
-        parameters["W" + str(L)],
-        parameters["b" + str(L)],
-        activations["Activation" + str(L)],
+        A, parameters['W' + str(L)], parameters['b' + str(L)], activations['Activation' + str(L)]
     )
     caches.append(cache)
 
     assert AL.shape == (1, X.shape[1])
+
 
     return AL, caches

@@ -60,8 +60,10 @@ class Model:
         self.Y = np.array(Y).T
         self.mini_batch = create_mini_batches(self.X, self.Y, mini_batch_size)
         costs = []
+        t = 0
       
         for i in range(0, epochs):
+
             for batch in self.mini_batch:
                 AL, caches = propagate_forward(batch[0], self.parameters, self.activations)
 
@@ -71,16 +73,17 @@ class Model:
                 grads = propagate_backward(AL, batch[1], caches, regularization_type, regularization_rate, self.activations)
                 
                 if(self.optimizer == 'Adam'):
-                    self.parameters, self.v, self.s = adam.update_parameters(self.parameters, grads, self.v, self.s, 1, self.learning_rate)
+                    t = t + 1
+                    self.parameters, self.v, self.s = adam.update_parameters(self.parameters, grads, self.v, self.s, t, self.learning_rate)
                 elif(self.optimizer == 'GD' or self.optimizer == 'Sgd'):
                     self.parameters = gradient_descent.update_parameters(self.parameters, grads, self.learning_rate)
                 elif(self.optimizer == 'GD_momentum'):
                     self.parameters, self.v = gd_with_momentum.update_parameters(self.parameters, grads, self.v, 0.9, self.learning_rate)
                 elif(self.optimizer=='RMSProp'):
-                    self.parameters,self.s=rms_prop.update_parameters(self.parameters, grads, self.s, self.learning_rate)
+                    self.parameters, self.s = rms_prop.update_parameters(self.parameters, grads, self.s, self.learning_rate)
 
-                if i % 1000 == 0:
-                    print ("Cost after iteration %i: %f" %(i, cost))
+            if i % 1000 == 0:
+                print ("Cost after iteration %i: %f" %(i, cost))
 
         plt.plot(np.squeeze(costs))
         plt.ylabel('cost')
@@ -105,13 +108,13 @@ class Model:
                     p[0,i] = 1
                 else:
                     p[0,i] = 0
+            
+            print("Accuracy: "  + str(np.sum((p == y)/m)))
+
+            return p
 
         else:
             for i in range(0, probas.shape[1]):
                 print(probas[0,i])
         
-        print("Accuracy: "  + str(np.sum((p == y)/m)))
-
-        return p
-
-    
+            return probas

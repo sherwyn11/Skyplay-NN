@@ -1,3 +1,5 @@
+/** @format */
+
 body {
     background: #fafafa;
     color: #333333;
@@ -17,7 +19,7 @@ td {
 }
 
 main {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 h1,
@@ -113,7 +115,7 @@ h6 {
 }
 
 #main {
-    transition: margin-left .5s;
+    transition: margin-left 0.5s;
     padding: 16px;
 }
 
@@ -300,11 +302,11 @@ text {
 
 .node:hover {
     stroke: #9999992f;
-    stroke-opacity: .6;
+    stroke-opacity: 0.6;
     stroke-width: 4px;
 }
 
 .link {
     stroke: #999;
-    stroke-opacity: .6;
+    stroke-opacity: 0.4;
 }

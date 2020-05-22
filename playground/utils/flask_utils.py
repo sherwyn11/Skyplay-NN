@@ -15,6 +15,7 @@ def upload(data):
     if ext in exts:
         session['ext'] = ext
         session['fname'] = data.filename
+        session['posted'] = 1
         data.save('playground/uploads/' + data.filename)
         df = gp.read_dataset('playground/uploads/' + data.filename)
         df.to_csv('playground/clean/clean.csv', index=False)
@@ -28,12 +29,16 @@ def create_model(data):
     learning_rate = float(data['learningRate'])
     activation = data['activations']
     optimizer = data['optimizer']
-    
-    model = Model()
+    no_of_input_nodes = int(data['no_of_input_nodes'])
+    no_of_output_nodes = int(data['no_of_output_nodes'])
+    no_of_hidden_nodes = int(data['no_of_hidden_nodes'])
 
-    model.add(2, activation)
-    model.add(4, activation)
-    model.add(1, activation)
+    model = Model()
+    print(data['no_of_nodes_in_hidden'])
+    model.add(no_of_input_nodes, None)
+    for node in data['no_of_nodes_in_hidden']:
+        model.add(int(node['no_of_nodes']), node['activation'])
+    model.add(no_of_output_nodes, activation)
     model.compile(optimizer, learning_rate)
 
     return model
@@ -50,4 +55,3 @@ def create_default_model():
     model.compile(optimizer, learning_rate)
 
     return model
-    
