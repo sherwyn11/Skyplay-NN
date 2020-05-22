@@ -43,7 +43,7 @@ def propagate_backward(AL, Y, caches, regularization_type, regularization_rate, 
     m = AL.shape[1]
     Y = Y.reshape(AL.shape) 
 
-    dAL = - (np.divide(Y, AL) - np.divide(1 - Y, 1 - AL))
+    dAL = (np.divide(-Y, AL) + np.divide(1 - Y, 1 - AL))
     current_cache = caches[L - 1]
     grads['dA' + str(L)], grads['dW' + str(L)], grads['db' + str(L)] = linear_activation_backward(dAL, current_cache, activations['Activation' + str(L)], regularization_type, regularization_rate)
     

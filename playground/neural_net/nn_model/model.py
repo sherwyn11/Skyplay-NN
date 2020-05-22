@@ -82,7 +82,7 @@ class Model:
                 elif(self.optimizer=='RMSProp'):
                     self.parameters, self.s = rms_prop.update_parameters(self.parameters, grads, self.s, self.learning_rate)
 
-            if i % 1000 == 0:
+            if i % 100 == 0:
                 print ("Cost after iteration %i: %f" %(i, cost))
 
         plt.plot(np.squeeze(costs))
@@ -97,18 +97,18 @@ class Model:
         y = np.array(y).T
         m = X.shape[1]
         n = len(self.parameters) // 2
-        p = np.zeros((1,m))
+        p = np.zeros((1, m))
         
         probas, caches = propagate_forward(X, self.parameters, self.activations)
 
         if(type == 'classification'):
             for i in range(0, probas.shape[1]):
-                print(probas[0,i])
+                print('Predicted: ', probas[0,i])
                 if probas[0,i] > 0.5:
                     p[0,i] = 1
                 else:
                     p[0,i] = 0
-            
+            print(y)
             print("Accuracy: "  + str(np.sum((p == y)/m)))
 
             return p
