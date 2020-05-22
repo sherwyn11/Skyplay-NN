@@ -25,6 +25,8 @@ def home():
     global model
     if request.method == 'POST':
         if request.get_json() is not None:
+            session['posted'] = 1
+
             data = request.get_json()
 
             model = create_model(data)
@@ -57,6 +59,7 @@ def home():
 
     else:
         if session.get('uploaded') is None and session.get('posted') is None:
+            print('heeree')
             model = create_default_model()
             X, Y = get_features()
             model.fit(X, Y, 1500, '0', 0, 4)
@@ -265,6 +268,7 @@ def reset():
     session.clear()
     default_data()
     session['posted'] = None
+    session['uploaded'] = None
     return redirect('/')
 
 @app.route('/col.csv')
