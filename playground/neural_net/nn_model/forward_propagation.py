@@ -13,7 +13,7 @@ def linear_forward(A, W, b):
     return Z, cache
 
 
-def linear_activation_forward(A_prev, W, b, activation):
+def linear_activation_forward(A_prev, W, b, activation, learning_rate):
 
     if activation == 'sigmoid':
         Z, linear_cache = linear_forward(A_prev, W, b)
@@ -29,7 +29,7 @@ def linear_activation_forward(A_prev, W, b, activation):
 
     elif activation == 'leaky_relu':
         Z, linear_cache = linear_forward(A_prev, W, b)
-        A, activation_cache = leakyrelu(Z)
+        A, activation_cache = leakyrelu(Z, learning_rate)
 
     assert A.shape == (W.shape[0], A_prev.shape[1])
     cache = (linear_cache, activation_cache)
@@ -37,7 +37,7 @@ def linear_activation_forward(A_prev, W, b, activation):
     return A, cache
 
 
-def propagate_forward(X, parameters, activations):
+def propagate_forward(X, parameters, activations, learning_rate):
 
     caches = []
     A = X
@@ -49,12 +49,13 @@ def propagate_forward(X, parameters, activations):
             A_prev,
             parameters['W' + str(l)],
             parameters['b' + str(l)],
-            activations['Activation' + str(l)]
+            activations['Activation' + str(l)],
+            learning_rate
         )
         caches.append(cache)
 
     AL, cache = linear_activation_forward(
-        A, parameters['W' + str(L)], parameters['b' + str(L)], activations['Activation' + str(L)]
+        A, parameters['W' + str(L)], parameters['b' + str(L)], activations['Activation' + str(L)], learning_rate
     )
     caches.append(cache)
 

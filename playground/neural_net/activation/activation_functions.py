@@ -18,8 +18,10 @@ def relu(Z):
     return A, cache
 
 
-def leakyrelu(data, alpha):
-    return max(alpha * data, data)
+def leakyrelu(data,alpha):
+    cache = data
+    A = np.maximum(alpha * data, data)
+    return A, cache
 
 
 ######## (Backward Propagation) ########
@@ -33,6 +35,7 @@ def sigmoid_backward(dA, cache):
     assert (dZ.shape == Z.shape)
     return dZ
 
+
 def tanh_backward(dA, cache):
     
     Z = cache
@@ -40,6 +43,7 @@ def tanh_backward(dA, cache):
     
     assert (dZ.shape == Z.shape)
     return dZ
+
 
 def relu_backward(dA, cache):
     
@@ -50,8 +54,9 @@ def relu_backward(dA, cache):
     assert (dZ.shape == Z.shape)
     return dZ
 
-# TO-DO: Leaky relu back
-def leakyrelu_diff(data, alpha):
-    Z = cache
 
-    return 1 if data > 0 else alpha
+def leakyrelu_backward(dA, alpha, cache):
+    Z = cache
+    dZ = np.where( dA > 0, 1, alpha)
+    assert (dZ.shape == Z.shape)
+    return dZ

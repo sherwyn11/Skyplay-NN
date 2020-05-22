@@ -65,12 +65,12 @@ class Model:
         for i in range(0, epochs):
 
             for batch in self.mini_batch:
-                AL, caches = propagate_forward(batch[0], self.parameters, self.activations)
+                AL, caches = propagate_forward(batch[0], self.parameters, self.activations, self.learning_rate)
 
                 cost = compute_cost(AL, batch[1], self.parameters,regularization_type, regularization_rate)
                 costs.append(cost)
                 
-                grads = propagate_backward(AL, batch[1], caches, regularization_type, regularization_rate, self.activations)
+                grads = propagate_backward(AL, batch[1], caches, regularization_type, regularization_rate, self.activations, self.learning_rate)
                 
                 if(self.optimizer == 'Adam'):
                     t = t + 1
@@ -99,7 +99,7 @@ class Model:
         n = len(self.parameters) // 2
         p = np.zeros((1, m))
         
-        probas, caches = propagate_forward(X, self.parameters, self.activations)
+        probas, caches = propagate_forward(X, self.parameters, self.activations, self.learning_rate)
 
         if(type == 'classification'):
             for i in range(0, probas.shape[1]):
