@@ -23,3 +23,21 @@ def get_features(problem_type):
     Y = Y.reshape(-1, 1)
 
     return X, Y, ss, le
+
+def get_features_for_test(problem_type, ss, le):
+    df = pd.read_csv('playground/clean/test.csv')
+    X = df.iloc[ : , : -1].values
+    Y = df.iloc[ : , -1].values
+
+    ### Scaling the X ###
+
+    X = ss.fit_transform(X)
+
+    ### Label Encoding the Y ###
+    
+    if(problem_type == 'classification'):
+        Y = le.fit_transform(Y)
+
+    Y = Y.reshape(-1, 1)
+
+    return X, Y
