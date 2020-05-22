@@ -28,6 +28,8 @@ class Model:
         self.v = None
         self.s = None
         self.mini_batch = None
+        self.train_acc = 0.0
+        self.test_acc = 0.0
 
     def init_parameters(self):
         for l in range(1, len(self.layers)):
@@ -92,7 +94,7 @@ class Model:
         plt.savefig('playground/static/img/test.png')
 
         
-    def predict(self, X, y, type):
+    def evaluate(self, X, y, type, acc):
         X = np.array(X).T
         y = np.array(y).T
         m = X.shape[1]
@@ -108,7 +110,11 @@ class Model:
                     p[0,i] = 1
                 else:
                     p[0,i] = 0
-            print("Accuracy: "  + str(np.sum((p == y)/m)))
+            
+            if(acc):
+                self.train_acc = (np.sum((p == y)/m)) * 100
+            else:
+                self.test_acc = (np.sum((p == y)/m)) * 100
 
             return p
 

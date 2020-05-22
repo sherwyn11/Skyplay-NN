@@ -7,7 +7,7 @@ from playground import app
 from playground.neural_net.nn_model.model import Model
 from playground.preprocessing import generic_preprocessing as gp
 from playground.nocache import nocache
-from playground.utils.feature_extract import get_features
+from playground.utils.feature_extract import *
 from playground.utils.flask_utils import *
 from playground.visualization import visualize as vis
 
@@ -17,13 +17,13 @@ model = Model()
 save_path = 'playground/uploads/'
 posted = 0
 
+
 ####################### ROUTES #######################
 
 
 @nocache
 @app.route('/', methods=['GET', 'POST'])
 def home():
-
     global model
     if request.method == 'POST':
         if request.get_json() is not None:
@@ -42,15 +42,27 @@ def home():
             batch_size = int(data['batchSize'])
             X, Y, ss, le = get_features(problem_type)
 
+            ### Train ###
+
             model.fit(
                 X, Y, epochs, regularization_type, regularization_rate, batch_size
             )
             idx = random.randint(0, len(X) - 1)
-            print(
-                model.predict(
-                    ss.transform([X[idx]]), [le.transform(Y[idx])], problem_type
-                )
+
+            ### Test ###
+
+            train = True
+            model.evaluate(
+                X, Y, problem_type, train
             )
+
+            X_test, Y_test = get_features_for_test(problem_type, ss, le)
+            
+            train = False
+            model.evaluate(
+                X_test, Y_test, problem_type, train
+            )
+
             return 'True'
 
         elif request.form['Submit'] == 'Upload':
@@ -73,10 +85,11 @@ def home():
             model.fit(X, Y, 1500, '0', 0, 4)
 
             print(
-                model.predict(
+                model.evaluate(
                     ss.transform([[1, 1], [0, 1], [1, 0], [0, 0]]),
                     np.array(le.transform([0, 1, 1, 0])).reshape(-1, 1),
                     problem_type,
+                    True
                 )
             )
     df = gp.read_dataset('playground/clean/clean.csv')
@@ -106,6 +119,8 @@ def home():
                 'thead-light',
             ]
         ),
+        train_acc=model.train_acc,
+        test_acc=model.test_acc
     )
 
 
