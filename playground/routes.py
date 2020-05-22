@@ -40,14 +40,15 @@ def home():
             problem_type = data['problem']
             epochs = int(data['epochs'])
             batch_size = int(data['batchSize'])
-            X, Y, ss, le = get_features()
+            X, Y, ss, le = get_features(problem_type)
 
             model.fit(
                 X, Y, epochs, regularization_type, regularization_rate, batch_size
             )
+            idx = random.randint(0, len(X) - 1)
             print(
                 model.predict(
-                    ss.transform([X[random.randint(0, len(X))]]), [le.transform(Y[random.randint(0, len(Y))])], problem_type
+                    ss.transform([X[idx]]), [le.transform(Y[idx])], problem_type
                 )
             )
             return 'True'
@@ -73,9 +74,9 @@ def home():
 
             print(
                 model.predict(
-                    ss.transform([[1, 0], [0, 1], [1, 1], [0, 0]]),
-                    np.array(le.transform([1, 1, 0, 0])).reshape(-1, 1),
-                    'classification',
+                    ss.transform([[1, 1], [0, 1], [1, 0], [0, 0]]),
+                    np.array(le.transform([0, 1, 1, 0])).reshape(-1, 1),
+                    problem_type,
                 )
             )
     df = gp.read_dataset('playground/clean/clean.csv')
