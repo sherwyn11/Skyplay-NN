@@ -1,5 +1,7 @@
 from flask import *
 import numpy as np
+import os
+import random
 
 from playground import app
 from playground.neural_net.nn_model.model import Model
@@ -26,9 +28,11 @@ def home():
     if request.method == 'POST':
         if request.get_json() is not None:
             session['posted'] = 1
+            
+            if(os.path.exists('playground/static/img/test.png')):
+                os.remove('playground/static/img/test.png')
 
             data = request.get_json()
-
             model = create_model(data)
 
             regularization_type = data['regularizations']
@@ -36,14 +40,14 @@ def home():
             problem_type = data['problem']
             epochs = int(data['epochs'])
             batch_size = int(data['batchSize'])
-            X, Y = get_features()
+            X, Y, ss, le = get_features()
 
             model.fit(
                 X, Y, epochs, regularization_type, regularization_rate, batch_size
             )
             print(
                 model.predict(
-                    [[1, 0], [0, 1], [1, 1], [0, 0]], [[1], [1], [0], [0]], problem_type
+                    ss.transform([X[random.randint(0, len(X))]]), [le.transform(Y[random.randint(0, len(Y))])], problem_type
                 )
             )
             return 'True'
@@ -59,14 +63,18 @@ def home():
 
     else:
         if session.get('uploaded') is None and session.get('posted') is None:
-            print('heeree')
+            if(os.path.exists('playground/static/img/test.png')):
+                os.remove('playground/static/img/test.png')
             model = create_default_model()
-            X, Y = get_features()
+            problem_type = 'classification'
+
+            X, Y, ss, le = get_features(problem_type)
             model.fit(X, Y, 1500, '0', 0, 4)
+
             print(
                 model.predict(
-                    [[1, 0], [0, 1], [1, 1], [0, 0]],
-                    [[1], [1], [0], [0]],
+                    ss.transform([[1, 0], [0, 1], [1, 1], [0, 0]]),
+                    np.array(le.transform([1, 1, 0, 0])).reshape(-1, 1),
                     'classification',
                 )
             )
