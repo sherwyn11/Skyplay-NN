@@ -108,7 +108,6 @@ class Model:
                     p[0,i] = 1
                 else:
                     p[0,i] = 0
-            print(y)
             print("Accuracy: "  + str(np.sum((p == y)/m)))
 
             return p

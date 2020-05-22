@@ -2,11 +2,19 @@ import numpy as np
 
 def compute_cost(AL, Y, parameters, type, lambd):
     m = Y.shape[1]
-    cost = -np.sum(np.multiply(Y,np.log(AL))+np.multiply(1-Y,np.log(1-AL)))/m
+    
+    #### Cross - Entropy cost ####
+
+    logprobs = np.multiply(-np.log(AL), Y) + np.multiply(-np.log(1 - AL), 1 - Y)
+    cost = 1./m * np.nansum(logprobs)
+    
     cost = np.squeeze(cost)
 
     if(type == '0'):
         return cost
+        
+    #### Regularization cost ####
+
     else:
         len_parameters = len(parameters) // 2
 
