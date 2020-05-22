@@ -236,32 +236,35 @@ def visualize():
 
 
 @nocache
-@app.route('/data.json', methods=['GET'])
+@app.route("/data.json", methods=["GET"])
 def data():
 
     global model
     no_of_layers = len(model.parameters) // 2
-    data = {'nodes': [], 'weights': []}
-    SUB = str.maketrans('0123456789', '₀₁₂₃₄₅₆₇₈₉')
-    SUP = str.maketrans('0123456789', '⁰¹²³⁴⁵⁶⁷⁸⁹')
+    data = {"nodes": [], "weights": [], "biases": []}
+    SUB = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
+    SUP = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
     lst = vis.get_columns()
 
     for i in range(len(lst) - 1):
-        data['nodes'].append({'label': lst[i], 'layer': 1})
+        data["nodes"].append({"label": lst[i], "layer": 1})
+        data["biases"].append(int(0))
 
     for i in range(1, no_of_layers + 1):
 
         for j in range(1, model.layers[i].units + 1):
-            data['nodes'].append(
+            data["nodes"].append(
                 {
-                    'label': 'a' + str(j).translate(SUB) + str(i).translate(SUP),
-                    'layer': i + 1,
+                    "label": "a" + str(j).translate(SUB) + str(i).translate(SUP),
+                    "layer": i + 1,
                 }
             )
 
-        a = model.parameters['W' + str(i)].T.tolist()
+        a = model.parameters["W" + str(i)].T.tolist()
+        b = model.parameters["b" + str(i)].T.tolist()
 
-        [data['weights'].append(x) for param in a for x in param]
+        [data["weights"].append(x) for param in a for x in param]
+        [data["biases"].append(x) for param in b for x in param]
 
     return json.dumps(data)
 

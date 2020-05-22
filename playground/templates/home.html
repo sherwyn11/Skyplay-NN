@@ -1,7 +1,35 @@
 {% extends "layout.html" %} {% block content %}
+<style>
+    /* Hover card */
+    
+    #hovercard {
+        display: none;
+        position: absolute;
+        padding: 5px;
+        border: 1px solid #aaa;
+        z-index: 1000;
+        background: #fff;
+        cursor: default;
+        border-radius: 5px;
+        left: 240px;
+        width: 150px;
+        top: -20px;
+    }
+    
+    #hovercard input {
+        width: 60px;
+    }
+</style>
 
 <div class="row">
     <div class="network col-lg-9">
+    </div>
+    <!-- Hover card -->
+    <div id="hovercard">
+        <div style="font-size:10px" onclick="#">Click to know more about weight/bias</div>
+        <div><span class="type">Weight/Bias</span> is <span class="value">0.2</span><span><input
+                    type="number" /></span>.
+        </div>
     </div>
     <div class="col-lg-3">
         <img src="/test.png" class="round active float-left" height="300px" width="300px" alt="Cost vs No. of iterations" />
