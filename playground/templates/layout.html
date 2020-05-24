@@ -76,66 +76,66 @@
                             <label for="optimizer" style="color:#ffffff">Optimizer</label>
                             <div class="select">
                                 <select id="optimizer">
-                                        <option value="GD">GD</option>
-                                        <option value="Sgd">SGD</option>
-                                        <option value="GD_momentum">GD + Momentum</option>
-                                        <option value="RMSProp">RMSProp</option>
-                                        <option value="Adam">Adam</option>
-                                    </select>
+                                    <option value="GD">GD</option>
+                                    <option value="Sgd">SGD</option>
+                                    <option value="GD_momentum">GD + Momentum</option>
+                                    <option value="RMSProp">RMSProp</option>
+                                    <option value="Adam">Adam</option>
+                                </select>
                             </div>
                         </div>
                         <div class="control mr-auto">
                             <label for="learningRate" style="color:#ffffff">Learning rate</label>
                             <div class="select">
                                 <select id="learningRate">
-                                        <option value="0.00001">0.00001</option>
-                                        <option value="0.0001">0.0001</option>
-                                        <option value="0.001">0.001</option>
-                                        <option value="0.003">0.003</option>
-                                        <option value="0.01">0.01</option>
-                                        <option value="0.03">0.03</option>
-                                        <option value="0.1">0.1</option>
-                                        <option value="0.3">0.3</option>
-                                        <option value="1">1</option>
-                                        <option value="3">3</option>
-                                        <option value="10">10</option>
-                                    </select>
+                                    <option value="0.00001">0.00001</option>
+                                    <option value="0.0001">0.0001</option>
+                                    <option value="0.001">0.001</option>
+                                    <option value="0.003">0.003</option>
+                                    <option value="0.01">0.01</option>
+                                    <option value="0.03">0.03</option>
+                                    <option value="0.1">0.1</option>
+                                    <option value="0.3">0.3</option>
+                                    <option value="1">1</option>
+                                    <option value="3">3</option>
+                                    <option value="10">10</option>
+                                </select>
                             </div>
                         </div>
                         <div class="control mr-auto">
                             <label for="regularizations" style="color:#ffffff">Regularization</label>
                             <div class="select">
                                 <select id="regularizations">
-                                        <option value="0">None</option>
-                                        <option value="L1">L1</option>
-                                        <option value="L2">L2</option>
-                                    </select>
+                                    <option value="0">None</option>
+                                    <option value="L1">L1</option>
+                                    <option value="L2">L2</option>
+                                </select>
                             </div>
                         </div>
                         <div class="control mr-auto">
                             <label for="regularRate" style="color:#ffffff">Regularization rate</label>
                             <div class="select">
                                 <select id="regularRate">
-                                        <option value="0">0</option>
-                                        <option value="0.001">0.001</option>
-                                        <option value="0.003">0.003</option>
-                                        <option value="0.01">0.01</option>
-                                        <option value="0.03">0.03</option>
-                                        <option value="0.1">0.1</option>
-                                        <option value="0.3">0.3</option>
-                                        <option value="1">1</option>
-                                        <option value="3">3</option>
-                                        <option value="10">10</option>
-                                    </select>
+                                    <option value="0">0</option>
+                                    <option value="0.001">0.001</option>
+                                    <option value="0.003">0.003</option>
+                                    <option value="0.01">0.01</option>
+                                    <option value="0.03">0.03</option>
+                                    <option value="0.1">0.1</option>
+                                    <option value="0.3">0.3</option>
+                                    <option value="1">1</option>
+                                    <option value="3">3</option>
+                                    <option value="10">10</option>
+                                </select>
                             </div>
                         </div>
                         <div class="control mr-auto">
                             <label for="problem" style="color:#ffffff">Problem type</label>
                             <div class="select">
                                 <select id="problem">
-                                        <option value="classification">Classification</option>
-                                        <option value="regression">Regression</option>
-                                    </select>
+                                    <option value="classification">Classification</option>
+                                    <option value="regression">Regression</option>
+                                </select>
                             </div>
                         </div>
                         <div class="control mr-auto">
@@ -148,7 +148,6 @@
                         </div>
 
                         <button class="btn btn-outline-light btn-sm mr-1" type="submit" name="train" value="train" onclick="onTrain()">Train</button>
-                        <button class="btn btn-outline-secondary btn-sm mr-1 " type="submit" name="reset" value="reset">Reset</button>
                     </div>
                     {% else %}
                     <div class="control mr-auto">
@@ -178,9 +177,9 @@
                     </div>
                     {% endif %}
                     <div class="navbar-nav">
-
-                        <a class="nav-item nav-link" href="{{ url_for('reset') }}">Clear</a>
-
+                        <button class="btn btn-outline-secondary btn-sm mr-1 " type="submit" name="clear" value="clear">
+                            <a class="nav-item nav-link" href="{{ url_for('reset') }}">Clear</a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -188,7 +187,7 @@
     </header>
 
 
-    <main id="main" role="main" class="container hero-wrap" data-spy="scroll" data-target="main-header" data-offset="1">
+    <main id="main" role="main" class="container" data-spy="scroll" data-target="main-header" data-offset="1">
         <div class="row">
             <div class="col-lg-12">
                 {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}

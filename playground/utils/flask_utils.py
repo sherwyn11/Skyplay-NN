@@ -45,7 +45,7 @@ def create_model(data):
 
 def create_default_model():
     
-    learning_rate = 0.1
+    learning_rate = 0.01
     activation = 'sigmoid'
     optimizer = 'Adam'
     model = Model()
@@ -55,3 +55,10 @@ def create_default_model():
     model.compile(optimizer, learning_rate)
 
     return model
+
+def ret_nodes(model):
+
+    no_of_input_nodes = model.layers[0].units
+    no_of_output_nodes = model.layers[-1].units
+
+    return no_of_input_nodes, no_of_output_nodes

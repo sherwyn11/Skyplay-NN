@@ -3,7 +3,6 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
 
-
 def get_features(X, Y, problem_type):
 
     ### Scaling the X ###
