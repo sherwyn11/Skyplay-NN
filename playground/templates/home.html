@@ -1,121 +1,105 @@
 {% extends "layout.html" %} {% block content %}
-<style>
-    /* Hover card */
-    
-    #hovercard {
-        display: none;
-        position: absolute;
-        padding: 5px;
-        border: 1px solid #aaa;
-        z-index: 1000;
-        background: #fff;
-        cursor: default;
-        border-radius: 5px;
-        left: 240px;
-        width: 150px;
-        top: -20px;
-    }
-    
-    #hovercard input {
-        width: 60px;
-    }
-</style>
-
-<div class="row">
-    <div class="network col-lg-9">
-    </div>
-    <!-- Hover card -->
-    <div id="hovercard">
-        <div style="font-size:10px">Click to know more about weight/bias</div>
-        <div><span class="type">Weight/Bias</span> is <span class="value">0.2</span><span><input
-                    type="number" /></span>.
+<section id="home" style="margin-top:100px;">
+    <div class="row">
+        <div class="network col-lg-9">
         </div>
-    </div>
-    <div class="col-lg-3">
-        <img src="/test.png" class="round active float-left" height="300px" width="300px" alt="Cost vs No. of iterations" />
-        <div class="container">
-            <div class="row">
-                Train Accuracy is:  {{ train_acc }} %
-            </div>
-            <div class="row">
-                Test Accuracy is: {{ test_acc }} %
+        <!-- Hover card -->
+        <div id="hovercard" style="margin-top:100px;">
+            <div><span class="type">Weight/Bias</span> is <span class="value">0.2</span><span><input
+                        type="number" /></span>.
             </div>
         </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-6">
-        <div class="content-section">
-            <legend class="border-bottom mb-4">NN Structure</legend>
+        <div class="col-lg-3">
+            <img src="/test.png" class="round active float-left" height="300px" width="300px" alt="Cost vs No. of iterations" />
             <div class="container">
                 <div class="row">
-                    Input nodes :&nbsp;<button onclick="manipulateInpNodes(0, 0)">-</button>&nbsp;<input type="hidden" value="1" id="input_nodes"/><b id="input_nodes_tag">1</b>&nbsp;<button onclick="manipulateInpNodes(1, 0)">+</button>
+                    Train Accuracy is:  {{ train_acc }} %
                 </div>
-                <br>
                 <div class="row">
-                    <input type="hidden" id="no_of_hidden_layers" value="0"/>
-                    No. of hidden layers :&nbsp;<button onclick="manipulateInpNodes(0, 1)">-</button>&nbsp;<input type="hidden" value="0" id="no_of_hidden"/><b id="hidden_tag">0</b>&nbsp;<button onclick="manipulateInpNodes(1, 1)">+</button>
-                </div>
-                <br>
-                <br>
-                <div class="container" id="add_layers">
-                </div>
-                <br>
-                <div class="row">
-                    No. of output nodes :&nbsp;<button onclick="manipulateOpNodes(0)">-</button>&nbsp;<input type="hidden" value="1" id="output_nodes"/><b id="output_tag">1</b>&nbsp;<button onclick="manipulateOpNodes(1)">+</button>
-                    <select id="activations" required>
-                        <!-- <option value="linear">Linear</option> -->
-                        <option selected disabled>Choose Activation</option>
-                        <option value="sigmoid">Sigmoid</option>
-                        <option value="tanh">Tanh</option>
-                    </select>
+                    Test Accuracy is: {{ test_acc }} %
                 </div>
             </div>
         </div>
-        <div class="content-section">
-            <legend class="border-bottom mb-4">Select Test Data</legend>
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <input class="form-control-range" type="range" min="10" max="90" id="range-slider" name="range-slider" onmousemove="updateSliderText()" />
+    </div>
+</section>
+
+<section>
+    <div class="row" style="margin-left: 100px;">
+        <div class="col-lg-6">
+            <div class="content-section" id="structure">
+                <legend class="border-bottom mb-4">NN Structure</legend>
+                <div class="container">
+                    <div class="row">
+                        Input nodes :&nbsp;<button onclick="manipulateInpNodes(0, 0)">-</button>&nbsp;<input type="hidden" value="1" id="input_nodes"/><b id="input_nodes_tag">1</b>&nbsp;<button onclick="manipulateInpNodes(1, 0)">+</button>
                     </div>
-                    <div class="col">
-                        <div class="range-result" id="range-result">0%</div>
+                    <br>
+                    <div class="row">
+                        <input type="hidden" id="no_of_hidden_layers" value="0"/>
+                        No. of hidden layers :&nbsp;<button onclick="manipulateInpNodes(0, 1)">-</button>&nbsp;<input type="hidden" value="0" id="no_of_hidden"/><b id="hidden_tag">0</b>&nbsp;<button onclick="manipulateInpNodes(1, 1)">+</button>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="container" id="add_layers">
+                    </div>
+                    <br>
+                    <div class="row">
+                        No. of output nodes :&nbsp;<button onclick="manipulateOpNodes(0)">-</button>&nbsp;<input type="hidden" value="1" id="output_nodes"/><b id="output_tag">1</b>&nbsp;<button onclick="manipulateOpNodes(1)">+</button>
+                        <select id="activations" required>
+                            <!-- <option value="linear">Linear</option> -->
+                            <option selected disabled>Choose Activation</option>
+                            <option value="sigmoid">Sigmoid</option>
+                            <option value="tanh">Tanh</option>
+                        </select>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="row">
             <div class="content-section">
-                <form method="POST" action="/" method="POST" enctype="multipart/form-data">
-                    <fieldset class="form-group">
-                        <legend class="border-bottom mb-4">Upload Dataset</legend>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input name="data" type="file" class="custom-file-input" id="inputGroupFile01">
-                                <label class="custom-file-label">Choose file</label>
-                            </div>
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit" name="Submit" value="Upload">Upload</button>
-                                <button class="btn btn-success" type="submit" name="Submit" value="preprocess">Preprocess</button>
-                            </div>
+                <legend class="border-bottom mb-4">Select Test Data</legend>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control-range" type="range" min="10" max="90" id="range-slider" name="range-slider" onmousemove="updateSliderText()" />
                         </div>
-                    </fieldset>
-                </form>
+                        <div class="col">
+                            <div class="range-result" id="range-result">0%</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col">
-                <div class="card mb-3">
-                    <div class="card-header">Dataset</div>
-                    <div class="card-body table-responsive">
-                        {% if head %}{% for i in head %}{{i|safe}}{% endfor %}{% else %} None {% endif %}
+        </div>
+        <div class="col-lg-6"  id="upload">
+            <div class="row">
+                <div class="content-section">
+                    <form method="POST" action="/" method="POST" enctype="multipart/form-data">
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Upload Dataset</legend>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input name="data" type="file" class="custom-file-input" id="inputGroupFile01">
+                                    <label class="custom-file-label">Choose file</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit" name="Submit" value="Upload">Upload</button>
+                                    <button class="btn btn-success" type="submit" name="Submit" value="preprocess">Preprocess</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="col">
+                    <div class="card mb-3">
+                        <div class="card-header">Dataset</div>
+                        <div class="card-body table-responsive">
+                            {% if head %}{% for i in head %}{{i|safe}}{% endfor %}{% else %} None {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
+<section id="about">
+
+</section>
 {% endblock content %}

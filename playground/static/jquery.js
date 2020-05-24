@@ -1,3 +1,9 @@
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip({
+        container: 'body'
+    });
+});
+
 $('#inputGroupFile01').on('change', function() {
     //get the file name
     var fileName = $(this).val();
@@ -34,8 +40,4 @@ jQuery(function($) {
     $("#show-sidebar").click(function() {
         $(".page-wrapper").addClass("toggled");
     });
-
-
-
-
 });
