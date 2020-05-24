@@ -567,3 +567,69 @@ function updateSliderText(){
     var percent = document.getElementById('range-result');
     percent.innerHTML = sliderValue + '%';
 }
+
+/////////////////// TEST /////////////////////
+
+var input_nodes_for_test = Number(document.getElementById('no_of_inp_nodes').value);
+var output_nodes_for_test = Number(document.getElementById('no_of_op_nodes').value);
+var col1 = document.getElementById('addTestDataInputs');
+var col2 = document.getElementById('addTestDataOutputs');
+
+for(let i = 1; i <= input_nodes_for_test; i++){
+    var div = document.createElement('div');
+    div.className = 'container';
+    div.style = 'margin-top: 10px;';
+    var temp1 = document.createElement('b');
+    temp1.innerHTML = 'Input' + i;
+    var span1 = document.createElement("span");
+    span1.innerHTML = "&nbsp;";
+    var temp2 = document.createElement('input');
+    temp2.type = 'text';
+    temp2.id = 'Input' + i;
+    var temp3 = document.createElement('br');
+    div.appendChild(temp1);
+    div.appendChild(span1);
+    div.appendChild(temp2);
+    div.appendChild(temp3);
+    col1.appendChild(div);
+}
+
+for(let i = 1; i <= output_nodes_for_test; i++){
+    var div = document.createElement('div');
+    div.className = 'container';
+    div.style = 'margin-top: 10px;';
+    var temp1 = document.createElement('b');
+    temp1.innerHTML = 'Output' + i;
+    var span1 = document.createElement("span");
+    span1.innerHTML = "&nbsp;&nbsp;&nbsp;";
+    var temp2 = document.createElement('b');
+    temp2.id = 'Output' + i;
+    var temp3 = document.createElement('br');
+    div.appendChild(temp1);
+    div.appendChild(span1);
+    div.appendChild(temp2);
+    div.appendChild(temp3);
+    col2.appendChild(div);
+}
+
+function getPredictedResults(){
+    inps = [];
+    for(let i = 1; i <= input_nodes_for_test; i++){
+        var doc = document.getElementById('Input' + i).value;
+        inps.push(Number(doc));
+    }
+    axios.post('/predict', {
+        test_inputs: inps,
+    })
+    .then(function(response){
+        var data = response.data.output;
+        var len = response.data.output.length;
+
+        for(let i = 1; i <= len; i++){
+            document.getElementById('Output' + i).innerHTML = data[i - 1];
+        } 
+    })
+    .catch(function(error){
+        console.log(error);
+    })
+}
