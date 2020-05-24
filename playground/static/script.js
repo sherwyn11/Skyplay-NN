@@ -229,7 +229,7 @@ function updateHoverCard(type, d, coordinates) {
 
     let temp = document.getElementById("hovercard")
     temp.style.left = coordinates[0] + 20 + "px ";
-    temp.style.top = coordinates[1] + "px";
+    temp.style.top = coordinates[1] + 100 + "px";
     temp.style.display = "block";
     hovercard.select(".type").text(name);
     hovercard.select(".value").style("display", null).text(value.toPrecision(2));
