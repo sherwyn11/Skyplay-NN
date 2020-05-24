@@ -80,6 +80,7 @@ def home():
 
     else:
         if session.get('uploaded') is None and session.get('posted') is None:
+            print('Here')
             if(os.path.exists('playground/static/img/test.png')):
                 os.remove('playground/static/img/test.png')
             model = create_default_model()
@@ -88,13 +89,12 @@ def home():
             X_train, X_test, Y_train, Y_test = split_data(50)
 
             X, Y, ss, le = get_features(X_train, Y_train, problem_type)
-
             model.fit(X, Y, 1500, '0', 0, 4)
 
             print(
                 model.evaluate(
                     ss.transform([[1, 1], [0, 1], [1, 0], [0, 0]]),
-                    np.array(le.transform([0, 1, 1, 0])).reshape(-1, 1),
+                    np.array([0, 1, 1, 0]).reshape(-1, 1),
                     problem_type,
                     True
                 )
