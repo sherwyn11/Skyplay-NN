@@ -28,6 +28,8 @@ class Model:
         self.v = None
         self.s = None
         self.mini_batch = None
+        self.train_acc = 0.0
+        self.test_acc = 0.0
 
     def init_parameters(self):
         for l in range(1, len(self.layers)):
@@ -65,12 +67,12 @@ class Model:
         for i in range(0, epochs):
 
             for batch in self.mini_batch:
-                AL, caches = propagate_forward(batch[0], self.parameters, self.activations,self.learning_rate)
+                AL, caches = propagate_forward(batch[0], self.parameters, self.activations, self.learning_rate)
 
                 cost = compute_cost(AL, batch[1], self.parameters,regularization_type, regularization_rate)
                 costs.append(cost)
                 
-                grads = propagate_backward(AL, batch[1], caches, regularization_type, regularization_rate, self.activations,self.learning_rate)
+                grads = propagate_backward(AL, batch[1], caches, regularization_type, regularization_rate, self.activations, self.learning_rate)
                 
                 if(self.optimizer == 'Adam'):
                     t = t + 1
@@ -82,7 +84,7 @@ class Model:
                 elif(self.optimizer=='RMSProp'):
                     self.parameters, self.s = rms_prop.update_parameters(self.parameters, grads, self.s, self.learning_rate)
 
-            if i % 1000 == 0:
+            if i % 100 == 0:
                 print ("Cost after iteration %i: %f" %(i, cost))
 
         plt.plot(np.squeeze(costs))
@@ -92,24 +94,27 @@ class Model:
         plt.savefig('playground/static/img/test.png')
 
         
-    def predict(self, X, y, type):
+    def evaluate(self, X, y, type, acc):
         X = np.array(X).T
         y = np.array(y).T
         m = X.shape[1]
         n = len(self.parameters) // 2
-        p = np.zeros((1,m))
+        p = np.zeros((1, m))
         
-        probas, caches = propagate_forward(X, self.parameters, self.activations,self.learning_rate)
+        probas, caches = propagate_forward(X, self.parameters, self.activations, self.learning_rate)
 
         if(type == 'classification'):
             for i in range(0, probas.shape[1]):
-                print(probas[0,i])
+                print('Predicted: ', probas[0,i])
                 if probas[0,i] > 0.5:
                     p[0,i] = 1
                 else:
                     p[0,i] = 0
             
-            print("Accuracy: "  + str(np.sum((p == y)/m)))
+            if(acc):
+                self.train_acc = (np.sum((p == y)/m)) * 100
+            else:
+                self.test_acc = (np.sum((p == y)/m)) * 100
 
             return p
 

@@ -1,3 +1,9 @@
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip({
+        container: 'body'
+    });
+});
+
 $('#inputGroupFile01').on('change', function() {
     //get the file name
     var fileName = $(this).val();
