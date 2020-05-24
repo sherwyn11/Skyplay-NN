@@ -7,7 +7,7 @@ from playground import app
 from playground.neural_net.nn_model.model import Model
 from playground.preprocessing import generic_preprocessing as gp
 from playground.nocache import nocache
-from playground.utils.feature_extract import *
+from playground.utils.data_work import *
 from playground.utils.flask_utils import *
 from playground.visualization import visualize as vis
 
@@ -40,7 +40,11 @@ def home():
             problem_type = data['problem']
             epochs = int(data['epochs'])
             batch_size = int(data['batchSize'])
-            X, Y, ss, le = get_features(problem_type)
+            test_data_size = int(data['test_data_size'])
+
+            X_train, X_test, Y_train, Y_test = split_data(test_data_size)
+
+            X, Y, ss, le = get_features(X_train, Y_train, problem_type)
 
             ### Train ###
 
@@ -56,7 +60,7 @@ def home():
                 X, Y, problem_type, train
             )
 
-            X_test, Y_test = get_features_for_test(problem_type, ss, le)
+            X_test, Y_test = get_features_for_test(X_test, Y_test, problem_type, ss, le)
             
             train = False
             model.evaluate(
@@ -76,22 +80,26 @@ def home():
 
     else:
         if session.get('uploaded') is None and session.get('posted') is None:
+            print('Here')
             if(os.path.exists('playground/static/img/test.png')):
                 os.remove('playground/static/img/test.png')
             model = create_default_model()
             problem_type = 'classification'
 
-            X, Y, ss, le = get_features(problem_type)
+            X_train, X_test, Y_train, Y_test = split_data(50)
+
+            X, Y, ss, le = get_features(X_train, Y_train, problem_type)
             model.fit(X, Y, 1500, '0', 0, 4)
 
             print(
                 model.evaluate(
                     ss.transform([[1, 1], [0, 1], [1, 0], [0, 0]]),
-                    np.array(le.transform([0, 1, 1, 0])).reshape(-1, 1),
+                    np.array([0, 1, 1, 0]).reshape(-1, 1),
                     problem_type,
                     True
                 )
             )
+            
     df = gp.read_dataset('playground/clean/clean.csv')
     description = gp.get_description(df)
     columns = gp.get_columns(df)

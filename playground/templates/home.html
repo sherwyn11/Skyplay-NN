@@ -1,12 +1,12 @@
 {% extends "layout.html" %} {% block content %}
-<section id="home" style="margin-top: 100px;">
-    <div class="row">
+<section id="home" style="margin-top:100px;">
+    <div class="row" style="margin-top:100px;">
         <div class="network col-lg-9">
         </div>
         <!-- Hover card -->
         <div id="hovercard">
-            <div style="font-size:10px">Click to know more</div>
-            <div><span class="type">Weight/Bias</span> is <span class="value">0.2</span>.
+            <div><span class="type">Weight/Bias</span> is <span class="value">0.2</span><span><input
+                        type="number" /></span>.
             </div>
         </div>
         <div class="col-lg-3">
@@ -21,29 +21,12 @@
             </div>
         </div>
     </div>
-
 </section>
-<section id="upload">
-    <div class="row">
+
+<section>
+    <div class="row" style="margin-left: 100px;">
         <div class="col-lg-6">
-            <div class="content-section">
-                <form method="POST" action="/" method="POST" enctype="multipart/form-data">
-                    <fieldset class="form-group">
-                        <legend class="border-bottom mb-4">Upload Dataset</legend>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input name="data" type="file" class="custom-file-input" id="inputGroupFile01">
-                                <label class="custom-file-label">Choose file</label>
-                            </div>
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit" name="Submit" value="Upload">Upload</button>
-                                <button class="btn btn-success" type="submit" name="Submit" value="preprocess">Preprocess</button>
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-            <div class="content-section">
+            <div class="content-section" id="structure">
                 <legend class="border-bottom mb-4">NN Structure</legend>
                 <div class="container">
                     <div class="row">
@@ -52,7 +35,8 @@
                     <br>
                     <div class="row">
                         <input type="hidden" id="no_of_hidden_layers" value="0" /> No. of hidden layers :&nbsp;<button onclick="manipulateInpNodes(0, 1)">-</button>&nbsp;<input type="hidden" value="0" id="no_of_hidden" /><b id="hidden_tag">0</b>&nbsp;
-                        <button onclick="manipulateInpNodes(1, 1)">+</button>
+                        <button
+                            onclick="manipulateInpNodes(1, 1)">+</button>
                     </div>
                     <br>
                     <br>
@@ -70,9 +54,39 @@
                     </div>
                 </div>
             </div>
+            <div class="content-section">
+                <legend class="border-bottom mb-4">Select Test Data</legend>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control-range" type="range" min="10" max="90" id="range-slider" name="range-slider" onmousemove="updateSliderText()" />
+                        </div>
+                        <div class="col">
+                            <div class="range-result" id="range-result">0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6" id="upload">
             <div class="row">
+                <div class="content-section">
+                    <form method="POST" action="/" method="POST" enctype="multipart/form-data">
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Upload Dataset</legend>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input name="data" type="file" class="custom-file-input" id="inputGroupFile01">
+                                    <label class="custom-file-label">Choose file</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit" name="Submit" value="Upload">Upload</button>
+                                    <button class="btn btn-success" type="submit" name="Submit" value="preprocess">Preprocess</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
                 <div class="col">
                     <div class="card mb-3">
                         <div class="card-header">Dataset</div>
@@ -85,9 +99,8 @@
         </div>
     </div>
 </section>
+
 <section id="about">
 
 </section>
-
-
 {% endblock content %}

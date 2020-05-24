@@ -34,6 +34,7 @@ function onTrain() {
             no_of_hidden_nodes: len,
             no_of_nodes_in_hidden: layers,
             batchSize: document.getElementById("batchSize").value,
+            test_data_size: document.getElementById('range-slider').value
         })
         .then(function(response) {
             parameters = "false";
@@ -229,7 +230,7 @@ function updateHoverCard(type, d, coordinates) {
 
     let temp = document.getElementById("hovercard")
     temp.style.left = coordinates[0] + 20 + "px ";
-    temp.style.top = coordinates[1] + 100 + "px";
+    temp.style.top = coordinates[1] + "px";
     temp.style.display = "block";
     hovercard.select(".type").text(name);
     hovercard.select(".value").style("display", null).text(value.toPrecision(2));
@@ -368,6 +369,9 @@ d3.json("data.json", function(error, graph) {
         });
 });
 
+/////////////////// HISTOGRAM /////////////////////
+
+
 function histogramData() {
 
     var margin = {
@@ -493,8 +497,6 @@ function histogramData() {
                 .domain([0, yMax])
                 .range([d3.rgb(color).brighter(), d3.rgb(color)]);
 
-
-
             // Manage the existing bars and eventually the new ones:
             u
                 .enter()
@@ -540,16 +542,10 @@ function histogramData() {
                 .exit()
                 .remove()
 
-
-
         }
-
-
         // Initialize with 20 bins
         update(20)
-
-
-        // Listen to the button -> update if user change it
+            // Listen to the button -> update if user change it
         d3.select("#nBin").on("input", function() {
             d3.selectAll('text').remove()
             d3.selectAll('rect').remove()
@@ -558,4 +554,15 @@ function histogramData() {
         });
 
     });
+}
+
+/////////////////// SLIDER /////////////////////
+
+document.getElementById('range-slider').defaultValue = 30;
+document.getElementById('range-result').innerHTML = '30%';
+
+function updateSliderText() {
+    var sliderValue = document.getElementById('range-slider').value;
+    var percent = document.getElementById('range-result');
+    percent.innerHTML = sliderValue + '%';
 }
