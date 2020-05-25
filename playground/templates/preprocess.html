@@ -1,18 +1,7 @@
 {% extends "layout.html" %} {% block content %}
-<<<<<<< HEAD
-=======
-<style>
-    table,
-    th,
-    td {
-        width: auto;
-        text-align: center;
-        padding: 10px;
-    }
-</style>
->>>>>>> 8255414f37aa705e3a54f4a0c92f168dbd190201
 
-<div class="row">
+<div class="row" style="margin-top:100px;">
+
     <div class="col-lg-5">
         <div class="content-section">
             <legend class="border-bottom mb-4">Current Relation</legend>
@@ -129,7 +118,7 @@
                         <div class="col">
                             <select name="x_col" class="form-control">
                                 {% for each in columns %}
-                                    <option value="{{each}}" {% if each == "x_col" %} selected {% endif %}>{{each}}</option>
+                                <option value="{{each}}" {% if each == "x_col" %} selected {% endif %}>{{each}}</option>
                                 {% endfor %}
                             </select>
                         </div>

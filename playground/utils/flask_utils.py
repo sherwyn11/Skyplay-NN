@@ -34,11 +34,6 @@ def create_model(data):
     no_of_hidden_nodes = int(data['no_of_hidden_nodes'])
 
     model = Model()
-<<<<<<< HEAD
-    print(data['no_of_nodes_in_hidden'])
-=======
-
->>>>>>> 8255414f37aa705e3a54f4a0c92f168dbd190201
     model.add(no_of_input_nodes, None)
     for node in data['no_of_nodes_in_hidden']:
         model.add(int(node['no_of_nodes']), node['activation'])

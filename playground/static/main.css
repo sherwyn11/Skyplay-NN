@@ -157,11 +157,6 @@ body {
     position: relative;
     background: #fafafa;
     color: #333333;
-    /* margin-top: 5rem; */
-}
-
-main#main {
-    margin-left: 90px;
 }
 
 body::-webkit-scrollbar {
@@ -331,7 +326,7 @@ h6 {
     padding-left: 6px;
 }
 
-.header-social li a.nav-link {
+.header-social li a {
     display: inline-block;
     width: 36px;
     height: 36px;
@@ -346,7 +341,7 @@ h6 {
     transition: all 300ms linear;
 }
 
-.header-social li a.nav-link :hover {
+.header-social li a:hover {
     border-radius: 100%;
     color: #fff;
 }

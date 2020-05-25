@@ -1,6 +1,8 @@
 {% extends "layout.html" %} {% block content %}
+
 <section id="home" style="margin-top:100px;">
-    <div class="row" style="margin-top:100px;">
+
+    <div class="row">
         <div class="network col-lg-9">
         </div>
         <!-- Hover card -->
@@ -24,7 +26,7 @@
 </section>
 
 <section>
-    <div class="row" style="margin-left: 100px;">
+    <div class="row">
         <div class="col-lg-6">
             <div class="content-section" id="structure">
                 <legend class="border-bottom mb-4">NN Structure</legend>
@@ -35,8 +37,7 @@
                     <br>
                     <div class="row">
                         <input type="hidden" id="no_of_hidden_layers" value="0" /> No. of hidden layers :&nbsp;<button onclick="manipulateInpNodes(0, 1)">-</button>&nbsp;<input type="hidden" value="0" id="no_of_hidden" /><b id="hidden_tag">0</b>&nbsp;
-                        <button
-                            onclick="manipulateInpNodes(1, 1)">+</button>
+                        <button onclick="manipulateInpNodes(1, 1)">+</button>
                     </div>
                     <br>
                     <br>

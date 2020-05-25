@@ -2,9 +2,33 @@
 
 /////////////////// HYPERPARAMETERS ///////////////////
 
+
 let parameters = "false";
-document.getElementById("epochs").defaultValue = "1";
-var len = document.getElementById("no_of_hidden_layers").value;
+
+try {
+    document.getElementById("epochs").defaultValue = "1";
+    var len = document.getElementById("no_of_hidden_layers").value;
+    document.getElementById('range-slider').defaultValue = 30;
+    document.getElementById('range-result').innerHTML = '30%';
+} catch (error) {
+    console.log("Log1. Element Not Found")
+}
+
+function onPageLoad(page_name) {
+    if (page_name == 'Home') {
+        neuralNetwork();
+    } else if (page_name == 'Preprocess') {
+        histogramData();
+    }
+}
+
+/////////////////// SLIDER /////////////////////
+
+function updateSliderText() {
+    var sliderValue = document.getElementById('range-slider').value;
+    var percent = document.getElementById('range-result');
+    percent.innerHTML = sliderValue + '%';
+}
 var len_nodes = 0;
 
 function onTrain() {
@@ -240,139 +264,146 @@ function updateHoverCard(type, d, coordinates) {
         .style("display", "none");
 }
 
-let linkWidthScale = d3.scale
-    .linear()
-    .domain([0, 5])
-    .range([1, 10])
-    .clamp(true);
+function neuralNetwork() {
 
-var color = d3.scale.category20();
+    console.log("nn")
+    let linkWidthScale = d3.scale
+        .linear()
+        .domain([0, 5])
+        .range([1, 10])
+        .clamp(true);
 
-var svg = d3
-    .select(".network")
-    .append("svg")
-    .attr("id", "svg")
-    .attr("width", width)
-    .attr("height", height);
+    var color = d3.scale.category20();
 
-d3.json("data.json", function(error, graph) {
-    var nodes = graph.nodes;
-    var weights = graph.weights;
-    var biases = graph.biases;
+    var svg = d3
+        .select(".network")
+        .append("svg")
+        .attr("id", "svg")
+        .attr("width", width)
+        .attr("height", height);
 
-    // get network size
-    var netsize = {};
-    var _num = 0;
-    nodes.forEach(function(d) {
-        if (d.layer in netsize) {
-            netsize[d.layer] += 1;
-        } else {
-            netsize[d.layer] = 1;
-        }
-        d["lidx"] = netsize[d.layer];
-        d["bias"] = biases[_num++];
-    });
+    d3.json("data.json", function(error, graph) {
+        var nodes = graph.nodes;
+        var weights = graph.weights;
+        var biases = graph.biases;
 
-    // calc distances between nodes
-    var largestLayerSize = Math.max.apply(
-        null,
-        Object.keys(netsize).map(function(i) {
-            return netsize[i];
-        })
-    );
-
-    var xdist = width / Object.keys(netsize).length,
-        ydist = height / largestLayerSize;
-
-    nodes.map(function(d) {
-        d["x"] = (d.layer - 0.5) * xdist;
-        d["y"] = (d.lidx - 0.5) * ydist;
-    });
-    console.log(nodes);
-
-    var links = [];
-    var num = 0;
-    nodes
-        .map(function(d, i) {
-            for (var n in nodes) {
-                if (d.layer + 1 == nodes[n].layer) {
-                    links.push({
-                        source: parseInt(i),
-                        target: parseInt(n),
-                        weight: weights[num++],
-                    });
-                }
+        // get network size
+        var netsize = {};
+        var _num = 0;
+        nodes.forEach(function(d) {
+            if (d.layer in netsize) {
+                netsize[d.layer] += 1;
+            } else {
+                netsize[d.layer] = 1;
             }
-        })
-        .filter(function(d) {
-            return typeof d !== "undefined";
+            d["lidx"] = netsize[d.layer];
+            d["bias"] = biases[_num++];
         });
 
-    var link = svg
-        .selectAll(".link")
-        .data(links)
-        .enter()
-        .append("line")
-        .attr("class", "link")
-        .attr("x1", function(d) {
-            return nodes[d.source].x;
-        })
-        .attr("y1", function(d) {
-            return nodes[d.source].y;
-        })
-        .attr("x2", function(d) {
-            return nodes[d.target].x;
-        })
-        .attr("y2", function(d) {
-            return nodes[d.target].y;
-        })
-        .style("stroke-width", function(d) {
-            return linkWidthScale(Math.abs(d.weight));
-        })
-        .style("stroke-dasharray", "5, 2")
-        .on("mouseenter", function(d) {
-            updateHoverCard("weight", d, d3.mouse(this));
-        })
-        .on("mouseleave", function(d) {
-            updateHoverCard(null);
-        });
+        // calc distances between nodes
+        var largestLayerSize = Math.max.apply(
+            null,
+            Object.keys(netsize).map(function(i) {
+                return netsize[i];
+            })
+        );
 
-    // draw nodes
-    var node = svg
-        .selectAll(".node")
-        .data(nodes)
-        .enter()
-        .append("g")
-        .attr("transform", function(d) {
-            return "translate(" + d.x + "," + d.y + ")";
-        });
+        var xdist = width / Object.keys(netsize).length,
+            ydist = height / largestLayerSize;
 
-    var circle = node
-        .append("circle")
-        .attr("class", "node")
-        .attr("r", nodeSize)
-        .style("fill", function(d) {
-            return color(d.layer);
-        }).on("mouseenter", function(d) {
-            updateHoverCard("bias", d, d3.mouse(circle.node()));
-        })
-        .on("mouseleave", function(d) {
-            updateHoverCard(null);
+        nodes.map(function(d) {
+            d["x"] = (d.layer - 0.5) * xdist;
+            d["y"] = (d.lidx - 0.5) * ydist;
         });
+        console.log(nodes);
 
-    node
-        .append("text")
-        .attr("dx", "-.35em")
-        .attr("dy", ".35em")
-        .text(function(d) {
-            return d.label;
-        });
-});
+        var links = [];
+        var num = 0;
+        nodes
+            .map(function(d, i) {
+                for (var n in nodes) {
+                    if (d.layer + 1 == nodes[n].layer) {
+                        links.push({
+                            source: parseInt(i),
+                            target: parseInt(n),
+                            weight: weights[num++],
+                        });
+                    }
+                }
+            })
+            .filter(function(d) {
+                return typeof d !== "undefined";
+            });
+
+        var link = svg
+            .selectAll(".link")
+            .data(links)
+            .enter()
+            .append("line")
+            .attr("class", "link")
+            .attr("x1", function(d) {
+                return nodes[d.source].x;
+            })
+            .attr("y1", function(d) {
+                return nodes[d.source].y;
+            })
+            .attr("x2", function(d) {
+                return nodes[d.target].x;
+            })
+            .attr("y2", function(d) {
+                return nodes[d.target].y;
+            })
+            .style("stroke-width", function(d) {
+                return linkWidthScale(Math.abs(d.weight));
+            })
+            .style("stroke-dasharray", "5, 2")
+            .on("mouseenter", function(d) {
+                updateHoverCard("weight", d, d3.mouse(this));
+            })
+            .on("mouseleave", function(d) {
+                updateHoverCard(null);
+            });
+
+        // draw nodes
+        var node = svg
+            .selectAll(".node")
+            .data(nodes)
+            .enter()
+            .append("g")
+            .attr("transform", function(d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+
+        var circle = node
+            .append("circle")
+            .attr("class", "node")
+            .attr("r", nodeSize)
+            .style("fill", function(d) {
+                return color(d.layer);
+            }).on("mouseenter", function(d) {
+                updateHoverCard("bias", d, d3.mouse(circle.node()));
+            })
+            .on("mouseleave", function(d) {
+                updateHoverCard(null);
+            });
+
+        node
+            .append("text")
+            .attr("dx", "-.35em")
+            .attr("dy", ".35em")
+            .text(function(d) {
+                return d.label;
+            });
+    });
+}
+
 
 /////////////////// HISTOGRAM /////////////////////
 
 
 function histogramData() {
+
+    console.log("histogram")
 
     var margin = {
             top: 20,
@@ -497,6 +528,8 @@ function histogramData() {
                 .domain([0, yMax])
                 .range([d3.rgb(color).brighter(), d3.rgb(color)]);
 
+
+
             // Manage the existing bars and eventually the new ones:
             u
                 .enter()
@@ -554,15 +587,4 @@ function histogramData() {
         });
 
     });
-}
-
-/////////////////// SLIDER /////////////////////
-
-document.getElementById('range-slider').defaultValue = 30;
-document.getElementById('range-result').innerHTML = '30%';
-
-function updateSliderText() {
-    var sliderValue = document.getElementById('range-slider').value;
-    var percent = document.getElementById('range-result');
-    percent.innerHTML = sliderValue + '%';
 }
