@@ -81,7 +81,7 @@ function onPageLoad(page_name) {
 
 
 function getPredictedResults() {
-    inps = [];
+    var inps = [];
     for (let i = 1; i <= input_nodes_for_test; i++) {
         var doc = document.getElementById('Input' + i).value;
         inps.push(Number(doc));
