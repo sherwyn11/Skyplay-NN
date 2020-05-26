@@ -92,7 +92,7 @@ def home():
             model = create_default_model()
             problem_type = 'classification'
 
-            X_train, X_test, Y_train, Y_test = split_data(0)
+            X_train, X_test, Y_train, Y_test = split_data(1)
 
             X, Y, ss, le = get_features(X_train, Y_train, problem_type)
             print(X)
