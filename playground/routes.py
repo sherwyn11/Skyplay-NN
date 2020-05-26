@@ -33,7 +33,6 @@ def home():
     if request.method == 'POST':
         if request.get_json() is not None:
             session['posted'] = 1
-            
             if(os.path.exists('playground/static/img/test.png')):
                 os.remove('playground/static/img/test.png')
 
@@ -90,7 +89,6 @@ def home():
             default_data()
             model = create_default_model()
             problem_type = 'classification'
-
             X_train, X_test, Y_train, Y_test = split_data(0)
             X, Y, ss, le = get_features(X_train, Y_train, problem_type)
             model.fit(X, Y, 2500, '0', 0, 4)
@@ -104,7 +102,7 @@ def home():
                 )
             )
     
-    inp_nodes, out_nodes = ret_nodes(model)
+    inp_nodes, out_nodes = ret_nodes()
             
     df = gp.read_dataset('playground/clean/clean.csv')
     description = gp.get_description(df)
@@ -135,6 +133,7 @@ def home():
         ),
         train_acc=model.train_acc,
         test_acc=model.test_acc,
+        mse=model.mse,
         no_of_inp_nodes=inp_nodes,
         no_of_op_nodes=out_nodes
     )
@@ -146,7 +145,7 @@ def predict_result():
     global ss
     global le
 
-    problem_type = 'classification'
+    problem_type = model.problem_type
     data = request.get_json()
     inputs = data['test_inputs']
 
