@@ -157,7 +157,6 @@ body {
     position: relative;
     background: #fafafa;
     color: #333333;
-    /* margin-top: 5rem; */
 }
 
 body::-webkit-scrollbar {
@@ -233,6 +232,7 @@ h6 {
     display: inline-block;
     cursor: pointer;
     position: relative;
+    margin-top: 30px;
 }
 
 .nav-button span {
@@ -310,7 +310,7 @@ h6 {
 .header-social:before {
     content: '';
     position: absolute;
-    top: -150px;
+    top: -70px;
     width: 2px;
     height: 50px;
     left: 50%;
@@ -326,7 +326,7 @@ h6 {
     padding-left: 6px;
 }
 
-.header-social li a.nav-link {
+.header-social li a {
     display: inline-block;
     width: 36px;
     height: 36px;
@@ -341,7 +341,7 @@ h6 {
     transition: all 300ms linear;
 }
 
-.header-social li a.nav-link :hover {
+.header-social li a:hover {
     border-radius: 100%;
     color: #fff;
 }
@@ -659,4 +659,174 @@ text {
 
 #hovercard input {
     width: 60px;
+}
+
+
+/* Divider */
+
+.divider {
+    position: absolute;
+    left: 50%;
+}
+
+.divider button {
+    position: absolute;
+    left: -28px;
+    top: -28px;
+    background: white;
+}
+
+.divider button:hover,
+.divider button:active,
+.divider button:focus,
+.divider button:focus:not(:active) {
+    background: white;
+}
+
+
+/* Article */
+
+article {
+    background: white;
+    padding: 80px 100px 80px 140px;
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+    /*border-top: 1px solid rgba(0, 0, 0, 0.08);*/
+}
+
+article h2,
+article h3 {
+    margin: 60px 0 20px 0;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.45em;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+article h3 {
+    margin: 40px 0 20px 0;
+    font-size: 18px;
+}
+
+article :first-child h2 {
+    margin-top: 0;
+}
+
+article p {
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+
+/* Modal */
+
+
+/* Style the Image Used to Trigger the Modal */
+
+#myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#myImg:hover {
+    opacity: 0.7;
+}
+
+
+/* The Modal (background) */
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.9);
+    /* Black w/ opacity */
+}
+
+
+/* Modal Content (Image) */
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+
+/* Add Animation - Zoom in the Modal */
+
+.modal-content,
+#caption {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1)
+    }
+}
+
+
+/* The Close Button */
+
+.close {
+    position: absolute;
+    top: 100px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* 100% Image Width on Smaller Screens */
+
+@media only screen and (max-width: 700px) {
+    .modal-content {
+        width: 100%;
+    }
 }

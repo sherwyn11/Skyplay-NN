@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='material.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"> {% if title %}
@@ -19,9 +20,10 @@
 
 </head>
 
-<body>
+<body onload="onPageLoad( '{{ title }}' )">
     <!-- header-->
-    <header class="main-header" id="main-header" style="margin-top: 50px;">
+    {%if title == 'Home'%}
+    <header class="main-header" id="main-header">
         <a class="logo-holder" href="index.html">
             <img src="images/logo.png" alt="">
         </a>
@@ -58,12 +60,13 @@
         </div>
         <!--  showshare end -->
     </header>
+    {%endif%}
     <!--  header end -->
 
     <header class="site-header">
         <nav id='top-controls' class="navbar navbar-expand-sm navbar-dark fixed-top" style="background: #222;">
             <div class="container-fluid">
-                <a class="navbar-brand mr-1" href="/">
+                <a class="navbar-brand mr-5" href="/">
                     <i class="fa fa-cogs fa-spin" width="30" height="30" class="d-inline-block align-top"></i> Sky-play
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,82 +75,82 @@
                 <div class="collapse navbar-collapse" id="navbarToggle">
                     {% if title == 'Home' %}
                     <div class="navbar-nav mr-auto">
-                        <div class="control mr-auto">
+                        <div class="control mr-1">
                             <label for="optimizer" style="color:#ffffff">Optimizer</label>
                             <div class="select">
                                 <select id="optimizer">
-                                    <option value="GD">GD</option>
-                                    <option value="Sgd">SGD</option>
-                                    <option value="GD_momentum">GD + Momentum</option>
-                                    <option value="RMSProp">RMSProp</option>
-                                    <option value="Adam">Adam</option>
-                                </select>
+                                        <option value="GD">GD</option>
+                                        <option value="Sgd">SGD</option>
+                                        <option value="GD_momentum">GD + Momentum</option>
+                                        <option value="RMSProp">RMSProp</option>
+                                        <option value="Adam">Adam</option>
+                                    </select>
                             </div>
                         </div>
-                        <div class="control mr-auto">
+                        <div class="control mr-1">
                             <label for="learningRate" style="color:#ffffff">Learning rate</label>
                             <div class="select">
                                 <select id="learningRate">
-                                    <option value="0.00001">0.00001</option>
-                                    <option value="0.0001">0.0001</option>
-                                    <option value="0.001">0.001</option>
-                                    <option value="0.003">0.003</option>
-                                    <option value="0.01">0.01</option>
-                                    <option value="0.03">0.03</option>
-                                    <option value="0.1">0.1</option>
-                                    <option value="0.3">0.3</option>
-                                    <option value="1">1</option>
-                                    <option value="3">3</option>
-                                    <option value="10">10</option>
-                                </select>
+                                        <option value="0.00001">0.00001</option>
+                                        <option value="0.0001">0.0001</option>
+                                        <option value="0.001">0.001</option>
+                                        <option value="0.003">0.003</option>
+                                        <option value="0.01">0.01</option>
+                                        <option value="0.03">0.03</option>
+                                        <option value="0.1">0.1</option>
+                                        <option value="0.3">0.3</option>
+                                        <option value="1">1</option>
+                                        <option value="3">3</option>
+                                        <option value="10">10</option>
+                                    </select>
                             </div>
                         </div>
-                        <div class="control mr-auto">
+                        <div class="control mr-1">
                             <label for="regularizations" style="color:#ffffff">Regularization</label>
                             <div class="select">
                                 <select id="regularizations">
-                                    <option value="0">None</option>
-                                    <option value="L1">L1</option>
-                                    <option value="L2">L2</option>
-                                </select>
+                                        <option value="0">None</option>
+                                        <option value="L1">L1</option>
+                                        <option value="L2">L2</option>
+                                    </select>
                             </div>
                         </div>
-                        <div class="control mr-auto">
+                        <div class="control mr-1">
                             <label for="regularRate" style="color:#ffffff">Regularization rate</label>
                             <div class="select">
                                 <select id="regularRate">
-                                    <option value="0">0</option>
-                                    <option value="0.001">0.001</option>
-                                    <option value="0.003">0.003</option>
-                                    <option value="0.01">0.01</option>
-                                    <option value="0.03">0.03</option>
-                                    <option value="0.1">0.1</option>
-                                    <option value="0.3">0.3</option>
-                                    <option value="1">1</option>
-                                    <option value="3">3</option>
-                                    <option value="10">10</option>
-                                </select>
+                                        <option value="0">0</option>
+                                        <option value="0.001">0.001</option>
+                                        <option value="0.003">0.003</option>
+                                        <option value="0.01">0.01</option>
+                                        <option value="0.03">0.03</option>
+                                        <option value="0.1">0.1</option>
+                                        <option value="0.3">0.3</option>
+                                        <option value="1">1</option>
+                                        <option value="3">3</option>
+                                        <option value="10">10</option>
+                                    </select>
                             </div>
                         </div>
-                        <div class="control mr-auto">
+                        <div class="control mr-1">
                             <label for="problem" style="color:#ffffff">Problem type</label>
                             <div class="select">
                                 <select id="problem">
-                                    <option value="classification">Classification</option>
-                                    <option value="regression">Regression</option>
-                                </select>
+                                        <option value="classification">Classification</option>
+                                        <option value="regression">Regression</option>
+                                    </select>
                             </div>
                         </div>
-                        <div class="control mr-auto">
+                        <div class="control mr-1">
                             <label for="epochs" style="color:#ffffff">Epochs</label>
                             <input type="number" name="epochs" id="epochs" min="1" max="10000">
                         </div>
-                        <div class="control mr-1">
+                        <div class="control mr-4">
                             <label for="batchSize" style="color:#ffffff">Batch Size</label>
                             <input type="number" name="batchSize" id="batchSize" min="1" max="10000">
                         </div>
 
-                        <button class="btn btn-outline-light btn-sm mr-1" type="submit" name="train" value="train" onclick="onTrain()">Train</button>
+                        <button class="btn btn-outline-light btn-lg mr-1" type="submit" name="train" value="train" onclick="onTrain()"> Train </button>
                     </div>
                     {% else %}
                     <div class="control mr-auto">
@@ -178,8 +181,8 @@
                     {% endif %}
                     <div class="navbar-nav">
                         <button class="btn btn-outline-secondary btn-sm mr-1 " type="submit" name="clear" value="clear">
-                            <a class="nav-item nav-link" href="{{ url_for('reset') }}">Clear</a>
-                        </button>
+                                <a class="nav-item nav-link" href="{{ url_for('reset') }}">Clear</a>
+                            </button>
                     </div>
                 </div>
             </div>
@@ -197,17 +200,108 @@
                 {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
             </div>
         </div>
+
+
+
+
     </main>
+
+    <div class="divider">
+        <button class="mdl-button mdl-js-button mdl-button--fab">
+                <i class="material-icons">keyboard_arrow_down</i>
+            </button>
+    </div>
+
+
+    <article id="article-text">
+        <div class="l--body">
+            <h2>So, What is a Neural Network?</h2>
+            <p>It’s a set of algorithms designed to recognise patterns for building a computer program that learns from data. It is based very loosely on how we think the human brain works. First, a collection of software “neurons” are created and connected
+                together, allowing them to send messages to each other. Next, the network is asked to solve a problem, which it attempts to do over and over, each time strengthening the connections that lead to success and diminishing those that lead
+                to failure.
+        </div>
+        <div class="l--body">
+            <h2>Where Are They Used?</h2>
+            <p>Today, neural networks are used for solving many business problems such as sales forecasting, customer research etc. They have turned into a very popular and useful tool in solving many problems such as text Classification and Categorization,
+                Regression, pattern recognition, Named Entity Recognition (NER), Part-of-Speech Tagging, Language Generation and Multi-document Summarization, anomaly detection, decision making, Machine Translation, computer vision, and others. For example,
+                Speech Recognition has many applications, such as home automation, mobile telephony, virtual assistance, hands-free computing, video games, and so on.</p>
+        </div>
+
+        <div class="l--body">
+            <h2>What are Parameters & Hyperparameters </h2>
+            <p>
+                A model parameter is a configuration variable that is internal to the model and whose value can be estimated from data. Parameters are key to machine learning algorithms. Hyperparameters are adjustable parameters that must be tuned in order to obtain
+                a model with optimal performance. They are the part of the model that is learned from historical training data and are often not set manually by the practitioner. </p>
+            <p>So, how can we improve the accuracy of the model? Is there any way to speed up the training process? These are critical questions to ask, whether you’re in a hackathon setting or working on a client project. And these aspects become even more
+                prominent when you’ve built a deep neural network. Features like hyperparameter tuning, regularization, batch normalization, etc. helps in fine tuning your model.
+
+            </p>
+
+            <ul class="row">
+                <div class="col">
+                    <b>Parameters</b> {%for i in ['Weights - When input enters the neuron, it is multiplied by a weight.For example, if a neuron has two inputs, then each input will have has an associated weight assigned to it. We initialize the weights
+                    randomly and these weights are updated during the model training process.','Biases - A bias is added to the result of weight multiplication to the input. It is basically added to change the range of the weight multiplied input. This
+                    is the final linear component of the input transformation.']%}
+                    <li>{{i}}</li><br> {%endfor%} For more information on this we recommend going through Part 2 of the deeplearning.ai course <a href="https://www.coursera.org/specializations/deep-learning">(Deep Learning
+                            Specialization)</a> taught by the great Andrew Ng. We saw the basics of neural networks and how to implement them in part 1, and I recommend going through that if you need a quick refresher.
+                </div>
+                <div class="col">
+                    <b>Hyperparameters</b> {%for i in ['No. of Epochs','Batch Size','#layers','Learning Rate','Hidden Units','Activation Function','Train/Test/Dev Split']%}
+                    <li>{{i}}</li>
+                    {%endfor%}
+                    <br>
+                    <b>Methods Used to Tune Hyperparameters</b> {%for i in ["Manual Search","Grid Search", "Random Search","Bayesian Optimization"]%}
+                    <li>{{i}}</li>
+                    {%endfor%}
+                </div>
+
+            </ul>
+        </div>
+
+        <div class="l--body">
+            <h2>What Are We Using?</h2>
+            <p>We wrote this neural network code completely from scratch. We were inspired by our course instructor Andrew Ng and felt the urge to create a platform where everybody could visualise the effects of tuning different parameters, building your
+                own neural network, uploading different datasets and so on.
+            </p>
+        </div>
+
+        <div class="l--body">
+            <h2>Credits</h2>
+            <p>
+                This project was created by Darlene Nazareth and Sherwyn D'souza under the guidance of the the greatest math-e-<b>magician</b> and ML/DL master <b>Mr. Andrew NG. </b>
+                Link to his course in Coursera <a href="https://www.coursera.org/learn/neural-networks-deep-learning/">Click here</a>.
+            </p>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small special-color-dark pt-4">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2020 Copyright:
+            <b>&nbsp;Made with 💙 by <a href="https://github.com/Darlene-Naz">Darlene Nazareth</a> and <a href="http://sherwyn11.github.io">Sherwyn D'souza</a></b>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+
+
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script type=text/javascript src="{{url_for('static', filename='jquery.js') }}"></script>
     <script type=text/javascript src="{{url_for('static', filename='script.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
 
 </body>
 

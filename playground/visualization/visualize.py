@@ -18,7 +18,7 @@ def pair_plot():
     start=time.time()
     sns_plot = sns.pairplot(df, height=2.5)
     mid=time.time()
-    sns_plot.savefig("playground/static/img/pairplot.png")
+    # sns_plot.savefig("playground/static/img/pairplot.png")
     end=time.time()
     print(f'{mid-start} {end-mid} {sns_plot}')
     return True

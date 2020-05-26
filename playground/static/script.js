@@ -2,9 +2,107 @@
 
 /////////////////// HYPERPARAMETERS ///////////////////
 
+
 let parameters = "false";
-document.getElementById("epochs").defaultValue = "1";
-var len = document.getElementById("no_of_hidden_layers").value;
+
+try {
+
+    document.getElementById("epochs").defaultValue = "1";
+    document.getElementById('batchSize').defaultValue = "1";
+    var len = document.getElementById("no_of_hidden_layers").value;
+
+    /////////////////// SLIDER /////////////////////
+    document.getElementById('range-slider').defaultValue = 30;
+    document.getElementById('range-result').innerHTML = '30%';
+
+    function updateSliderText() {
+        var sliderValue = document.getElementById('range-slider').value;
+        var percent = document.getElementById('range-result');
+        percent.innerHTML = sliderValue + '%';
+    }
+
+    /////////////////// TEST /////////////////////
+
+    var input_nodes_for_test = Number(document.getElementById('no_of_inp_nodes').value);
+    var output_nodes_for_test = Number(document.getElementById('no_of_op_nodes').value);
+    var col1 = document.getElementById('addTestDataInputs');
+    var col2 = document.getElementById('addTestDataOutputs');
+
+    for (let i = 1; i <= input_nodes_for_test; i++) {
+        var div = document.createElement('div');
+        div.className = 'container';
+        div.style = 'margin-top: 10px;';
+        var temp1 = document.createElement('b');
+        temp1.innerHTML = 'Input' + i;
+        var span1 = document.createElement("span");
+        span1.innerHTML = "&nbsp;";
+        var temp2 = document.createElement('input');
+        temp2.type = 'text';
+        temp2.id = 'Input' + i;
+        var temp3 = document.createElement('br');
+        div.appendChild(temp1);
+        div.appendChild(span1);
+        div.appendChild(temp2);
+        div.appendChild(temp3);
+        col1.appendChild(div);
+    }
+
+    for (let i = 1; i <= output_nodes_for_test; i++) {
+        var div = document.createElement('div');
+        div.className = 'container';
+        div.style = 'margin-top: 10px;';
+        var temp1 = document.createElement('b');
+        temp1.innerHTML = 'Output' + i;
+        var span1 = document.createElement("span");
+        span1.innerHTML = "&nbsp;&nbsp;&nbsp;";
+        var temp2 = document.createElement('b');
+        temp2.id = 'Output' + i;
+        var temp3 = document.createElement('br');
+        div.appendChild(temp1);
+        div.appendChild(span1);
+        div.appendChild(temp2);
+        div.appendChild(temp3);
+        col2.appendChild(div);
+    }
+} catch (error) {
+    console.log("Log. Element Not Found")
+}
+
+
+function onPageLoad(page_name) {
+    if (page_name == 'Home') {
+        neuralNetwork();
+
+    } else if (page_name == 'Preprocess') {
+        histogramData();
+    }
+}
+
+
+
+function getPredictedResults() {
+    inps = [];
+    for (let i = 1; i <= input_nodes_for_test; i++) {
+        var doc = document.getElementById('Input' + i).value;
+        inps.push(Number(doc));
+    }
+    axios.post('/predict', {
+            test_inputs: inps,
+        })
+        .then(function(response) {
+            var data = response.data.output;
+            var len = response.data.output.length;
+
+            for (let i = 1; i <= len; i++) {
+                document.getElementById('Output' + i).innerHTML = data[i - 1];
+            }
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+}
+
+
 var len_nodes = 0;
 
 function onTrain() {
@@ -84,18 +182,21 @@ function manipulateInpNodes(choice1, choice2) {
         if (choice2 == 1) {
             var div_child = document.getElementById("add_layers");
             var p = document.createElement("div");
-            p.className = "row";
+            p.className = "row form-inline";
             p.id = "layer" + val;
             var but1 = document.createElement("button");
+            but1.className = "btn btn-secondary"
             but1.innerHTML = "-";
             id = "layer" + val;
             but1.setAttribute("onclick", "manipulateHiddenNodes(0, id)");
             but1.id = "layer" + val;
             var but2 = document.createElement("button");
+            but2.className = "btn btn-secondary mr-3";
             but2.innerHTML = "+";
             but2.setAttribute("onclick", "manipulateHiddenNodes(1, id)");
             but2.id = "layer" + val;
             var text = document.createElement("b");
+            text.className = "form-control";
             text.innerHTML = "1";
             text.id = "layer" + val + "_tag";
             var hidden = document.createElement("input");
@@ -111,6 +212,7 @@ function manipulateInpNodes(choice1, choice2) {
             var test = document.createElement("span");
             test.innerHTML = "No. of nodes in layer " + val + " : ";
             var select = document.createElement("select");
+            select.className = "form-control";
             select.id = "layer" + val + "_select";
             var option0 = document.createElement("option");
             option0.innerHTML = "Choose Activation";
@@ -230,7 +332,7 @@ function updateHoverCard(type, d, coordinates) {
 
     let temp = document.getElementById("hovercard")
     temp.style.left = coordinates[0] + 20 + "px ";
-    temp.style.top = coordinates[1] + "px";
+    temp.style.top = coordinates[1] + 100 + "px";
     temp.style.display = "block";
     hovercard.select(".type").text(name);
     hovercard.select(".value").style("display", null).text(value.toPrecision(2));
@@ -240,157 +342,164 @@ function updateHoverCard(type, d, coordinates) {
         .style("display", "none");
 }
 
-let linkWidthScale = d3.scale
-    .linear()
-    .domain([0, 5])
-    .range([1, 10])
-    .clamp(true);
+function neuralNetwork() {
 
-var color = d3.scale.category20();
+    console.log("nn")
+    let linkWidthScale = d3.scale
+        .linear()
+        .domain([0, 5])
+        .range([1, 10])
+        .clamp(true);
 
-var svg = d3
-    .select(".network")
-    .append("svg")
-    .attr("id", "svg")
-    .attr("width", width)
-    .attr("height", height);
+    var color = d3.scale.category20();
 
-d3.json("data.json", function(error, graph) {
-    var nodes = graph.nodes;
-    var weights = graph.weights;
-    var biases = graph.biases;
+    var svg = d3
+        .select(".network")
+        .append("svg")
+        .attr("id", "svg")
+        .attr("width", width)
+        .attr("height", height);
 
-    // get network size
-    var netsize = {};
-    var _num = 0;
-    nodes.forEach(function(d) {
-        if (d.layer in netsize) {
-            netsize[d.layer] += 1;
-        } else {
-            netsize[d.layer] = 1;
-        }
-        d["lidx"] = netsize[d.layer];
-        d["bias"] = biases[_num++];
-    });
+    d3.json("data.json", function(error, graph) {
+        var nodes = graph.nodes;
+        var weights = graph.weights;
+        var biases = graph.biases;
 
-    // calc distances between nodes
-    var largestLayerSize = Math.max.apply(
-        null,
-        Object.keys(netsize).map(function(i) {
-            return netsize[i];
-        })
-    );
-
-    var xdist = width / Object.keys(netsize).length,
-        ydist = height / largestLayerSize;
-
-    nodes.map(function(d) {
-        d["x"] = (d.layer - 0.5) * xdist;
-        d["y"] = (d.lidx - 0.5) * ydist;
-    });
-    console.log(nodes);
-
-    var links = [];
-    var num = 0;
-    nodes
-        .map(function(d, i) {
-            for (var n in nodes) {
-                if (d.layer + 1 == nodes[n].layer) {
-                    links.push({
-                        source: parseInt(i),
-                        target: parseInt(n),
-                        weight: weights[num++],
-                    });
-                }
+        // get network size
+        var netsize = {};
+        var _num = 0;
+        nodes.forEach(function(d) {
+            if (d.layer in netsize) {
+                netsize[d.layer] += 1;
+            } else {
+                netsize[d.layer] = 1;
             }
-        })
-        .filter(function(d) {
-            return typeof d !== "undefined";
+            d["lidx"] = netsize[d.layer];
+            d["bias"] = biases[_num++];
         });
 
-    var link = svg
-        .selectAll(".link")
-        .data(links)
-        .enter()
-        .append("line")
-        .attr("class", "link")
-        .attr("x1", function(d) {
-            return nodes[d.source].x;
-        })
-        .attr("y1", function(d) {
-            return nodes[d.source].y;
-        })
-        .attr("x2", function(d) {
-            return nodes[d.target].x;
-        })
-        .attr("y2", function(d) {
-            return nodes[d.target].y;
-        })
-        .style("stroke-width", function(d) {
-            return linkWidthScale(Math.abs(d.weight));
-        })
-        .style("stroke-dasharray", "5, 2")
-        .on("mouseenter", function(d) {
-            updateHoverCard("weight", d, d3.mouse(this));
-        })
-        .on("mouseleave", function(d) {
-            updateHoverCard(null);
-        });
+        // calc distances between nodes
+        var largestLayerSize = Math.max.apply(
+            null,
+            Object.keys(netsize).map(function(i) {
+                return netsize[i];
+            })
+        );
 
-    // draw nodes
-    var node = svg
-        .selectAll(".node")
-        .data(nodes)
-        .enter()
-        .append("g")
-        .attr("transform", function(d) {
-            return "translate(" + d.x + "," + d.y + ")";
-        });
+        var xdist = width / Object.keys(netsize).length,
+            ydist = height / largestLayerSize;
 
-    var circle = node
-        .append("circle")
-        .attr("class", "node")
-        .attr("r", nodeSize)
-        .style("fill", function(d) {
-            return color(d.layer);
-        }).on("mouseenter", function(d) {
-            updateHoverCard("bias", d, d3.mouse(circle.node()));
-        })
-        .on("mouseleave", function(d) {
-            updateHoverCard(null);
+        nodes.map(function(d) {
+            d["x"] = (d.layer - 0.5) * xdist;
+            d["y"] = (d.lidx - 0.5) * ydist;
         });
+        console.log(nodes);
 
-    node
-        .append("text")
-        .attr("dx", "-.35em")
-        .attr("dy", ".35em")
-        .text(function(d) {
-            return d.label;
-        });
-});
+        var links = [];
+        var num = 0;
+        nodes
+            .map(function(d, i) {
+                for (var n in nodes) {
+                    if (d.layer + 1 == nodes[n].layer) {
+                        links.push({
+                            source: parseInt(i),
+                            target: parseInt(n),
+                            weight: weights[num++],
+                        });
+                    }
+                }
+            })
+            .filter(function(d) {
+                return typeof d !== "undefined";
+            });
+
+        var link = svg
+            .selectAll(".link")
+            .data(links)
+            .enter()
+            .append("line")
+            .attr("class", "link")
+            .attr("x1", function(d) {
+                return nodes[d.source].x;
+            })
+            .attr("y1", function(d) {
+                return nodes[d.source].y;
+            })
+            .attr("x2", function(d) {
+                return nodes[d.target].x;
+            })
+            .attr("y2", function(d) {
+                return nodes[d.target].y;
+            })
+            .style("stroke-width", function(d) {
+                return linkWidthScale(Math.abs(d.weight));
+            })
+            .style("stroke-dasharray", "5, 2")
+            .on("mouseenter", function(d) {
+                updateHoverCard("weight", d, d3.mouse(this));
+            })
+            .on("mouseleave", function(d) {
+                updateHoverCard(null);
+            });
+
+        // draw nodes
+        var node = svg
+            .selectAll(".node")
+            .data(nodes)
+            .enter()
+            .append("g")
+            .attr("transform", function(d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+
+        var circle = node
+            .append("circle")
+            .attr("class", "node")
+            .attr("r", nodeSize)
+            .style("fill", function(d) {
+                return color(d.layer);
+            }).on("mouseenter", function(d) {
+                updateHoverCard("bias", d, d3.mouse(circle.node()));
+            })
+            .on("mouseleave", function(d) {
+                updateHoverCard(null);
+            });
+
+        node
+            .append("text")
+            .attr("dx", "-.35em")
+            .attr("dy", ".35em")
+            .text(function(d) {
+                return d.label;
+            });
+    });
+}
+
 
 /////////////////// HISTOGRAM /////////////////////
 
 
-function histogramData(){
+function histogramData() {
+
+    console.log("histogram")
 
     var margin = {
-        top: 20,
-        right: 30,
-        bottom: 30,
-        left: 40
-    },
-    width = 600 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+            top: 20,
+            right: 30,
+            bottom: 30,
+            left: 40
+        },
+        width = 600 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     var svg = d3.select("#my_dataviz")
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")");
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
 
 
     // A formatter for counts.
@@ -498,6 +607,7 @@ function histogramData(){
                 .range([d3.rgb(color).brighter(), d3.rgb(color)]);
 
 
+
             // Manage the existing bars and eventually the new ones:
             u
                 .enter()
@@ -546,7 +656,7 @@ function histogramData(){
         }
         // Initialize with 20 bins
         update(20)
-        // Listen to the button -> update if user change it
+            // Listen to the button -> update if user change it
         d3.select("#nBin").on("input", function() {
             d3.selectAll('text').remove()
             d3.selectAll('rect').remove()
@@ -557,79 +667,28 @@ function histogramData(){
     });
 }
 
-/////////////////// SLIDER /////////////////////
+/////// MODAL /////////////
+try {
+    // Get the modal
+    var modal = document.getElementById("myModal");
 
-document.getElementById('range-slider').defaultValue = 30;
-document.getElementById('range-result').innerHTML = '30%';
-
-function updateSliderText(){
-    var sliderValue = document.getElementById('range-slider').value;
-    var percent = document.getElementById('range-result');
-    percent.innerHTML = sliderValue + '%';
-}
-
-/////////////////// TEST /////////////////////
-
-var input_nodes_for_test = Number(document.getElementById('no_of_inp_nodes').value);
-var output_nodes_for_test = Number(document.getElementById('no_of_op_nodes').value);
-var col1 = document.getElementById('addTestDataInputs');
-var col2 = document.getElementById('addTestDataOutputs');
-
-for(let i = 1; i <= input_nodes_for_test; i++){
-    var div = document.createElement('div');
-    div.className = 'container';
-    div.style = 'margin-top: 10px;';
-    var temp1 = document.createElement('b');
-    temp1.innerHTML = 'Input' + i;
-    var span1 = document.createElement("span");
-    span1.innerHTML = "&nbsp;";
-    var temp2 = document.createElement('input');
-    temp2.type = 'text';
-    temp2.id = 'Input' + i;
-    var temp3 = document.createElement('br');
-    div.appendChild(temp1);
-    div.appendChild(span1);
-    div.appendChild(temp2);
-    div.appendChild(temp3);
-    col1.appendChild(div);
-}
-
-for(let i = 1; i <= output_nodes_for_test; i++){
-    var div = document.createElement('div');
-    div.className = 'container';
-    div.style = 'margin-top: 10px;';
-    var temp1 = document.createElement('b');
-    temp1.innerHTML = 'Output' + i;
-    var span1 = document.createElement("span");
-    span1.innerHTML = "&nbsp;&nbsp;&nbsp;";
-    var temp2 = document.createElement('b');
-    temp2.id = 'Output' + i;
-    var temp3 = document.createElement('br');
-    div.appendChild(temp1);
-    div.appendChild(span1);
-    div.appendChild(temp2);
-    div.appendChild(temp3);
-    col2.appendChild(div);
-}
-
-function getPredictedResults(){
-    inps = [];
-    for(let i = 1; i <= input_nodes_for_test; i++){
-        var doc = document.getElementById('Input' + i).value;
-        inps.push(Number(doc));
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("myImg");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function() {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
     }
-    axios.post('/predict', {
-        test_inputs: inps,
-    })
-    .then(function(response){
-        var data = response.data.output;
-        var len = response.data.output.length;
 
-        for(let i = 1; i <= len; i++){
-            document.getElementById('Output' + i).innerHTML = data[i - 1];
-        } 
-    })
-    .catch(function(error){
-        console.log(error);
-    })
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+} catch (err) {
+
 }
