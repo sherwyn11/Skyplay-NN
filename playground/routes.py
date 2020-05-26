@@ -16,6 +16,8 @@ global posted
 model = Model()
 save_path = 'playground/uploads/'
 posted = 0
+ss = None
+le = None
 
 
 ####################### ROUTES #######################
@@ -24,8 +26,11 @@ posted = 0
 @nocache
 @app.route('/', methods=['GET', 'POST'])
 def home():
-
     global model
+    global ss
+    global le
+
+
     if request.method == 'POST':
         if request.get_json() is not None:
             session['posted'] = 1
@@ -87,10 +92,11 @@ def home():
             model = create_default_model()
             problem_type = 'classification'
 
-            X_train, X_test, Y_train, Y_test = split_data(50)
+            X_train, X_test, Y_train, Y_test = split_data(0)
 
             X, Y, ss, le = get_features(X_train, Y_train, problem_type)
-            model.fit(X, Y, 1500, '0', 0, 4)
+            print(X)
+            model.fit(X, Y, 2500, '0', 0, 4)
 
             print(
                 model.evaluate(
@@ -101,7 +107,8 @@ def home():
                 )
             )
     
-    
+    inp_nodes, out_nodes = ret_nodes(model)
+            
     df = gp.read_dataset('playground/clean/clean.csv')
     description = gp.get_description(df)
     columns = gp.get_columns(df)
@@ -130,8 +137,28 @@ def home():
             ]
         ),
         train_acc=model.train_acc,
-        test_acc=model.test_acc
+        test_acc=model.test_acc,
+        no_of_inp_nodes=inp_nodes,
+        no_of_op_nodes=out_nodes
     )
+
+@app.route('/predict', methods=['POST'])
+@nocache
+def predict_result():
+    global model
+    global ss
+    global le
+
+    problem_type = 'classification'
+    data = request.get_json()
+    inputs = data['test_inputs']
+
+    X = np.array(ss.transform([inputs]))
+    result = model.predict(X, problem_type)
+
+    outputs = {'output': result.tolist()}
+
+    return json.dumps(outputs)
 
 
 @app.route('/preprocess', methods=['GET', 'POST'])
@@ -181,7 +208,6 @@ def preprocess():
     df = gp.read_dataset('playground/clean/clean.csv')
     description = gp.get_description(df)
     columns = gp.get_columns(df)
-    print(columns)
     dim1, dim2 = gp.get_dim(df)
     head = gp.get_head(df)
 
@@ -314,12 +340,12 @@ def col():
     return send_file('visualization/col.csv', mimetype='text/csv', as_attachment=True)
 
 
-@app.route('/pairplot.png')
-@nocache
-def pairplot():
-    return send_file(
-        'static/img/pairplot.png', mimetype='image/png', as_attachment=True
-    )
+# @app.route('/pairplot.png')
+# @nocache
+# def pairplot():
+#     return send_file(
+#         'static/img/pairplot.png', mimetype='image/png', as_attachment=True
+#     )
 
 @app.route('/favicon.ico')
 def favicon():

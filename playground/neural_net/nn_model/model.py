@@ -105,7 +105,6 @@ class Model:
 
         if(type == 'classification'):
             for i in range(0, probas.shape[1]):
-                print('Predicted: ', probas[0,i])
                 if probas[0,i] > 0.5:
                     p[0,i] = 1
                 else:
@@ -123,3 +122,23 @@ class Model:
                 print(probas[0,i])
         
             return probas
+
+    def predict(self, X, type):
+        X = np.array(X).T
+        m = X.shape[1]
+        n = len(self.parameters) // 2
+        p = np.zeros((1, m))
+
+        proba, caches = propagate_forward(X, self.parameters, self.activations, self.learning_rate)
+
+        if(type == 'classification'):
+            for i in range(0, proba.shape[1]):
+                if proba[0,i] > 0.5:
+                    p[0,i] = 1
+                else:
+                    p[0,i] = 0
+
+            return p
+
+        else:
+            return proba
