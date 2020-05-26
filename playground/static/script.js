@@ -9,7 +9,7 @@ var len_nodes = 0;
 
 function onTrain() {
     var layers = [];
-    for (i = 1; i <= len_nodes; i++) {
+    for (let i = 1; i <= len_nodes; i++) {
         var temp1 = document.getElementById("layer" + i + "_node").value;
         var temp2 = document.getElementById("layer" + i + "_select").value;
         layers.push({
