@@ -1,6 +1,5 @@
 import pandas as pd
 import matplotlib
-import asyncio
 import time
 import matplotlib
 matplotlib.use("Agg")
