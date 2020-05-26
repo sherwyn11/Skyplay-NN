@@ -3,7 +3,7 @@ import matplotlib
 import asyncio
 import time
 import matplotlib
-matplotlib.use("TkAgg")
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
