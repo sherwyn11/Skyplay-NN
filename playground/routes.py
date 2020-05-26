@@ -30,7 +30,6 @@ def home():
     global ss
     global le
 
-
     if request.method == 'POST':
         if request.get_json() is not None:
             session['posted'] = 1
@@ -86,16 +85,14 @@ def home():
 
     else:
         if session.get('uploaded') is None and session.get('posted') is None:
-            print('Here')
             if(os.path.exists('playground/static/img/test.png')):
                 os.remove('playground/static/img/test.png')
+            default_data()
             model = create_default_model()
             problem_type = 'classification'
 
             X_train, X_test, Y_train, Y_test = split_data(0)
-
             X, Y, ss, le = get_features(X_train, Y_train, problem_type)
-            print(X)
             model.fit(X, Y, 2500, '0', 0, 4)
 
             print(
