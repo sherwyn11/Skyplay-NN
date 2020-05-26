@@ -8,6 +8,7 @@ let parameters = "false";
 try {
 
     document.getElementById("epochs").defaultValue = "1";
+    document.getElementById('batchSize').defaultValue = "1";
     var len = document.getElementById("no_of_hidden_layers").value;
 
     /////////////////// SLIDER /////////////////////
@@ -64,7 +65,7 @@ try {
         col2.appendChild(div);
     }
 } catch (error) {
-    console.log("Log1. Element Not Found")
+    console.log("Log. Element Not Found")
 }
 
 
@@ -181,18 +182,21 @@ function manipulateInpNodes(choice1, choice2) {
         if (choice2 == 1) {
             var div_child = document.getElementById("add_layers");
             var p = document.createElement("div");
-            p.className = "row";
+            p.className = "row form-inline";
             p.id = "layer" + val;
             var but1 = document.createElement("button");
+            but1.className = "btn btn-secondary"
             but1.innerHTML = "-";
             id = "layer" + val;
             but1.setAttribute("onclick", "manipulateHiddenNodes(0, id)");
             but1.id = "layer" + val;
             var but2 = document.createElement("button");
+            but2.className = "btn btn-secondary mr-3";
             but2.innerHTML = "+";
             but2.setAttribute("onclick", "manipulateHiddenNodes(1, id)");
             but2.id = "layer" + val;
             var text = document.createElement("b");
+            text.className = "form-control";
             text.innerHTML = "1";
             text.id = "layer" + val + "_tag";
             var hidden = document.createElement("input");
@@ -208,6 +212,7 @@ function manipulateInpNodes(choice1, choice2) {
             var test = document.createElement("span");
             test.innerHTML = "No. of nodes in layer " + val + " : ";
             var select = document.createElement("select");
+            select.className = "form-control";
             select.id = "layer" + val + "_select";
             var option0 = document.createElement("option");
             option0.innerHTML = "Choose Activation";
@@ -660,4 +665,30 @@ function histogramData() {
         });
 
     });
+}
+
+/////// MODAL /////////////
+try {
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("myImg");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function() {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+} catch (err) {
+
 }
