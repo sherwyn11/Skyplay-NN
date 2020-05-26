@@ -135,7 +135,7 @@ function onTrain() {
         })
         .then(function(response) {
             parameters = "false";
-            // window.location.href = "/";
+            window.location.href = "/";
         })
         .catch(function(error) {
             parameters = "false";
