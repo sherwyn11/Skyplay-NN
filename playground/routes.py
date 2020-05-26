@@ -24,6 +24,7 @@ posted = 0
 @nocache
 @app.route('/', methods=['GET', 'POST'])
 def home():
+
     global model
     if request.method == 'POST':
         if request.get_json() is not None:
@@ -99,7 +100,8 @@ def home():
                     True
                 )
             )
-            
+    
+    
     df = gp.read_dataset('playground/clean/clean.csv')
     description = gp.get_description(df)
     columns = gp.get_columns(df)
@@ -312,12 +314,12 @@ def col():
     return send_file('visualization/col.csv', mimetype='text/csv', as_attachment=True)
 
 
-# @app.route('/pairplot.png')
-# @nocache
-# def pairplot():
-#     return send_file(
-#         'static/img/pairplot.png', mimetype='image/png', as_attachment=True
-#     )
+@app.route('/pairplot.png')
+@nocache
+def pairplot():
+    return send_file(
+        'static/img/pairplot.png', mimetype='image/png', as_attachment=True
+    )
 
 @app.route('/favicon.ico')
 def favicon():

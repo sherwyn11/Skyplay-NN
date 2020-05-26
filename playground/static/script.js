@@ -17,6 +17,7 @@ try {
 function onPageLoad(page_name) {
     if (page_name == 'Home') {
         neuralNetwork();
+
     } else if (page_name == 'Preprocess') {
         histogramData();
     }
@@ -33,7 +34,7 @@ var len_nodes = 0;
 
 function onTrain() {
     var layers = [];
-    for (i = 1; i <= len_nodes; i++) {
+    for (let i = 1; i <= len_nodes; i++) {
         var temp1 = document.getElementById("layer" + i + "_node").value;
         var temp2 = document.getElementById("layer" + i + "_select").value;
         layers.push({
@@ -62,7 +63,7 @@ function onTrain() {
         })
         .then(function(response) {
             parameters = "false";
-            window.location.href = "/";
+            // window.location.href = "/";
         })
         .catch(function(error) {
             parameters = "false";
@@ -254,7 +255,7 @@ function updateHoverCard(type, d, coordinates) {
 
     let temp = document.getElementById("hovercard")
     temp.style.left = coordinates[0] + 20 + "px ";
-    temp.style.top = coordinates[1] + "px";
+    temp.style.top = coordinates[1] + 100 + "px";
     temp.style.display = "block";
     hovercard.select(".type").text(name);
     hovercard.select(".value").style("display", null).text(value.toPrecision(2));
