@@ -130,6 +130,13 @@ python wsgi.py
 - [ ] Unstructured Data Classification/Regression
 - [ ] Fix small bugs
 
+## References
+<ul>
+<li><a href="https://www.coursera.org/specializations/deep-learning">Deep Learning Specialization Course (Coursera)</a></li>
+<li><a href="https://ml-cheatsheet.readthedocs.io/en/latest/">ML-CheatSheet</a></li>
+</ul>
+
+
 ## Contributors
 
 Made with 💙 by <a href="https://github.com/Darlene-Naz">Darlene Nazareth</a> and <a href="https://github.com/sherwyn11">Sherwyn D'souza</a></b>
