@@ -95,6 +95,28 @@ python wsgi.py
 </ul>
 
 ## Task List
+
+### Activation Functions         
+- [x] Sigmoid
+- [x] ReLU
+- [x] Leaky ReLU
+- [x] Tanh
+- [ ] Softmax
+### Regularization
+- [x] L1
+- [x] L2
+### Activation Functions         
+- [x] SGD
+- [x] GD
+- [x] GD with Momentum
+- [x] RMS Prop
+- [x] Adam
+### Neural Network
+- [x] Forward Propagation
+- [x] Backward Propagation
+- []
+
+
 - [x] Classification/Regression on single class Structured data
 - [x] Added different types of activation functions
 - [x] News updates
