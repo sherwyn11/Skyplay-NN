@@ -55,7 +55,7 @@ We wrote this neural network code completely from scratch. We were inspired by o
 
 1. Clone the repository
 ```bash
-git clone https://github.com/sherwyn11/NN-Playground.git
+git clone https://github.com/sherwyn11/Skyplay-NN.git
 ```
 2. Start a virtural environment eg.conda (Recommended)
 ```bash
