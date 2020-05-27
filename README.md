@@ -53,21 +53,21 @@ We wrote this neural network code completely from scratch. We were inspired by o
 
 ## Getting started
 
-1. Clone the repository
+**1. Clone the repository**
 ```bash
 git clone https://github.com/sherwyn11/Skyplay-NN.git
 ```
-2. Start a virtural environment eg.conda (Recommended)
+**2. Start a virtural environment eg. conda (Recommended)**
 ```bash
 conda activate <my_virtual_env>
 ```
 
-3. Download the requirements
+**3. Download the requirements**
 ```bash
 pip install requirements.txt
 ```
 
-4. Start the server
+**4. Start the server**
 ```bash
 python wsgi.py
 ```
