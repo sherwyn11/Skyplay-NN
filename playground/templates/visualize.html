@@ -1,6 +1,6 @@
 {% extends "layout.html" %} {% block content %}
 
-<div class="container">
+<div class="container" style="margin-top:100px;">
     <div class="row row-cols-2">
         <div class="col">
             <div class="content-section">
@@ -42,11 +42,16 @@
                         <div class="col"></div>
                     </div>
                 </div>
-                    
+                <canvas id="myChart1" width="450px" height="450px"></canvas>
+
                 
                 {% if posted == 1 %}
                     {% if data %}
-                        <canvas id="myChart1" width="450px" height="450px"></canvas>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+                        <input type="hidden" value="{{data}}" id="vis_data"/>
+                        <input type="hidden" value="{{x_col_name}}" id="x_col"/>
+                        <input type="hidden" value="{{y_col_name}}" id="y_col"/>
+                        <script type=text/javascript src="{{url_for('static', filename='graph.js') }}"></script>
                     {% endif %}
                 {% endif %}
             

@@ -115,8 +115,9 @@ function onTrain() {
             activation: temp2,
         });
     }
-    console.log(layers);
     parameters = "true";
+    document.getElementById("train").style.display = "none";
+    document.getElementById("train_spinner").style.display = "block";
     axios
         .post("/", {
             learningRate: document.getElementById("learningRate").value,
@@ -136,6 +137,8 @@ function onTrain() {
         })
         .then(function(response) {
             parameters = "false";
+            document.getElementById("train").style.display = "block";
+            document.getElementById("train_spinner").style.display = "none";
             window.location.href = "/";
         })
         .catch(function(error) {
@@ -217,7 +220,6 @@ function manipulateInpNodes(choice1, choice2) {
             var option0 = document.createElement("option");
             option0.innerHTML = "Choose Activation";
             option0.disabled = true;
-            option0.selected = true;
             var option1 = document.createElement("option");
             option1.value = "sigmoid";
             option1.innerHTML = "Sigmoid";
@@ -689,38 +691,4 @@ try {
     }
 } catch (err) {
 
-}
-
-////////// VISUALIZE GRAPH //////////
-
-function visGraph(data){
-    new Chart.Scatter(document.getElementById("myChart1"), {
-        type: 'scatter',
-        data: {
-            datasets: [{
-                label: 'Scatter Plot',
-                data: data,
-                showLine: false,
-                borderColor: "red",
-                backgroundColor: "red"
-                }]
-            },
-            options: {
-                responsive: false,
-                scales: {
-                    yAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: '{{ y_col_name }}'
-                        }
-                    }],
-                    xAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: '{{ x_col_name }}'
-                        }
-                    }]
-                }
-            }
-        });
 }

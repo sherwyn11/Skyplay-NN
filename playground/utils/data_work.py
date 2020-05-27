@@ -38,7 +38,7 @@ def get_features_for_test(X, Y, problem_type, ss, le):
 def split_data(split_ratio):
     df = pd.read_csv('playground/clean/clean.csv')
     df = df.sample(frac=1).reset_index(drop=True)
-    print('Length', len(df))
+
     if(len(df) > 250):
         df = df.iloc[ : 250, : ]
         df.to_csv('playground/clean/clean.csv', mode='w', index=False)
