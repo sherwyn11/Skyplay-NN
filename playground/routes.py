@@ -2,6 +2,7 @@ from flask import *
 import numpy as np
 import os
 import random
+import base64
 
 from playground import app
 from playground.neural_net.nn_model.model import Model
@@ -10,6 +11,7 @@ from playground.nocache import nocache
 from playground.utils.data_work import *
 from playground.utils.flask_utils import *
 from playground.visualization import visualize as vis
+from playground.nocache import nocache
 
 
 global posted
@@ -19,12 +21,11 @@ posted = 0
 ss = None
 le = None
 
-
 ####################### ROUTES #######################
 
 
-@nocache
 @app.route('/', methods=['GET', 'POST'])
+@nocache
 def home():
     global model
     global ss
@@ -103,6 +104,8 @@ def home():
             )
     
     inp_nodes, out_nodes = ret_nodes()
+    if(os.path.exists('playground/static/img/pairplot.png')):
+        os.remove('playground/static/img/pairplot.png')
             
     df = gp.read_dataset('playground/clean/clean.csv')
     description = gp.get_description(df)
@@ -251,18 +254,17 @@ def visualize():
 
         newlist = []
         for h, w in zip(heights, weights):
-            newlist.append({'x': h, 'y': w})
-        ugly_blob = str(newlist).replace("'", '')
-        print(newlist)
+            newlist.append({"x": str(h), "y": str(w)})
+        ugly_blob = newlist
         columns = vis.get_columns()
-        print(x_col)
+        
         return render_template(
             'visualize.html',
             cols=columns,
             src='img/pairplot.png',
             xy_src='img/fig.png',
             posted=1,
-            data=ugly_blob,
+            data=json.dumps(ugly_blob),
             active='visualize',
             x_col_name=str(x_col),
             y_col_name=str(y_col),
@@ -275,7 +277,7 @@ def visualize():
         return render_template(
             'visualize.html',
             cols=columns,
-            src='img/pairplot.png',
+            src=data,
             posted=0,
             active='visualize',
             title='Visualize',
@@ -336,12 +338,12 @@ def col():
     return send_file('visualization/col.csv', mimetype='text/csv', as_attachment=True)
 
 
-# @app.route('/pairplot.png')
-# @nocache
-# def pairplot():
-#     return send_file(
-#         'static/img/pairplot.png', mimetype='image/png', as_attachment=True
-#     )
+@app.route('/pairplot.png')
+@nocache
+def pairplot():
+    return send_file(
+        'static/img/pairplot.png', mimetype='image/png', as_attachment=True
+    )
 
 @app.route('/favicon.ico')
 def favicon():
