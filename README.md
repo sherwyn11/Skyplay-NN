@@ -8,7 +8,7 @@ It’s a set of algorithms designed to recognise patterns for building a compute
 <img src='Readme_requirements/nn.png'/>
 
 ## Where Are They Used?
-Today, neural networks are used for solving many business problems such as sales forecasting, customer research etc. They have turned into a very popular and useful tool in solving many problems such as text Classification and Categorization, Regression, pattern recognition, Named Entity Recognition (NER), Part-of-Speech Tagging, Language Generation and Multi-document Summarization, anomaly detection, decision making, Machine Translation, computer vision, and others. For example, Speech Recognition has many applications, such as home automation, mobile telephony, virtual assistance, hands-free computing, video games, and so on.
+Today, neural networks are used for solving many business problems such as sales forecasting, customer research etc. They have turned into a very popular and useful tool in solving many problems such as text Classification and Categorization, Regression, pattern recognition, Named Entity Recognition (NER), Part-of-Speech Tagging, Language Generation and Multi-document Summarization, etc.
 
 ## What are Parameters & Hyperparameters
 A model parameter is a configuration variable that is internal to the model and whose value can be estimated from data. Parameters are key to machine learning algorithms. Hyperparameters are adjustable parameters that must be tuned in order to obtain a model with optimal performance. They are the part of the model that is learned from historical training data and are often not set manually by the practitioner.
@@ -35,6 +35,7 @@ For more information on this we recommend going through Part 2 of the deeplearni
 
 <img src="https://mlfromscratch.com/content/images/2019/12/activation-functions-1.gif" height="350px" width="500px"/>
 
+
 ## Methods Used to Tune Hyperparameters
 <ul>
 <li>Manual Search</li>
@@ -43,10 +44,12 @@ For more information on this we recommend going through Part 2 of the deeplearni
 <li>Bayesian Optimization</li>
 </ul>
 
-![](https://miro.medium.com/max/1240/1*SjtKOauOXFVjWRR7iCtHiA.gif)
+<img src="Readme_requirements/GradDescent.gif" height="350px" width="500px"/>
+
 
 ## What Are We Using?
 We wrote this neural network code completely from scratch. We were inspired by our course instructor Andrew Ng and felt the urge to create a platform where everybody could visualise the effects of tuning different parameters, building your own neural network, uploading different datasets and so on.
+
 
 ## Getting started
 
@@ -68,6 +71,36 @@ pip install requirements.txt
 ```bash
 python wsgi.py
 ```
+
+## Working Demonstration
+
+![](Readme_requirements/playground-nn.gif)
+
+## Technology Stack
+
+<ul>
+<li>Python v3</li>
+<li>Flask</li>
+<li>Numpy</li>
+<li>Pandas</li>
+<li>MatPlotLib</li>
+<li>Seaborn</li>
+<li>D3.js</li>
+<li>JavaScript</li>
+<li>JQuery</li>
+<li>HTML5</li>
+<li>CSS3</li>
+<li>Bootstrap</li>
+<li>Material Design Lite</li>
+</ul>
+
+## Task List
+- [x] Classification/Regression on single class Structured data
+- [x] Added different types of activation functions
+- [x] News updates
+- [ ] Multi-class Classification
+- [ ] Unstructured Data 
+- [ ] Fix small bugs
 
 ## Contributors
 
