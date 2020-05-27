@@ -1,4 +1,4 @@
-# Skyplay-NN
+# Skyplay-NN  <img src="https://image.flaticon.com/icons/svg/2103/2103633.svg" height="40px" width="40px"/>
 
 A neural network playground built from scratch using Python.
 
