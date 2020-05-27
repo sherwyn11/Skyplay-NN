@@ -81,7 +81,7 @@ function onPageLoad(page_name) {
 
 
 function getPredictedResults() {
-    var inps = [];
+    inps = [];
     for (let i = 1; i <= input_nodes_for_test; i++) {
         var doc = document.getElementById('Input' + i).value;
         inps.push(Number(doc));
@@ -344,7 +344,6 @@ function updateHoverCard(type, d, coordinates) {
 
 function neuralNetwork() {
 
-    console.log("nn")
     let linkWidthScale = d3.scale
         .linear()
         .domain([0, 5])
@@ -393,7 +392,6 @@ function neuralNetwork() {
             d["x"] = (d.layer - 0.5) * xdist;
             d["y"] = (d.lidx - 0.5) * ydist;
         });
-        console.log(nodes);
 
         var links = [];
         var num = 0;
