@@ -1,13 +1,14 @@
-# NN-Playground
-A neural network playground
+# Skylearn-NN
+
+A neural network playground built from scratch using Python
 
 ## Data Preprocessing & Visualization
 
 ### Preprocessing 
-- [ ] Normalization
-- [ ] Scaling
-- [ ] Cleaning Dataset
+- [x] Normalization
+- [x] Scaling
+- [x] Cleaning Dataset
 
 ### Visualizarion
-- [ ] Histogram
-- [ ] Scatter Plot
+- [x] Histogram
+- [x] Scatter Plot
