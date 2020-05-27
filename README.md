@@ -130,6 +130,8 @@ python wsgi.py
 - [ ] Unstructured Data Classification/Regression
 - [ ] Fix small bugs
 
+<p>For more details about our model architecture and components <a href="playground/neural_net/README.md">Click here</a><p>
+
 ## References
 <ul>
 <li><a href="https://www.coursera.org/specializations/deep-learning">Deep Learning Specialization Course (Coursera)</a></li>
