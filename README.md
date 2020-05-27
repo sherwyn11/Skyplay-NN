@@ -64,6 +64,7 @@ conda activate <my_virtual_env>
 
 **3. Download the requirements**
 ```bash
+cd SkyplayNN-master
 pip install requirements.txt
 ```
 
