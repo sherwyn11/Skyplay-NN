@@ -1,2 +1,3 @@
 # Skyplay-NN
-A Neural network playground
+
+A neural network playground built from scratch using Python.
