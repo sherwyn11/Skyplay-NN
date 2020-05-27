@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.min.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons" rel="stylesheet" type="text/css">
@@ -148,7 +148,11 @@
                             <input type="number" name="batchSize" id="batchSize" min="1" max="10000">
                         </div>
 
-                        <button class="btn btn-outline-light btn-lg mr-1" type="submit" name="train" value="train" onclick="onTrain()"> Train </button>
+                        <button class="btn btn-outline-light btn-lg mr-1" type="submit" id="train" name="train" value="train" onclick="onTrain()" style="display: block;">
+                                Train </button>
+                        <button class="btn btn-outline-light btn-lg mr-1" id="train_spinner" style="display: none;">
+                                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                Loading... </button>
                     </div>
                     {% else %}
                     <div class="control mr-auto">
@@ -266,8 +270,7 @@
         <div class="l--body">
             <h2>Credits</h2>
             <p>
-                This project was created by Darlene Nazareth and Sherwyn D'souza under the guidance of the the greatest math-e-<b>magician</b> and ML/DL master <b>Mr. Andrew NG. </b>
-                Link to his course in Coursera <a href="https://www.coursera.org/learn/neural-networks-deep-learning/">Click here</a>.
+                This project was created by Darlene Nazareth and Sherwyn D'souza under the guidance of the the greatest math-e-<b>magician</b> and ML/DL master <b>Mr. Andrew NG. </b> Link to his course in Coursera <a href="https://www.coursera.org/learn/neural-networks-deep-learning/">Click here</a>.
             </p>
         </div>
     </article>
@@ -277,7 +280,8 @@
 
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3">© 2020 Copyright:
-            <b>&nbsp;Made with 💙 by <a href="https://github.com/Darlene-Naz">Darlene Nazareth</a> and <a href="http://sherwyn11.github.io">Sherwyn D'souza</a></b>
+            <b>&nbsp;Made with 💙 by <a href="https://github.com/Darlene-Naz">Darlene Nazareth</a> and <a
+                        href="http://sherwyn11.github.io">Sherwyn D'souza</a></b>
         </div>
         <!-- Copyright -->
 
