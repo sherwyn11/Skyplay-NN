@@ -690,3 +690,37 @@ try {
 } catch (err) {
 
 }
+
+////////// VISUALIZE GRAPH //////////
+
+function visGraph(data){
+    new Chart.Scatter(document.getElementById("myChart1"), {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: 'Scatter Plot',
+                data: data,
+                showLine: false,
+                borderColor: "red",
+                backgroundColor: "red"
+                }]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: '{{ y_col_name }}'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: '{{ x_col_name }}'
+                        }
+                    }]
+                }
+            }
+        });
+}
