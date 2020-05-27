@@ -96,36 +96,13 @@ python wsgi.py
 
 ## Task List
 
-### Activation Functions         
-- [x] Sigmoid
-- [x] ReLU
-- [x] Leaky ReLU
-- [x] Tanh
-- [ ] Softmax
-### Regularization
-- [x] L1
-- [x] L2
-- [ ] Dropout
-### Activation Functions         
-- [x] SGD
-- [x] GD
-- [x] GD with Momentum
-- [x] RMS Prop
-- [x] Adam
-### Layers
-- [x] Dense
-- [ ] Convolution
-- [ ] Pooling 
-### Loss functions
-- [x] Cross-Entropy
-- [x] MAE
-- [ ] Hinge
-- [ ] Huber
-### Neural Network
-- [x] Forward Propagation
-- [x] Backward Propagation
-### Others
-- [x] Classification/Regression on single class Structured data
+- [x] Classification/Regression on single class structured data
+- [x] Added activation functions
+- [x] Added layers
+- [x] Added optimizers
+- [x] Added loss functions
+- [x] Added regularization
+- [x] Created UI for model visualization and testing
 - [ ] Multi-class Classification/Regression
 - [ ] Unstructured Data Classification/Regression
 - [ ] Fix small bugs
