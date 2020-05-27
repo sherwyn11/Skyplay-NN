@@ -91,10 +91,10 @@ class Model:
 
         plt.plot(np.squeeze(costs))
         plt.ylabel('cost')
-        plt.xlabel('iterations (per tens)')
+        plt.xlabel('#iterations')
         plt.title("Learning rate=" + str(self.learning_rate))
         plt.savefig('playground/static/img/test.png')
-
+        
         
     def evaluate(self, X, y, type, acc):
         self.problem_type = type

@@ -2,46 +2,44 @@
 
 /////////////////// HYPERPARAMETERS ///////////////////
 
+
 let parameters = "false";
 
 try {
+
     document.getElementById("epochs").defaultValue = "1";
-    document.getElementById("batchSize").defaultValue = "1";
+    document.getElementById('batchSize').defaultValue = "1";
     var len = document.getElementById("no_of_hidden_layers").value;
 
     /////////////////// SLIDER /////////////////////
-    document.getElementById("range-slider").defaultValue = 30;
-    document.getElementById("range-result").innerHTML = "30%";
+    document.getElementById('range-slider').defaultValue = 30;
+    document.getElementById('range-result').innerHTML = '30%';
 
     function updateSliderText() {
-        var sliderValue = document.getElementById("range-slider").value;
-        var percent = document.getElementById("range-result");
-        percent.innerHTML = sliderValue + "%";
+        var sliderValue = document.getElementById('range-slider').value;
+        var percent = document.getElementById('range-result');
+        percent.innerHTML = sliderValue + '%';
     }
 
     /////////////////// TEST /////////////////////
 
-    var input_nodes_for_test = Number(
-        document.getElementById("no_of_inp_nodes").value
-    );
-    var output_nodes_for_test = Number(
-        document.getElementById("no_of_op_nodes").value
-    );
-    var col1 = document.getElementById("addTestDataInputs");
-    var col2 = document.getElementById("addTestDataOutputs");
+    var input_nodes_for_test = Number(document.getElementById('no_of_inp_nodes').value);
+    var output_nodes_for_test = Number(document.getElementById('no_of_op_nodes').value);
+    var col1 = document.getElementById('addTestDataInputs');
+    var col2 = document.getElementById('addTestDataOutputs');
 
     for (let i = 1; i <= input_nodes_for_test; i++) {
-        var div = document.createElement("div");
-        div.className = "container";
-        div.style = "margin-top: 10px;";
-        var temp1 = document.createElement("b");
-        temp1.innerHTML = "Input" + i;
+        var div = document.createElement('div');
+        div.className = 'container';
+        div.style = 'margin-top: 10px;';
+        var temp1 = document.createElement('b');
+        temp1.innerHTML = 'Input' + i;
         var span1 = document.createElement("span");
         span1.innerHTML = "&nbsp;";
-        var temp2 = document.createElement("input");
-        temp2.type = "text";
-        temp2.id = "Input" + i;
-        var temp3 = document.createElement("br");
+        var temp2 = document.createElement('input');
+        temp2.type = 'text';
+        temp2.id = 'Input' + i;
+        var temp3 = document.createElement('br');
         div.appendChild(temp1);
         div.appendChild(span1);
         div.appendChild(temp2);
@@ -50,16 +48,16 @@ try {
     }
 
     for (let i = 1; i <= output_nodes_for_test; i++) {
-        var div = document.createElement("div");
-        div.className = "container";
-        div.style = "margin-top: 10px;";
-        var temp1 = document.createElement("b");
-        temp1.innerHTML = "Output" + i;
+        var div = document.createElement('div');
+        div.className = 'container';
+        div.style = 'margin-top: 10px;';
+        var temp1 = document.createElement('b');
+        temp1.innerHTML = 'Output' + i;
         var span1 = document.createElement("span");
         span1.innerHTML = "&nbsp;&nbsp;&nbsp;";
-        var temp2 = document.createElement("b");
-        temp2.id = "Output" + i;
-        var temp3 = document.createElement("br");
+        var temp2 = document.createElement('b');
+        temp2.id = 'Output' + i;
+        var temp3 = document.createElement('br');
         div.appendChild(temp1);
         div.appendChild(span1);
         div.appendChild(temp2);
@@ -67,25 +65,28 @@ try {
         col2.appendChild(div);
     }
 } catch (error) {
-    console.log("Log. Element Not Found");
+    console.log("Log. Element Not Found")
 }
 
+
 function onPageLoad(page_name) {
-    if (page_name == "Home") {
+    if (page_name == 'Home') {
         neuralNetwork();
-    } else if (page_name == "Preprocess") {
+
+    } else if (page_name == 'Preprocess') {
         histogramData();
     }
 }
 
+
+
 function getPredictedResults() {
     inps = [];
     for (let i = 1; i <= input_nodes_for_test; i++) {
-        var doc = document.getElementById("Input" + i).value;
+        var doc = document.getElementById('Input' + i).value;
         inps.push(Number(doc));
     }
-    axios
-        .post("/predict", {
+    axios.post('/predict', {
             test_inputs: inps,
         })
         .then(function(response) {
@@ -93,13 +94,14 @@ function getPredictedResults() {
             var len = response.data.output.length;
 
             for (let i = 1; i <= len; i++) {
-                document.getElementById("Output" + i).innerHTML = data[i - 1];
+                document.getElementById('Output' + i).innerHTML = data[i - 1];
             }
         })
         .catch(function(error) {
             console.log(error);
-        });
+        })
 }
+
 
 var len_nodes = 0;
 
@@ -113,7 +115,6 @@ function onTrain() {
             activation: temp2,
         });
     }
-    console.log(layers);
     parameters = "true";
     document.getElementById("train").style.display = "none";
     document.getElementById("train_spinner").style.display = "block";
@@ -132,7 +133,7 @@ function onTrain() {
             no_of_hidden_nodes: len,
             no_of_nodes_in_hidden: layers,
             batchSize: document.getElementById("batchSize").value,
-            test_data_size: document.getElementById("range-slider").value,
+            test_data_size: document.getElementById('range-slider').value
         })
         .then(function(response) {
             parameters = "false";
@@ -143,8 +144,6 @@ function onTrain() {
         .catch(function(error) {
             parameters = "false";
             console.log(error);
-            document.getElementById("train").style.display = "block";
-            document.getElementById("train_spinner").style.display = "none";
         });
 }
 
@@ -189,7 +188,7 @@ function manipulateInpNodes(choice1, choice2) {
             p.className = "row form-inline";
             p.id = "layer" + val;
             var but1 = document.createElement("button");
-            but1.className = "btn btn-secondary";
+            but1.className = "btn btn-secondary"
             but1.innerHTML = "-";
             id = "layer" + val;
             but1.setAttribute("onclick", "manipulateHiddenNodes(0, id)");
@@ -221,7 +220,6 @@ function manipulateInpNodes(choice1, choice2) {
             var option0 = document.createElement("option");
             option0.innerHTML = "Choose Activation";
             option0.disabled = true;
-            option0.selected = true;
             var option1 = document.createElement("option");
             option1.value = "sigmoid";
             option1.innerHTML = "Sigmoid";
@@ -334,7 +332,7 @@ function updateHoverCard(type, d, coordinates) {
     let value = type === "weight" ? d.weight : d.bias;
     let name = type === "weight" ? "Weight" : "Bias";
 
-    let temp = document.getElementById("hovercard");
+    let temp = document.getElementById("hovercard")
     temp.style.left = coordinates[0] + 20 + "px ";
     temp.style.top = coordinates[1] + 100 + "px";
     temp.style.display = "block";
@@ -347,6 +345,7 @@ function updateHoverCard(type, d, coordinates) {
 }
 
 function neuralNetwork() {
+
     let linkWidthScale = d3.scale
         .linear()
         .domain([0, 5])
@@ -459,8 +458,7 @@ function neuralNetwork() {
             .attr("r", nodeSize)
             .style("fill", function(d) {
                 return color(d.layer);
-            })
-            .on("mouseenter", function(d) {
+            }).on("mouseenter", function(d) {
                 updateHoverCard("bias", d, d3.mouse(circle.node()));
             })
             .on("mouseleave", function(d) {
@@ -477,59 +475,60 @@ function neuralNetwork() {
     });
 }
 
+
 /////////////////// HISTOGRAM /////////////////////
 
+
 function histogramData() {
-    console.log("histogram");
+
+    console.log("histogram")
 
     var margin = {
             top: 20,
             right: 30,
             bottom: 30,
-            left: 40,
+            left: 40
         },
         width = 600 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
-    var svg = d3
-        .select("#my_dataviz")
+    var svg = d3.select("#my_dataviz")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
 
     // A formatter for counts.
     var formatCount = d3.format(",.0f");
 
     // get the data
     d3.csv("/col.csv", function(data) {
-        var yAxis;
+
+        var yAxis
 
         // A function that builds the graph for a specific value of bin
         function update(nBin) {
+
             // X axis: scale and draw:
-            var x = d3
-                .scaleLinear()
-                .domain([
-                    d3.min(data, function(d) {
-                        return +d.price;
-                    }),
-                    d3.max(data, function(d) {
-                        return +d.price;
-                    }),
-                ]) // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
+            var x = d3.scaleLinear()
+                .domain([d3.min(data, function(d) {
+                    return +d.price
+                }), d3.max(data, function(d) {
+                    return +d.price
+                })]) // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
                 .range([0, width]);
 
-            var xAxis = svg
-                .append("g")
+            var xAxis = svg.append("g")
                 .attr("transform", "translate(0," + height + ")")
                 .call(d3.axisBottom(x));
 
+
             // set the parameters for the histogram
-            var histogram = d3
-                .histogram()
+            var histogram = d3.histogram()
                 .value(function(d) {
                     return d.price;
                 }) // I need to give the vector of value
@@ -540,17 +539,15 @@ function histogramData() {
             var bins = histogram(data);
 
             // Y axis: initialization
-            var y = d3.scaleLinear().range([height, 0]);
+            var y = d3.scaleLinear()
+                .range([height, 0]);
 
-            yAxis = svg.append("g");
+            yAxis = svg.append("g")
 
             // Y axis: update now that we know the domain
-            y.domain([
-                0,
-                d3.max(bins, function(d) {
-                    return d.length;
-                }),
-            ]); // d3.hist has to be called before the Y axis obviously
+            y.domain([0, d3.max(bins, function(d) {
+                return d.length;
+            })]); // d3.hist has to be called before the Y axis obviously
 
             yAxis
                 .enter()
@@ -559,8 +556,11 @@ function histogramData() {
                 .duration(1000)
                 .call(d3.axisLeft(y));
 
+
+
             // Join the rect with the bins data
-            var u = svg.selectAll(".bar").data(bins);
+            var u = svg.selectAll(".bar")
+                .data(bins)
 
             ///////////// Method 1 : Color Works
             //Append a defs (for definition) element to your SVG
@@ -578,40 +578,39 @@ function histogramData() {
                 .attr("id", "linear-gradient");
 
             //Set the color for the start (0%)
-            linearGradient
-                .append("stop")
+            linearGradient.append("stop")
                 .attr("offset", "0%")
                 .attr("stop-color", "#ffa474"); //light blue
 
             //Set the color for the end (100%)
-            linearGradient
-                .append("stop")
+            linearGradient.append("stop")
                 .attr("offset", "100%")
                 .attr("stop-color", "#8b0000"); //dark blue
 
             ///////////// Method 2 : X
-            color = d3
-                .scaleSequential()
-                .domain([0, d3.max(data, (d) => d.price)])
-                .interpolator(d3.interpolateBlues);
+            color = d3.scaleSequential()
+                .domain([0, d3.max(data, d => d.price)])
+                .interpolator(d3.interpolateBlues)
 
             ///////////// Method 3 : Works
 
             var color = "steelblue";
-            var color2 = "purple";
+            var color2 = "purple"
             var yMax = d3.max(data, function(d) {
-                return d.price;
+                return d.price
             });
             var yMin = d3.min(data, function(d) {
-                return d.price;
+                return d.price
             });
-            var colorScale = d3
-                .scaleLinear()
+            var colorScale = d3.scaleLinear()
                 .domain([0, yMax])
                 .range([d3.rgb(color).brighter(), d3.rgb(color)]);
 
+
+
             // Manage the existing bars and eventually the new ones:
-            u.enter()
+            u
+                .enter()
                 .append("rect") // Add a new rect for each new elements
                 .merge(u) // get the already existing elements as well
                 .transition() // and apply changes to all of them
@@ -627,8 +626,9 @@ function histogramData() {
                     return height - y(d.length);
                 })
                 .style("fill", function(d) {
-                    return colorScale(d.length);
-                });
+                    return colorScale(d.length)
+                })
+
 
             u.enter()
                 .append("text")
@@ -637,29 +637,33 @@ function histogramData() {
                 .duration(1000)
                 .attr("dy", ".6em")
                 .attr("y", function(d) {
-                    return y(d.length) - 13;
+                    return (y(d.length) - 13);
                 })
                 .attr("x", function(d) {
-                    return x(d.x1) - (x(d.x1) - x(d.x0)) / 2;
+                    return (x(d.x1) - (x(d.x1) - x(d.x0)) / 2)
                 })
                 .attr("text-anchor", "middle")
                 .attr("class", "font-weight-light")
                 .text(function(d) {
                     return formatCount(d.length);
-                });
+                })
 
             // If less bar in the new histogram, I delete the ones not in use anymore
-            u.exit().remove();
+            u
+                .exit()
+                .remove()
+
         }
         // Initialize with 20 bins
-        update(20);
-        // Listen to the button -> update if user change it
+        update(20)
+            // Listen to the button -> update if user change it
         d3.select("#nBin").on("input", function() {
-            d3.selectAll("text").remove();
-            d3.selectAll("rect").remove();
-            yAxis.remove();
+            d3.selectAll('text').remove()
+            d3.selectAll('rect').remove()
+            yAxis.remove()
             update(+this.value);
         });
+
     });
 }
 
@@ -676,7 +680,7 @@ try {
         modal.style.display = "block";
         modalImg.src = this.src;
         captionText.innerHTML = this.alt;
-    };
+    }
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
@@ -684,39 +688,7 @@ try {
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = "none";
-    };
-} catch (err) {}
+    }
+} catch (err) {
 
-////////// VISUALIZE GRAPH //////////
-
-function visGraph(data) {
-    new Chart.Scatter(document.getElementById("myChart1"), {
-        type: "scatter",
-        data: {
-            datasets: [{
-                label: "Scatter Plot",
-                data: data,
-                showLine: false,
-                borderColor: "red",
-                backgroundColor: "red",
-            }, ],
-        },
-        options: {
-            responsive: false,
-            scales: {
-                yAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        labelString: "{{ y_col_name }}",
-                    },
-                }, ],
-                xAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        labelString: "{{ x_col_name }}",
-                    },
-                }, ],
-            },
-        },
-    });
 }
