@@ -8,10 +8,10 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='material.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.min.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"> {% if title %}
     <title>Sky-play - {{ title }}</title>
     {% else %}
@@ -46,10 +46,10 @@
                 <a class="nav-link" href="#upload" data-toggle="tooltip" data-placement="right" title="Dataset"><span class="fa fa-upload fa-lg"></span></a>
             </li>
             <li>
-                <a class="nav-link" href="#structure" data-toggle="tooltip" data-placement="right" title="Structuring Neural Network"><img style="margin-bottom:2px;margin-left:2px" height="26px" width="26px" src="..\static\img\neural.png"></a>
+                <a class="nav-link" href="#structure" data-toggle="tooltip" data-placement="right" title="Structuring Neural Network"><img style="margin-bottom:2px;margin-left:2px" height="26px" width="26px" src="../static/img/neural.png"></a>
             </li>
             <li>
-                <a class="nav-link" href="#about" data-toggle="tooltip" data-placement="right" title="About Deep Learning"><img style="margin-bottom:4px;margin-left:2px" height="26px" width="26px" src="..\static\img\deep-learning.png"></a>
+                <a class="nav-link" href="#about" data-toggle="tooltip" data-placement="right" title="About Deep Learning"><img style="margin-bottom:4px;margin-left:2px" height="26px" width="26px" src="../static/img/deep-learning.png"></a>
             </li>
 
         </div>
@@ -268,8 +268,7 @@
         <div class="l--body">
             <h2>Credits</h2>
             <p>
-                This project was created by Darlene Nazareth and Sherwyn D'souza under the guidance of the the greatest math-e-<b>magician</b> and ML/DL master <b>Mr. Andrew NG. </b>
-                Link to his course in Coursera <a href="https://www.coursera.org/learn/neural-networks-deep-learning/">Click here</a>.
+                This project was created by Darlene Nazareth and Sherwyn D'souza under the guidance of the the greatest math-e-<b>magician</b> and ML/DL master <b>Mr. Andrew NG. </b> Link to his course in Coursera <a href="https://www.coursera.org/learn/neural-networks-deep-learning/">Click here</a>.
             </p>
         </div>
     </article>
@@ -279,7 +278,8 @@
 
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3">© 2020 Copyright:
-            <b>&nbsp;Made with 💙 by <a href="https://github.com/Darlene-Naz">Darlene Nazareth</a> and <a href="http://sherwyn11.github.io">Sherwyn D'souza</a></b>
+            <b>&nbsp;Made with 💙 by <a href="https://github.com/Darlene-Naz">Darlene Nazareth</a> and <a
+                        href="http://sherwyn11.github.io">Sherwyn D'souza</a></b>
         </div>
         <!-- Copyright -->
 
@@ -294,7 +294,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
