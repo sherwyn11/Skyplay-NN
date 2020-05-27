@@ -1,6 +1,6 @@
 # Skyplay-NN
 
-A neural network playground built from scratch using Python
+A neural network playground built from scratch using Python.
 
 ## So, What is a Neural Network?
 It’s a set of algorithms designed to recognise patterns for building a computer program that learns from data. It is based very loosely on how we think the human brain works. First, a collection of software “neurons” are created and connected together, allowing them to send messages to each other. Next, the network is asked to solve a problem, which it attempts to do over and over, each time strengthening the connections that lead to success and diminishing those that lead to failure.
@@ -79,11 +79,11 @@ python wsgi.py
 ## Technology Stack
 
 <ul>
-<li>Python v3</li>
+<li>Python3</li>
 <li>Flask</li>
 <li>Numpy</li>
 <li>Pandas</li>
-<li>MatPlotLib</li>
+<li>Matplotlib</li>
 <li>Seaborn</li>
 <li>D3.js</li>
 <li>JavaScript</li>
@@ -114,7 +114,13 @@ python wsgi.py
 - [x] Adam
 ### Layers
 - [x] Dense
-- [ ] Convolution 
+- [ ] Convolution
+- [ ] Pooling 
+### Loss functions
+- [x] Cross-Entropy
+- [x] MAE
+- [ ] Hinge
+- [ ] Huber
 ### Neural Network
 - [x] Forward Propagation
 - [x] Backward Propagation
