@@ -1,7 +1,8 @@
 import numpy as np
 import matplotlib
-matplotlib.use("TkAgg")
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from sklearn.metrics import mean_squared_error
 
 from playground.neural_net.layers.dense import Dense
 from playground.neural_net.nn_model.forward_propagation import propagate_forward
@@ -11,7 +12,6 @@ import playground.neural_net.optimizers.rms_prop as rms_prop
 from playground.neural_net.utils.mini_batch import *
 import playground.neural_net.optimizers.gd_with_momentum as gd_with_momentum
 import playground.neural_net.optimizers.gradient_descent as gradient_descent
-
 from playground.neural_net.loss.cost import compute_cost
 
 class Model:
@@ -30,6 +30,8 @@ class Model:
         self.mini_batch = None
         self.train_acc = 0.0
         self.test_acc = 0.0
+        self.mse = 0.0
+        self.problem_type = None
 
     def init_parameters(self):
         for l in range(1, len(self.layers)):
@@ -84,8 +86,8 @@ class Model:
                 elif(self.optimizer=='RMSProp'):
                     self.parameters, self.s = rms_prop.update_parameters(self.parameters, grads, self.s, self.learning_rate)
 
-            if i % 100 == 0:
-                print ("Cost after iteration %i: %f" %(i, cost))
+            # if i % 100 == 0:
+            #     print ("Cost after iteration %i: %f" %(i, cost))
 
         plt.plot(np.squeeze(costs))
         plt.ylabel('cost')
@@ -95,6 +97,7 @@ class Model:
 
         
     def evaluate(self, X, y, type, acc):
+        self.problem_type = type
         X = np.array(X).T
         y = np.array(y).T
         m = X.shape[1]
@@ -115,14 +118,15 @@ class Model:
             else:
                 self.test_acc = (np.sum((p == y)/m)) * 100
 
+            self.rmse = 0.0
             return p
 
         else:
-            for i in range(0, probas.shape[1]):
-                print(probas[0,i])
+            self.test_acc = 0.0
+            self.test_acc = 0.0
+            self.mse = mean_squared_error(y, probas) * 100
+            return self.mse
         
-            return probas
-
     def predict(self, X, type):
         X = np.array(X).T
         m = X.shape[1]

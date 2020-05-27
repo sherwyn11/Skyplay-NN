@@ -1,9 +1,8 @@
 import pandas as pd
 import matplotlib
-import asyncio
 import time
 import matplotlib
-matplotlib.use("TkAgg")
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
@@ -19,7 +18,7 @@ def pair_plot():
     start=time.time()
     sns_plot = sns.pairplot(df, height=2.5)
     mid=time.time()
-    sns_plot.savefig("playground/static/img/pairplot.png")
+    # sns_plot.savefig("playground/static/img/pairplot.png")
     end=time.time()
     print(f'{mid-start} {end-mid} {sns_plot}')
     return True

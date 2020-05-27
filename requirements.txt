@@ -1,0 +1,14 @@
+Flask==1.1.1
+gunicorn==19.9.0
+httpcore==0.3.0
+httplib2==0.15.0
+Jinja2==2.10.3
+jsonpickle==1.2
+jsonschema==3.2.0
+kfac==0.2.0
+matplotlib==3.1.2
+multidict==4.6.1
+numpy==1.16.4
+scikit-learn==0.20.4
+pandas==1.0.3
+seaborn==0.10.1

@@ -1,4 +1,6 @@
 from flask import session
+import pandas as pd
+
 from playground.preprocessing import generic_preprocessing as gp
 from playground.neural_net.nn_model.model import Model
 
@@ -34,6 +36,7 @@ def create_model(data):
     no_of_hidden_nodes = int(data['no_of_hidden_nodes'])
 
     model = Model()
+
     model.add(no_of_input_nodes, None)
     for node in data['no_of_nodes_in_hidden']:
         model.add(int(node['no_of_nodes']), node['activation'])
@@ -55,9 +58,11 @@ def create_default_model():
 
     return model
 
-def ret_nodes(model):
+def ret_nodes():
 
-    no_of_input_nodes = model.layers[0].units
-    no_of_output_nodes = model.layers[-1].units
+    df = pd.read_csv('playground/clean/clean.csv')
+    cols = df.columns.tolist()
+    no_of_input_nodes = len(cols[:-1])
+    no_of_output_nodes = 1
 
     return no_of_input_nodes, no_of_output_nodes
