@@ -344,7 +344,6 @@ function updateHoverCard(type, d, coordinates) {
 
 function neuralNetwork() {
 
-    console.log("nn")
     let linkWidthScale = d3.scale
         .linear()
         .domain([0, 5])
@@ -393,7 +392,6 @@ function neuralNetwork() {
             d["x"] = (d.layer - 0.5) * xdist;
             d["y"] = (d.lidx - 0.5) * ydist;
         });
-        console.log(nodes);
 
         var links = [];
         var num = 0;
@@ -691,4 +689,38 @@ try {
     }
 } catch (err) {
 
+}
+
+////////// VISUALIZE GRAPH //////////
+
+function visGraph(data){
+    new Chart.Scatter(document.getElementById("myChart1"), {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: 'Scatter Plot',
+                data: data,
+                showLine: false,
+                borderColor: "red",
+                backgroundColor: "red"
+                }]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: '{{ y_col_name }}'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: '{{ x_col_name }}'
+                        }
+                    }]
+                }
+            }
+        });
 }
