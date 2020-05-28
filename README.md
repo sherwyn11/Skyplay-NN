@@ -112,7 +112,7 @@ python wsgi.py
 
 ## References
 <ul>
-<li><a href="https://www.coursera.org/specializations/deep-learning">Deep Learning Specialization Course (Coursera)</a></li>
+<li><a href="https://www.coursera.org/specializations/deep-learning">Deep Learning Specialization Course - Andrew NG (Coursera)</a></li>
 <li><a href="https://ml-cheatsheet.readthedocs.io/en/latest/">ML-CheatSheet</a></li>
 </ul>
 
