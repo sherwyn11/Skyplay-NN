@@ -57,7 +57,7 @@ We wrote this neural network code completely from scratch. We were inspired by o
 ```bash
 git clone https://github.com/sherwyn11/Skyplay-NN.git
 ```
-**2. Start a virtural environment eg. conda (Recommended)**
+**2. Start a virtual environment eg. conda (Recommended)**
 ```bash
 conda activate <my_virtual_env>
 ```
