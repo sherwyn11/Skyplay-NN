@@ -111,6 +111,7 @@ python wsgi.py
 <p>For more details about our model architecture and components <a href="playground/neural_net/README.md">Click here</a><p>
 
 ## References
+
 <ul>
 <li><a href="https://www.coursera.org/specializations/deep-learning">Deep Learning Specialization Course - Andrew NG (Coursera)</a></li>
 <li><a href="https://ml-cheatsheet.readthedocs.io/en/latest/">ML-CheatSheet</a></li>
@@ -120,5 +121,11 @@ python wsgi.py
 ## Contributors
 
 Made with 💙 by <a href="https://github.com/Darlene-Naz">Darlene Nazareth</a> and <a href="https://github.com/sherwyn11">Sherwyn D'souza</a></b>
+
+## License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+[MIT License Link](https://github.com/sherwyn11/Skyplay-NN/blob/master/LICENSE)
 
 © 2020 Copyright
