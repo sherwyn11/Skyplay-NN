@@ -44,9 +44,6 @@ For more information on this we recommend going through Part 2 of the deeplearni
 <li>Bayesian Optimization</li>
 </ul>
 
-<img src="Readme_requirements/GradDescent.gif" height="350px" width="500px"/>
-
-
 ## What Are We Using?
 We wrote this neural network code completely from scratch. We were inspired by our course instructor Andrew Ng and felt the urge to create a platform where everybody could visualise the effects of tuning different parameters, building your own neural network, uploading different datasets and so on.
 
