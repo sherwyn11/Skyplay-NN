@@ -9,6 +9,6 @@ A neural network playground built from scratch using Python
 - [x] Scaling
 - [x] Cleaning Dataset
 
-### Visualizarion
+### Visualization
 - [x] Histogram
 - [x] Scatter Plot
