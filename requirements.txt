@@ -2,7 +2,7 @@ Flask==1.1.1
 gunicorn==19.9.0
 httpcore==0.3.0
 httplib2==0.19.0
-Jinja2==2.10.3
+Jinja2==2.11.3
 jsonpickle==1.2
 jsonschema==3.2.0
 kfac==0.2.0
